@@ -1,4 +1,4 @@
-import 'package:quickfood/infra/configs/network/response/default_api_response.dart';
+import 'package:minhaloja/infra/configs/network/response/default_api_response.dart';
 import 'package:uuid/uuid.dart';
 
 import 'failure.dart';

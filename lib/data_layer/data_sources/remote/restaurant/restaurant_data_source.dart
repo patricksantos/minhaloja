@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 import '../../../data_layer.dart';
 
 class RestaurantDataSource {
@@ -91,8 +91,8 @@ class RestaurantDataSource {
         addressDTO = AddressDTO.fromJson(address.docs.first.data());
         restaurantDTO.address = addressDTO;
       } else {
-        restaurant =
-            await restaurantRef.where('url', isEqualTo: name).snapshots().first;
+        final restaurant =
+            await restaurantRef.where('id', isEqualTo: '1').get();
         restaurantDTO = RestaurantDTO.fromJson(restaurant.docs.first.data());
       }
 

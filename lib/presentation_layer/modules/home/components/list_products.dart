@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:quickfood/presentation_layer/components/new_content_item.dart';
+import 'package:minhaloja/presentation_layer/components/new_content_item.dart';
 
 import '../../../components/bottom_sheet_modal.dart';
 import '../../../../presentation_layer/components/product_details.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ListProducts extends StatefulWidget {
   final List<CategoryEntity> tabs;

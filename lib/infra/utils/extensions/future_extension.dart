@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart' show Response, DioError;
-import 'package:quickfood/infra/configs/logger/logger.dart';
+import 'package:minhaloja/infra/configs/logger/logger.dart';
 
 import '../../infra.dart';
 

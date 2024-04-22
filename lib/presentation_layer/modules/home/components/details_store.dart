@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../presentation_layer/modules/home/components/tags_restaurant.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class DetailStore extends StatelessWidget {
   final String backgroundImage;

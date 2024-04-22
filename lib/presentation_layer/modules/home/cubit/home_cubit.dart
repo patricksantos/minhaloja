@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 import 'home_state.dart';
 
@@ -15,14 +15,19 @@ class HomeCubit extends Cubit<HomeState> {
     this._getRestaurantUseCase,
     this._getCategoryUseCase,
     this._getProductUseCase,
-  ) : super(HomeState());
+  ) : super(HomeState()) {
+    init();
+  }
 
-  Future<void> getFeaturedItens({
-    required String restaurantId,
-  }) async {
+  Future<void> init() async {
+    await getRestaurant();
+    await getFeaturedItens();
+    await getCategoriesItens();
+  }
+
+  Future<void> getFeaturedItens() async {
     update(loading: true);
-
-    final request = await _getProductUseCase(restaurantId: restaurantId);
+    final request = await _getProductUseCase(restaurantId: 1.toString());
 
     request.result(
       (product) {
@@ -35,12 +40,10 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> getCategoriesItens({
-    required String restaurantId,
-  }) async {
+  Future<void> getCategoriesItens() async {
     update(loading: true);
 
-    final request = await _getCategoryUseCase(restaurantId: restaurantId);
+    final request = await _getCategoryUseCase(restaurantId: 1.toString());
 
     request.result(
       (categories) {
@@ -65,11 +68,9 @@ class HomeCubit extends Cubit<HomeState> {
         [];
   }
 
-  Future<void> getRestaurant({required String name}) async {
+  Future<void> getRestaurant() async {
     update(loading: true);
-
-    final request = await _getRestaurantUseCase(name: name);
-
+    final request = await _getRestaurantUseCase(name: 'name');
     request.result(
       (restaurant) {
         emit(
@@ -79,7 +80,9 @@ class HomeCubit extends Cubit<HomeState> {
           actions: {HomeAction.restaurantSuccessfully},
         );
       },
-      (e) => update(failure: e),
+      (e) {
+        update(failure: e);
+      },
     );
   }
 

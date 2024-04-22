@@ -1,7 +1,7 @@
-import 'package:quickfood/domain_layer/domain_layer.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 abstract class AddressRepositoryInterface {
   Future<Result<AddressDTO?>> getAddress({

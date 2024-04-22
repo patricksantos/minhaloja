@@ -1,5 +1,5 @@
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 class RestaurantDTO extends RestaurantEntity {
   RestaurantDTO({

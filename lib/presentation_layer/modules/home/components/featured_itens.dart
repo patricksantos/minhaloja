@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class FeaturedItens extends StatelessWidget {
   final List<Widget> itens;
@@ -15,37 +15,39 @@ class FeaturedItens extends StatelessWidget {
     final design = DesignSystem.of(context);
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-            top: 24.height,
-            left: 16.width,
+        if (itens.isNotEmpty) ...[
+          Padding(
+            padding: EdgeInsets.only(
+              top: 24.height,
+              left: 16.width,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Destaques',
+                  style: design
+                      .h6(
+                        color: design.secondary100,
+                      )
+                      .copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                'Destaques',
-                style: design
-                    .h6(
-                      color: design.secondary100,
-                    )
-                    .copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.only(
+              top: 10.height,
+              left: 16.width,
+            ),
+            child: Row(
+              children: itens,
+            ),
           ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.only(
-            top: 10.height,
-            left: 16.width,
-          ),
-          child: Row(
-            children: itens,
-          ),
-        ),
+        ],
       ],
     );
   }

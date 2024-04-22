@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:quickfood/infra/base/cubits/store/store_cubit.dart';
+import 'package:minhaloja/infra/base/cubits/store/store_cubit.dart';
 
-import 'package:quickfood/domain_layer/domain_layer.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
 import '../../../infra.dart';
 

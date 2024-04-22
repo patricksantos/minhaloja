@@ -7,9 +7,9 @@ import '../../presentation_layer/components/default_button.dart';
 import '../../presentation_layer/components/counter_view.dart';
 import '../../presentation_layer/components/text_input_default.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ProductDetails extends StatefulWidget {
   final ProductDTO product;
@@ -231,7 +231,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                            (MediaQuery.of(context).size.width - 48.width)
+                            (MediaQuery.of(context).size.width - 50.width)
                                     .width ~/
                                 (8 + 3).width,
                             (_) => Container(

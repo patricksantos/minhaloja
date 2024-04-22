@@ -1,4 +1,4 @@
-import 'package:quickfood/infra/utils.dart';
+import 'package:minhaloja/infra/utils.dart';
 
 /// Extensão para usar valores usando [num]
 extension Responsive on num {

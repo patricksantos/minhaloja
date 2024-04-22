@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 import 'order_state.dart';
 

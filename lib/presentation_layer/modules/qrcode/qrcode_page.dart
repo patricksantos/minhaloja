@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../presentation_layer/modules/qrcode/components/qr_overlay.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class QrCodePage extends StatefulWidget {
   const QrCodePage({super.key});

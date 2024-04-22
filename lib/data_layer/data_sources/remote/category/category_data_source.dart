@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 import '../../../data_layer.dart';
 
 class CategoryDataSource {
@@ -30,17 +30,31 @@ class CategoryDataSource {
   }) async {
     try {
       final categoryRef = _firebase.collection(DBCollections.category);
-      final category = categoryRef
-          .where('restaurant_id', isEqualTo: restaurantId)
-          .snapshots();
+      // final category = categoryRef
+      //     .where('restaurant_id', isEqualTo: 1.toString())
+      //     .snapshots();
 
-      List<CategoryDTO> categories = await category.map((element) {
-        return element.docs.map(
-          (category) {
-            return CategoryDTO.fromJson(category.data());
-          },
-        ).toList();
-      }).first;
+      // List<CategoryDTO> categories = await category.map((element) {
+      //   return element.docs.map(
+      //     (category) {
+      //       return CategoryDTO.fromJson(category.data());
+      //     },
+      //   ).toList();
+      // }).first;
+
+      final categories = await categoryRef
+          .where('restaurant_id', isEqualTo: 1.toString())
+          .get()
+          .then(
+        (data) {
+          if (data.docs.isEmpty) {
+            return [] as List<CategoryDTO>;
+          }
+          return data.docs
+              .map((doc) => CategoryDTO.fromJson(doc.data()))
+              .toList();
+        },
+      );
 
       return Result.success(categories);
     } catch (e) {

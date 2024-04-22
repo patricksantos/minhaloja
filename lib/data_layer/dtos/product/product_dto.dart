@@ -1,5 +1,5 @@
 import 'package:uuid/uuid.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 import '../../../infra/utils.dart';
 

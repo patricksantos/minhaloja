@@ -18,15 +18,10 @@ import '../../../presentation_layer/modules/home/components/list_products.dart';
 import '../../../presentation_layer/modules/home/cubit/home_cubit.dart';
 import '../../../presentation_layer/modules/home/cubit/home_state.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class HomePage extends StatefulWidget {
-  final String store;
-
-  const HomePage({
-    super.key,
-    required this.store,
-  });
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -47,18 +42,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    if (widget.store.contains('dashboard')) {
-      Modular.to.pushReplacementNamed(PageRoutes.dashboard);
-    } else if (widget.store.contains('login')) {
-      Modular.to.pushReplacementNamed(PageRoutes.login);
-    }
+    // if (widget.store.contains('dashboard')) {
+    //   Modular.to.pushReplacementNamed(PageRoutes.dashboard);
+    // } else if (widget.store.contains('login')) {
+    //   Modular.to.pushReplacementNamed(PageRoutes.login);
+    // }
     _storeCubit = Modular.get<StoreCubit>();
 
     _authCubit = Modular.get<AuthCubit>();
     _authCubit.loginAnonymous();
 
     _homeCubit = Modular.get<HomeCubit>();
-    _homeCubit.getRestaurant(name: widget.store);
 
     _cartCubit = Modular.get<CartCubit>();
     _cartCubit.getListCartStorage();
@@ -110,16 +104,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             return BlocConsumer<HomeCubit, HomeState>(
               bloc: _homeCubit,
               listenWhen: (previous, current) {
-                if (previous.restaurant != current.restaurant) {
-                  _homeCubit.getCategoriesItens(
-                    restaurantId: _homeCubit.state.restaurant?.id ?? '',
-                  );
-                  _homeCubit.getFeaturedItens(
-                      restaurantId: _homeCubit.state.restaurant?.id ?? '');
-                }
                 if (current.categories != null) {
                   _tabController = TabController(
-                    length: _homeCubit.state.categories!.length,
+                    length: _homeCubit.state.categories?.length ?? 0,
                     vsync: this,
                   );
                 }
@@ -181,15 +168,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           backgroundImage:
                                               state.restaurant?.backgroundUrl ??
                                                   PathImages.pizza,
-                                          nameRestaurant: state.restaurant?.name
-                                                  .toCapitalized() ??
-                                              'Store',
+                                          nameRestaurant:
+                                              state.restaurant?.name ?? 'Store',
                                           type: state.restaurant?.segment ??
                                               'segment',
                                           description:
                                               state.restaurant?.description ??
                                                   'description',
-                                          tags: state.categories!.isNotEmpty
+                                          tags: state.categories?.isNotEmpty ??
+                                                  false
                                               ? state.categories!
                                                   .getRange(0, 3)
                                                   .map((e) =>
@@ -264,7 +251,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               left: 16.width,
                                               right: 16.width,
                                               child: Container(
-                                                height: 2,
+                                                height: 1.8, // 2
                                                 color: design.secondary100,
                                               ),
                                             ),
@@ -273,6 +260,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               child: SizedBox(
                                                 height: 40,
                                                 child: TabBar(
+                                                  tabAlignment:
+                                                      TabAlignment.start,
                                                   indicatorWeight: 2,
                                                   controller: _tabController,
                                                   labelColor: design.primary100,
@@ -280,11 +269,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                       design.primary100,
                                                   unselectedLabelColor:
                                                       design.secondary100,
+                                                  dividerColor:
+                                                      Colors.transparent,
                                                   isScrollable: true,
                                                   physics:
                                                       const BouncingScrollPhysics(),
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 16.width,
+                                                  padding: EdgeInsets.only(
+                                                    left: 16.width,
                                                   ),
                                                   tabs: state.categories
                                                           ?.map(

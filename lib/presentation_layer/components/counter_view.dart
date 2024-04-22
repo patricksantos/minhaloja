@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class CounterView extends StatefulWidget {
   final int initNumber;
@@ -46,41 +46,44 @@ class _CounterViewState extends State<CounterView> {
   @override
   Widget build(BuildContext context) {
     final design = DesignSystem.of(context);
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.width,
-        vertical: 12.height,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: design.secondary300,
-          width: 1.0,
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 12.width,
+          vertical: 6.height,
         ),
-        borderRadius: BorderRadius.circular(12),
-        color: widget.color ?? design.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _createIncrementDicrementButton(
-            Icons.remove,
-            () => _dicrement(),
-            design,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: design.secondary300,
+            width: 1.0,
           ),
-          Text(
-            _currentCount.toString(),
-            style: design
-                .caption(
-                  color: widget.colorText ?? design.secondary100,
-                )
-                .copyWith(fontWeight: FontWeight.w600),
-          ),
-          _createIncrementDicrementButton(
-            Icons.add,
-            () => _increment(),
-            design,
-          ),
-        ],
+          borderRadius: BorderRadius.circular(12),
+          color: widget.color ?? design.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _createIncrementDicrementButton(
+              Icons.remove,
+              () => _dicrement(),
+              design,
+            ),
+            Text(
+              _currentCount.toString(),
+              style: design
+                  .caption(
+                    color: widget.colorText ?? design.secondary100,
+                  )
+                  .copyWith(fontWeight: FontWeight.w600),
+            ),
+            _createIncrementDicrementButton(
+              Icons.add,
+              () => _increment(),
+              design,
+            ),
+          ],
+        ),
       ),
     );
   }

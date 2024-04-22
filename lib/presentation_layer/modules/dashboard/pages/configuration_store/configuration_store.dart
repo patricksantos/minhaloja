@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:quickfood/infra/infra.dart';
-import 'package:quickfood/presentation_layer/components/loading_manager.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/components/components.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/constants.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
+import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/presentation_layer/components/loading_manager.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/components/components.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/constants.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 
 class ConfigurationStore extends StatefulWidget {
   const ConfigurationStore({

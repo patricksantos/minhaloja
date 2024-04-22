@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class NewDetailStore extends StatelessWidget {
   final String backgroundImage;
@@ -48,7 +48,7 @@ class NewDetailStore extends StatelessWidget {
                       image: DecorationImage(
                         image: AssetImage(backgroundImage),
                         fit: BoxFit.cover,
-                        alignment: Alignment.bottomCenter,
+                        alignment: Alignment.center,
                       ),
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -86,38 +86,38 @@ class NewDetailStore extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   alignment: Alignment.topRight,
-                  //   padding: EdgeInsets.only(
-                  //     top: 12.height,
-                  //     right: 55.width,
-                  //   ),
-                  //   child: InkWell(
-                  //     onTap: onTapStoreType,
-                  //     child: Container(
-                  //       decoration: BoxDecoration(
-                  //         color: design.white,
-                  //         borderRadius: BorderRadius.circular(8),
-                  //       ),
-                  //       height: 35,
-                  //       width: 35,
-                  //       child: Container(
-                  //         padding: EdgeInsets.symmetric(
-                  //           horizontal: 4.width,
-                  //           vertical: 4.height,
-                  //         ),
-                  //         child: Image.asset(
-                  //           storeType == StoreType.delivery
-                  //               ? PathImages.delivery
-                  //               : PathImages.restaurantMenu,
-                  //           color: design.secondary100,
-                  //           height: 18.fontSize,
-                  //           width: 18.fontSize,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                  Container(
+                    alignment: Alignment.topRight,
+                    padding: EdgeInsets.only(
+                      top: 12.height,
+                      right: 55.width,
+                    ),
+                    child: InkWell(
+                      onTap: onTapStoreType,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: design.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        height: 35,
+                        width: 35,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 4.width,
+                            vertical: 4.height,
+                          ),
+                          child: Image.asset(
+                            storeType == StoreType.delivery
+                                ? PathImages.delivery
+                                : PathImages.restaurantMenu,
+                            color: design.secondary100,
+                            height: 18.fontSize,
+                            width: 18.fontSize,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -138,7 +138,7 @@ class NewDetailStore extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: design.secondary100,
-                        width: 2.5,
+                        width: 1, // 2.5
                       ),
                     ),
                   ),
@@ -149,25 +149,16 @@ class NewDetailStore extends StatelessWidget {
                         TextSpan(
                           text: nameRestaurant,
                           style: design
-                              .h5(
-                                color: design.primary100,
-                              )
-                              .copyWith(
-                                height: 0,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              .h5(color: design.primary100)
+                              .copyWith(height: 0, fontWeight: FontWeight.w700),
                         ),
                         type != null
                             ? TextSpan(
-                                text: ' ${type!.toLowerCase()}',
+                                text: ' ${type?.toLowerCase()}',
                                 style: design
-                                    .h6(
-                                      color: design.secondary100,
-                                    )
+                                    .h6(color: design.secondary100)
                                     .copyWith(
-                                      height: 0,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                        height: 0, fontWeight: FontWeight.w700),
                               )
                             : const TextSpan(),
                       ],

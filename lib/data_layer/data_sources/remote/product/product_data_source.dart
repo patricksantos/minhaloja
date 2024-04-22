@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 import '../../../data_layer.dart';
 
 class ProductDataSource {
@@ -30,17 +30,16 @@ class ProductDataSource {
   }) async {
     try {
       final productRef = _firebase.collection(DBCollections.product);
-      final product = productRef
-          .where('restaurant_id', isEqualTo: restaurantId)
-          .snapshots();
-
-      List<ProductDTO> products = await product.map((element) {
-        return element.docs.map(
-          (category) {
-            return ProductDTO.fromJson(category.data());
-          },
-        ).toList();
-      }).first;
+      final products = await productRef.get().then(
+        (data) {
+          if (data.docs.isEmpty) {
+            return [] as List<ProductDTO>;
+          }
+          return data.docs
+              .map((doc) => ProductDTO.fromJson(doc.data()))
+              .toList();
+        },
+      );
 
       return Result.success(products);
     } catch (e) {

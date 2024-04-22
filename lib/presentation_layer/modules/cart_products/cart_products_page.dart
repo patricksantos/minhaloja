@@ -10,7 +10,7 @@ import '../../../presentation_layer/modules/home/components/bottom_switch_type_s
 import '../../../presentation_layer/modules/cart_products/components/content_cart_item.dart';
 import '../../../presentation_layer/components/default_button.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class CartProductsPage extends StatefulWidget {
   final String userId;
@@ -206,7 +206,7 @@ class _CartProductsPageState extends State<CartProductsPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
-                      (MediaQuery.of(context).size.width - 40.width).width ~/
+                      (MediaQuery.of(context).size.width - 50.width).width ~/
                           (8 + 3).width,
                       (_) => Container(
                         width: 8,

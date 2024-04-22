@@ -7,7 +7,7 @@
 		<key>NSCameraUsageDescription</key>
 		<string>Para capturar códigos QR</string>
 		<key>CFBundleDisplayName</key>
-		<string>QuickFood</string>
+		<string>MinhaLoja</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>quickfood</string>
+		<string>minhaloja</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>

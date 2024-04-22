@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
+import 'package:minhaloja/infra/responsive/responsive_screen.dart';
+import 'package:minhaloja/infra/utils.dart';
 
 import 'cubit/home_cubit.dart';
 import 'home_page.dart';
@@ -28,13 +31,36 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => HomeCubit(i(), i(), i())),
   ];
 
+  // store: args.params['store'] ?? '',,
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
-      '/:store',
-      child: (context, args) => HomePage(
-        store: args.params['store'] ?? '',
-      ),
+      Modular.initialRoute,
+      child: (context, args) {
+        if (ResponsiveScreen.isDesktop(context)) {
+          final design = DesignSystem.of(context);
+          return Scaffold(
+            backgroundColor: design.primary100,
+            body: SafeArea(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Para comprar Acesse o Site no seu Celular! ',
+                      style: design
+                          .h3(color: design.gray)
+                          .copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        return const HomePage();
+      },
     ),
   ];
 }

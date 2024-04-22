@@ -6,7 +6,7 @@ import '../../presentation_layer/components/scale_animation.dart';
 import '../../presentation_layer/components/default_button.dart';
 import '../../presentation_layer/components/sliver_flexible_scroll.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class FeedbackResultPage extends StatelessWidget {
   final String titleAppBar;

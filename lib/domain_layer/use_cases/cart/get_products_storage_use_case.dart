@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 import '../../domain_layer.dart';
 
 class GetProductsStorageUseCase {
@@ -11,9 +11,7 @@ class GetProductsStorageUseCase {
   }) : _storage = storage;
 
   Future<List<ProductEntity>?> call() async {
-    final response = await _storage.getStorageListData(
-      StorageKeys.products,
-    );
+    final response = await _storage.getStorageListData(StorageKeys.products);
     if (response != null) {
       List<dynamic> list = response.map((item) => jsonDecode(item)).toList();
       List<ProductEntity> products =

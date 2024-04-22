@@ -4,7 +4,7 @@ import '../../../../presentation_layer/modules/order/components/content_order_it
 
 import '../../../../data_layer/dtos/product/product_list_cart_dto.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ListViewProductsCart extends StatelessWidget {
   final List<ProductListCartDTO> productListCart;

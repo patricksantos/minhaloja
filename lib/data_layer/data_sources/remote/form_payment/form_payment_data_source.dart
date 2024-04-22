@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 import '../../../data_layer.dart';
 
 class FormPaymentDataSource {
@@ -14,13 +14,23 @@ class FormPaymentDataSource {
     try {
       final formPaymentRef = _firebase.collection(DBCollections.formPayment);
 
-      final request = formPaymentRef.orderBy('name').snapshots();
+      // final request = formPaymentRef.orderBy('name').snapshots();
+      // var listFormPayment = await request.map((element) {
+      //   return element.docs
+      //       .map((order) => FormPaymentDTO.fromJson(order.data()))
+      //       .toList();
+      // }).first;
 
-      var listFormPayment = await request.map((element) {
-        return element.docs
-            .map((order) => FormPaymentDTO.fromJson(order.data()))
-            .toList();
-      }).first;
+      final listFormPayment = await formPaymentRef.orderBy('name').get().then(
+        (data) {
+          if (data.docs.isEmpty) {
+            return [] as List<FormPaymentDTO>;
+          }
+          return data.docs
+              .map((doc) => FormPaymentDTO.fromJson(doc.data()))
+              .toList();
+        },
+      );
 
       if (listFormPayment.isNotEmpty) {
         return Result.success(listFormPayment);

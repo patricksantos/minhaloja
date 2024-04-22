@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:quickfood/domain_layer/domain_layer.dart';
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class SecureDataSource implements StorageRepositoryInterface {
   late FlutterSecureStorage _storage;

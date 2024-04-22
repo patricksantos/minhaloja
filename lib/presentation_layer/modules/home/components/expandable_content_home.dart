@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../presentation_layer/modules.dart';
 import '../../../../presentation_layer/modules/cart_products/cart_products_module.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ExpandableContentHome extends StatefulWidget {
   final String restaurantId;
@@ -100,7 +100,9 @@ class _ExpandableContentHomeState extends State<ExpandableContentHome>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TabBar(
+                                tabAlignment: TabAlignment.start,
                                 indicatorWeight: 2,
+                                dividerColor: Colors.transparent,
                                 controller: _tabController,
                                 labelColor: design.primary100,
                                 indicatorColor: design.primary100,

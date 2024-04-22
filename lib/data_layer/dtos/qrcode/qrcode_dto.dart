@@ -1,4 +1,4 @@
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 class QrCodeDTO extends QrCodeEntity {
   QrCodeDTO({

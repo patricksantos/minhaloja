@@ -1,4 +1,4 @@
-package com.example.quickfood
+package com.app.minhaloja
 
 import io.flutter.embedding.android.FlutterActivity
 

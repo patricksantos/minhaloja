@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quickfood/infra/infra.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
+import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 import '../constants.dart';
 
 class SideMenu extends StatelessWidget {

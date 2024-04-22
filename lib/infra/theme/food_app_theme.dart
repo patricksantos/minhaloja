@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 final foodAppDesign = FoodAppDesign(
   primary100: const Color(0xffFF2800),

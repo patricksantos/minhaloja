@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../presentation_layer/components/counter_view.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ContentCartItem extends StatelessWidget {
   final String backgroundImage;

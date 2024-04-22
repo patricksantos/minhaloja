@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:quickfood/infra/infra.dart';
-import 'package:quickfood/presentation_layer/components/keyboard_dismiss_on_tap.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/components/components.dart';
+import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/presentation_layer/components/keyboard_dismiss_on_tap.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/components/components.dart';
 
 class NewStore extends StatefulWidget {
   const NewStore({

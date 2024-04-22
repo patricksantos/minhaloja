@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import '../../../../presentation_layer/components/default_radio_button.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class PaymentDelivery extends StatefulWidget {
   final StoreCubit storeCubit;

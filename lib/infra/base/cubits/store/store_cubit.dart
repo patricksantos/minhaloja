@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 import '../../../infra.dart';
 
@@ -10,7 +10,9 @@ class StoreCubit extends Cubit<StoreState> {
 
   StoreCubit(
     this._getFormPaymentUseCase,
-  ) : super(StoreState());
+  ) : super(StoreState()) {
+    getStoreType(storeType: StoreType.delivery); // TODO: Aqui defino qual o tipo de site vai ser
+  }
 
   Future<void> getFormPayment() async {
     update(loading: true);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class NewContentItem extends StatelessWidget {
   final String backgroundImage;

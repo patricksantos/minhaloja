@@ -49,7 +49,7 @@ class BottomSwitchTypeStore extends StatelessWidget {
                   decoration: TextDecoration.none,
                 ),
           ),
-          SizedBox(height: 25.height),
+          SizedBox(height: 4.height),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

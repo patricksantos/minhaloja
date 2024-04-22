@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class FloatingButtonCurrentPage extends StatefulWidget {
   final TabController controller;
@@ -40,10 +40,9 @@ class _FloatingButtonCurrentPageState extends State<FloatingButtonCurrentPage> {
                   child: const Icon(
                     Icons.arrow_back_rounded,
                     size: 32,
+                    color: Colors.white,
                   ),
-                ).addPadding(
-                  EdgeInsets.only(left: 32.width),
-                )
+                ).addPadding(EdgeInsets.only(left: 32.width))
               : Container(),
           widget.controller.index != widget.controller.length - 1
               ? FloatingActionButton(
@@ -60,6 +59,7 @@ class _FloatingButtonCurrentPageState extends State<FloatingButtonCurrentPage> {
                   child: const Icon(
                     Icons.arrow_forward_rounded,
                     size: 32,
+                    color: Colors.white,
                   ),
                 )
               : Container(),

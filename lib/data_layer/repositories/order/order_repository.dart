@@ -1,7 +1,7 @@
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 import '../../data_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class OrderRepository implements OrderRepositoryInterface {
   final OrderDataSource _dataSource;

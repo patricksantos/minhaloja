@@ -13,7 +13,7 @@ import '../../../presentation_layer/components/product_details.dart';
 import '../../components/bottom_sheet_modal.dart';
 import 'components/content_order_item.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class OrderPage extends StatefulWidget {
   final bool isExpanded;
@@ -209,7 +209,7 @@ class _OrderPageState extends State<OrderPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        (MediaQuery.of(context).size.width - 40.width).width ~/
+                        (MediaQuery.of(context).size.width - 50.width).width ~/
                             (8 + 3).width,
                         (_) => Container(
                           width: 8,

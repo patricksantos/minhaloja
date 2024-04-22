@@ -16,7 +16,7 @@
 // import '../../../presentation_layer/modules/home/cubit/home_cubit.dart';
 // import '../../../presentation_layer/modules/home/cubit/home_state.dart';
 
-// import 'package:quickfood/infra/infra.dart';
+// import 'package:minhaloja/infra/infra.dart';
 
 // class HomePageOld extends StatefulWidget {
 //   final String store;

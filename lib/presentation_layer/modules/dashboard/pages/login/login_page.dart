@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:quickfood/infra/base.dart';
+import 'package:minhaloja/infra/base.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

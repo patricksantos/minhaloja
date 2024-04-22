@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class OrderProductEntity {
   String? id;

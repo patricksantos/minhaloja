@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
@@ -49,7 +49,7 @@ class _AppWidgetState extends State<AppWidget> {
                 ).init(constraints, orientation);
               }
               return MaterialApp.router(
-                title: 'Eatsy',
+                title: 'MinhaLoja',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   primaryColor: foodAppDesign.primary300,

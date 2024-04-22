@@ -4,7 +4,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../data_layer/dtos/product/product_list_cart_dto.dart';
 import '../../../../presentation_layer/modules/delivery/components/address_step.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class ContentUserAddress extends StatelessWidget {
   final List<ProductListCartDTO> productListCart;

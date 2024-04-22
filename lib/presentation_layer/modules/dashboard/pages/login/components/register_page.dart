@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:quickfood/presentation_layer/components/default_button.dart';
-import 'package:quickfood/presentation_layer/components/default_text_form_field.dart';
+import 'package:minhaloja/presentation_layer/components/default_button.dart';
+import 'package:minhaloja/presentation_layer/components/default_text_form_field.dart';
 
 import '../../../../../../infra/infra.dart';
 

@@ -4,13 +4,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import 'package:quickfood/domain_layer/domain_layer.dart';
-import 'package:quickfood/infra/infra.dart';
-import 'package:quickfood/presentation_layer/components/default_button.dart';
-import 'package:quickfood/presentation_layer/components/default_file_image.dart';
-import 'package:quickfood/presentation_layer/components/default_text_form_field.dart';
-import 'package:quickfood/presentation_layer/components/keyboard_dismiss_on_tap.dart';
-import 'package:quickfood/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
+import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/presentation_layer/components/default_button.dart';
+import 'package:minhaloja/presentation_layer/components/default_file_image.dart';
+import 'package:minhaloja/presentation_layer/components/default_text_form_field.dart';
+import 'package:minhaloja/presentation_layer/components/keyboard_dismiss_on_tap.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 
 class FormStore extends StatefulWidget {
   final TextStyle? labelStyle;

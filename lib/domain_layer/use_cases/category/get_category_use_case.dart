@@ -1,5 +1,5 @@
-import 'package:quickfood/infra/infra.dart';
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 import '../../domain_layer.dart';
 
 class GetCategoryUseCase {

@@ -8,9 +8,9 @@ import '../../../presentation_layer/modules/delivery/components/payment_delivery
 import '../../../presentation_layer/components/default_button.dart';
 import '../../../presentation_layer/modules/home/cubit/home_cubit.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class DeliveryPage extends StatefulWidget {
   final double totalValue;
@@ -148,7 +148,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          (MediaQuery.of(context).size.width - 40.width)
+                          (MediaQuery.of(context).size.width - 50.width)
                                   .width ~/
                               (8 + 3).width,
                           (_) => Container(

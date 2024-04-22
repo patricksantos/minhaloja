@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart' as storage;
 
-import 'package:quickfood/domain_layer/domain_layer.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 class StorageDataSource implements StorageRepositoryInterface {
   late Future<storage.SharedPreferences> _prefs;

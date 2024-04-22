@@ -1,6 +1,6 @@
 import '../../domain_layer.dart';
 
-import 'package:quickfood/infra/infra.dart';
+import 'package:minhaloja/infra/infra.dart';
 
 class GetAddressByZipCodeUseCase {
   final AddressRepositoryInterface _repository;

@@ -7,7 +7,7 @@ import '../../../components/default_button.dart';
 import '../../../components/default_text_form_field.dart';
 import '../../../components/keyboard_dismiss_on_tap.dart';
 
-import 'package:quickfood/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/data_layer.dart';
 
 import '../../../../../../infra/infra.dart';
 
