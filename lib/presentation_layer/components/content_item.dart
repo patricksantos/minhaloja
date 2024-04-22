@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -40,22 +41,42 @@ class ContentItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              alignment: Alignment.topCenter,
-              height: 120,
-              width: 120,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(backgroundImage),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.bottomCenter,
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(4.0),
-                  bottomLeft: Radius.circular(4.0),
+            // Container(
+            //   alignment: Alignment.topCenter,
+            //   height: 120,
+            //   width: 120,
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage(backgroundImage),
+            //       fit: BoxFit.cover,
+            //       alignment: Alignment.bottomCenter,
+            //     ),
+            //     borderRadius: const BorderRadius.only(
+            //       topLeft: Radius.circular(4.0),
+            //       bottomLeft: Radius.circular(4.0),
+            //     ),
+            //   ),
+            // ),
+            CachedNetworkImage(
+              imageUrl: backgroundImage,
+              imageBuilder: (context, imageProvider) => Container(
+                alignment: Alignment.topCenter,
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    bottomLeft: Radius.circular(4.0),
+                  ),
                 ),
               ),
             ),
+
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

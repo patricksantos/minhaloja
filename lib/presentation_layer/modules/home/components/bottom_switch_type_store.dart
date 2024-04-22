@@ -56,8 +56,8 @@ class BottomSwitchTypeStore extends StatelessWidget {
               _buttonStoreMode(
                 color: const Color(0xffED1722),
                 design: design,
-                icon: PathImages.motorbike,
-                label: 'Delivery',
+                icon: PathImages.fastDelivery,
+                label: 'Entrega', //Delivery
                 onTap: () {
                   onTapDelivery();
                   Modular.to.pop();
@@ -66,8 +66,9 @@ class BottomSwitchTypeStore extends StatelessWidget {
               _buttonStoreMode(
                 color: design.primary200,
                 design: design,
-                icon: PathImages.restaurant,
-                label: 'Cardápio',
+                iconColor: Colors.white,
+                icon: PathImages.localizacao,
+                label: 'Loja',
                 onTap: () {
                   onTapMenu();
                   Modular.to.pop();
@@ -83,6 +84,8 @@ class BottomSwitchTypeStore extends StatelessWidget {
   Widget _buttonStoreMode({
     required Color color,
     required String icon,
+    double? iconSize,
+    Color? iconColor,
     required VoidCallback onTap,
     required FoodAppDesign design,
     required String label,
@@ -105,7 +108,8 @@ class BottomSwitchTypeStore extends StatelessWidget {
               children: [
                 Image.asset(
                   icon,
-                  width: 60.fontSize,
+                  width: iconSize ?? 60.fontSize,
+                  color: iconColor,
                 ),
                 Text(
                   label,

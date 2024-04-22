@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -41,16 +42,34 @@ class NewDetailStore extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    alignment: Alignment.topCenter,
+                  // Container(
+                  //   alignment: Alignment.topCenter,
+                  //   height: 140,
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(backgroundImage),
+                  //       fit: BoxFit.cover,
+                  //       alignment: Alignment.center,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(20),
+                  //   ),
+                  // ),
+                  SizedBox(
                     height: 140,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(backgroundImage),
-                        fit: BoxFit.cover,
+                    child: CachedNetworkImage(
+                      imageUrl: backgroundImage,
+                      imageBuilder: (context, imageProvider) => Container(
                         alignment: Alignment.center,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   Opacity(
@@ -109,7 +128,7 @@ class NewDetailStore extends StatelessWidget {
                           child: Image.asset(
                             storeType == StoreType.delivery
                                 ? PathImages.delivery
-                                : PathImages.restaurantMenu,
+                                : PathImages.localizacao,
                             color: design.secondary100,
                             height: 18.fontSize,
                             width: 18.fontSize,
@@ -133,7 +152,7 @@ class NewDetailStore extends StatelessWidget {
                       image: DecorationImage(
                         image: AssetImage(icon),
                         fit: BoxFit.cover,
-                        alignment: Alignment.center,
+                        alignment: Alignment.topCenter, //center
                       ),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../presentation_layer/modules/home/components/tags_restaurant.dart';
 
@@ -37,16 +38,31 @@ class DetailStore extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    alignment: Alignment.topCenter,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(backgroundImage),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.bottomCenter,
+                  // Container(
+                  //   alignment: Alignment.topCenter,
+                  //   height: 140,
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(backgroundImage),
+                  //       fit: BoxFit.cover,
+                  //       alignment: Alignment.bottomCenter,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(20),
+                  //   ),
+                  // ),
+                  CachedNetworkImage(
+                    imageUrl: backgroundImage,
+                    imageBuilder: (context, imageProvider) => Container(
+                      alignment: Alignment.topCenter,
+                      height: 140,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   Opacity(

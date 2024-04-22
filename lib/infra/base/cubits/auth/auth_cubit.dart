@@ -32,7 +32,23 @@ class AuthCubit extends Cubit<AuthState> {
     this._createAddressUseCase,
     this._updateAddressUseCase,
     this._uploadImageUseCase,
-  ) : super(AuthState());
+  ) : super(AuthState()) {
+    init();
+  }
+
+  init() async {
+    // await createProduct(
+    //   restaurantId: 1.toString(),
+    //   categoryId: '01ac840c-982e-41c4-850e-2f7c6661b3d6',
+    //   name: '4',
+    //   image: [
+    //     'https://firebasestorage.googleapis.com/v0/b/minhaloja-77c99.appspot.com/o/4.png?alt=media&token=f4670c3d-43f2-443c-a789-65cd3f19c693'
+    //   ],
+    //   value: 100,
+    //   description:
+    //       'Lorem Ipsum is simply dummy text and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+    // );
+  }
 
   Future<void> loginAnonymous() async {
     try {

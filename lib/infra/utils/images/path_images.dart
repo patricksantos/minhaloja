@@ -11,7 +11,7 @@ class PathImages {
 
   // Icon
   static String pathIcon = 'assets/icon';
-  static String get localizacao => '$pathIcon/localizacao.png';
+  static String get localizacao => '$pathIcon/localizacao_icon.png';
   static String get restaurant => '$pathIcon/restaurant.png';
   static String get motorbike => '$pathIcon/motorbike.png';
   static String get fastDelivery => '$pathIcon/fast-delivery.png';

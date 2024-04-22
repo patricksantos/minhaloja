@@ -40,7 +40,7 @@ class HomeModule extends Module {
         if (ResponsiveScreen.isDesktop(context)) {
           final design = DesignSystem.of(context);
           return Scaffold(
-            backgroundColor: design.primary100,
+            backgroundColor: const Color(0xffc15123),
             body: SafeArea(
               child: Center(
                 child: Column(

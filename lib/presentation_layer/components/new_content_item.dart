@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -35,17 +36,21 @@ class NewContentItem extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(backgroundImage),
-                      fit: BoxFit.cover,
-                      alignment: Alignment.bottomCenter,
+                CachedNetworkImage(
+                  imageUrl: backgroundImage,
+                  imageBuilder: (context, imageProvider) => Container(
+                    alignment: Alignment.topCenter,
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
                     ),
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                   ),
                 ),
                 Opacity(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -68,7 +69,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             SliverAppBar(
               pinned: true,
               toolbarHeight: 60,
-              expandedHeight: 275,
+              expandedHeight: 500,
               backgroundColor: Colors.transparent,
               title: visibleText
                   ? Text(
@@ -110,7 +111,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
               flexibleSpace: SizedBox(
-                height: 275,
+                height: 500,
                 child: Stack(
                   children: [
                     CarouselSlider(
@@ -121,7 +122,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         scrollDirection: Axis.horizontal,
                         autoPlay: false,
                         autoPlayInterval: const Duration(seconds: 5),
-                        height: 275,
+                        height: 500,
                         viewportFraction: 1.0,
                         enlargeCenterPage: true,
                         onPageChanged: (index, reason) {
@@ -132,21 +133,38 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       items: widget.product.image
                           .map(
-                            (item) => Container(
-                              alignment: Alignment.topCenter,
-                              height: 275,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(item),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.bottomCenter,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(12.0),
-                                  topRight: Radius.circular(12.0),
+                            (item) => CachedNetworkImage(
+                              imageUrl: item,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: Colors.grey,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                alignment: Alignment.topCenter,
+                                height: 500,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
                             ),
+                            // CachedNetworkImage(
+                            //   imageUrl: item,
+                            //   height: 275,
+                            //   placeholder: (context, url) =>
+                            //       const CircularProgressIndicator(),
+                            //   errorWidget: (context, url, error) => const Icon(
+                            //     Icons.error,
+                            //     color: Colors.grey,
+                            //   ),
+                            // ),
                           )
                           .toList(),
                     ),
@@ -221,7 +239,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       TextInputDefault(
                         context: context,
                         controller: _textEditingController,
-                        hintText: 'Ex: Tirar tomate...',
+                        hintText: 'Escreva uma nota para a loja',
                         enable: true,
                       ),
                       Padding(
