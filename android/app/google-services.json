@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "559282178227",
+    "project_id": "quickfood-4a2a7",
+    "storage_bucket": "quickfood-4a2a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559282178227:android:6278da4909011e986948c6",
+        "android_client_info": {
+          "package_name": "com.example.quickfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559282178227-9up9r949lsu6jsqgv2441ot0qpfst2d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0ZmsnMsXtzHss7I_0ec6Mb4oYnqDFbbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559282178227-9up9r949lsu6jsqgv2441ot0qpfst2d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "559282178227-oen9ntj0b4q5rpjgfpdimmhi59ho19vg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.quickfood"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
