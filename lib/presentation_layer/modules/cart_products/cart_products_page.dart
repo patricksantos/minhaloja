@@ -241,6 +241,7 @@ class _CartProductsPageState extends State<CartProductsPage> {
                   height: 51,
                   child: DefaultButton(
                     label: 'Finalizar Pedido',
+                    primaryColor: design.terciary100,
                     disable: state.productListCart.isEmpty,
                     onPressed: _storeCubit.state.storeType == StoreType.menu
                         ? () {

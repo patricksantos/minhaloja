@@ -76,30 +76,29 @@ class ProductFeaturedItem extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 8.width,
+                  horizontal: 4.width,
                   vertical: 8.height,
                 ),
                 width: 130,
+                height: 60.height,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: design
-                            .h6(
-                              color: design.secondary100,
-                            )
-                            .copyWith(
-                              fontSize: 14.fontSize,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
+                    Text(
+                      title,
+                      softWrap: true,
+                      maxLines: 2,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: design
+                          .labelM(
+                            color: design.secondary100,
+                          )
+                          .copyWith(
+                            fontSize: 10.fontSize,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -113,7 +112,7 @@ class ProductFeaturedItem extends StatelessWidget {
                                 color: design.secondary200,
                               )
                               .copyWith(
-                                fontSize: 12.fontSize,
+                                fontSize: 10.fontSize,
                                 fontWeight: FontWeight.w400,
                               ),
                         ),

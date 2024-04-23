@@ -16,6 +16,7 @@ class RestaurantDTO extends RestaurantEntity {
     required super.cnpj,
     required super.phoneNumber,
     required super.description,
+    required super.banner,
   });
 
   Map<String, dynamic> toJson() {
@@ -33,6 +34,7 @@ class RestaurantDTO extends RestaurantEntity {
       'description': description,
       'cnpj': cnpj,
       'phone_number': phoneNumber,
+      'banner': banner,
     };
   }
 
@@ -51,6 +53,7 @@ class RestaurantDTO extends RestaurantEntity {
       segment: map['segment'] as String,
       cnpj: map['cnpj'] as String,
       phoneNumber: map['phone_number'] as String,
+      banner: List<String>.from((map['banner'])),
     );
   }
 }

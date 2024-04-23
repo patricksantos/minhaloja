@@ -64,10 +64,11 @@ class _ListProductsState extends State<ListProducts> {
               horizontal: 16.width,
               vertical: 16.height,
             ),
-            separatorBuilder: (context, index) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.height),
-              child: const Divider(),
-            ),
+            separatorBuilder: (context, index) => Container(height: 12.height),
+            // separatorBuilder: (context, index) => Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 4.height),
+            //   child: const Divider(),
+            // ),
             physics: const ClampingScrollPhysics(),
             itemCount: list.length,
             shrinkWrap: true,

@@ -98,20 +98,20 @@ class RestaurantDataSource {
 
       return Result.success(
         RestaurantDTO(
-          id: restaurantDTO.id,
-          backgroundUrl: restaurantDTO.backgroundUrl,
-          cnpj: restaurantDTO.cnpj,
-          description: restaurantDTO.description,
-          logoUrl: restaurantDTO.logoUrl,
-          name: restaurantDTO.name,
-          phoneNumber: restaurantDTO.phoneNumber,
-          segment: restaurantDTO.segment,
-          url: restaurantDTO.url,
-          userId: restaurantDTO.userId,
-          addressId: restaurantDTO.addressId,
-          user: restaurantDTO.user,
-          address: addressDTO,
-        ),
+            id: restaurantDTO.id,
+            backgroundUrl: restaurantDTO.backgroundUrl,
+            cnpj: restaurantDTO.cnpj,
+            description: restaurantDTO.description,
+            logoUrl: restaurantDTO.logoUrl,
+            name: restaurantDTO.name,
+            phoneNumber: restaurantDTO.phoneNumber,
+            segment: restaurantDTO.segment,
+            url: restaurantDTO.url,
+            userId: restaurantDTO.userId,
+            addressId: restaurantDTO.addressId,
+            user: restaurantDTO.user,
+            address: addressDTO,
+            banner: restaurantDTO.banner),
       );
     } catch (e) {
       return Result.error(FailureError(e));

@@ -166,27 +166,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           onTapStoreType: () =>
                                               _bottomSheetStoreType(),
                                           backgroundImage:
-                                              state.restaurant?.backgroundUrl ??
-                                                  PathImages.pizza,
+                                              state.restaurant?.banner ?? [''],
                                           nameRestaurant:
-                                              state.restaurant?.name ?? 'Store',
-                                          type: state.restaurant?.segment ??
-                                              'segment',
+                                              state.restaurant?.name ??
+                                                  'Minha Loja',
+                                          type: state.restaurant?.segment ?? '',
                                           description:
                                               state.restaurant?.description ??
-                                                  'description',
-                                          tags: state.categories?.isNotEmpty ??
-                                                  false
-                                              ? state.categories!
-                                                  .getRange(0, 3)
-                                                  .map((e) =>
-                                                      e.name.toCapitalized())
-                                                  .toList()
-                                              : [
-                                                  'PIZZA',
-                                                  'Burgers',
-                                                  'Fast Food',
-                                                ],
+                                                  '',
+                                          tags: const [''],
+                                          // state.categories?.isNotEmpty ??
+                                          //         false
+                                          //     ? state.categories!
+                                          //         .getRange(0, 3)
+                                          //         .map((e) =>
+                                          //             e.name.toCapitalized())
+                                          //         .toList()
+                                          //     : [
+                                          //         'PIZZA',
+                                          //         'Burgers',
+                                          //         'Fast Food',
+                                          //       ],
                                           onTapOrder: () =>
                                               BottomSheetModal.show(
                                             context: context,
@@ -229,7 +229,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 )
                                                 .toList(),
                                           ),
-                                        SizedBox(height: 8.height),
+                                        // SizedBox(height: 80.height),
                                       ],
                                     ),
                                   ),
@@ -241,6 +241,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       backgroundColor: design.white,
                                       toolbarHeight: 0,
                                       elevation: 0,
+                                      surfaceTintColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
                                       bottom: PreferredSize(
                                         preferredSize:
                                             const Size.fromHeight(50.0),

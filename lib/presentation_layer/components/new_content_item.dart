@@ -122,7 +122,7 @@ class NewContentItem extends StatelessWidget {
                                     color: design.secondary300,
                                   )
                                   .copyWith(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),

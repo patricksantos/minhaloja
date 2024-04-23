@@ -15,6 +15,7 @@ class RestaurantEntity {
   final String cnpj;
   final String phoneNumber;
   final String description;
+  final List<String> banner;
 
   RestaurantEntity({
     this.id,
@@ -30,6 +31,7 @@ class RestaurantEntity {
     required this.cnpj,
     required this.phoneNumber,
     required this.description,
+    required this.banner,
   }) {
     var uuid = const Uuid();
     id = id ?? uuid.v4();

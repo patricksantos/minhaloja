@@ -105,12 +105,8 @@ class _BottomCartBarState extends State<BottomCartBar> {
                           ),
                           SizedBox(width: 12.width),
                           Text(
-                            'Adicionado\nno Carrinho',
-                            style: design
-                                .labelM(
-                                  color: design.white,
-                                )
-                                .copyWith(
+                            'Minha Sacola', //'Adicionado\nno Carrinho',
+                            style: design.labelM(color: design.white).copyWith(
                                   fontSize: 14.fontSize,
                                   fontWeight: FontWeight.w700,
                                 ),

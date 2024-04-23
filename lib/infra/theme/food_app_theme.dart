@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:minhaloja/infra/infra.dart';
 
 final foodAppDesign = FoodAppDesign(
-  primary100: const Color(0xffFF2800),
-  primary200: const Color(0xfff44336),
-  primary300: const Color(0xffc30000),
+  primary100: const Color(0xffc15123), // FF2800
+  primary200: const Color(0xffc76238), // f44336
+  primary300: const Color(0xffcd734e), // c30000
   secondary100: const Color(0xff1C1C1E),
   secondary200: const Color(0xff3C3C3E),
   secondary300: const Color(0xff95959F),
-  terciary100: const Color(0xffEA005A),
-  terciary200: const Color(0xffEA005A),
-  terciary300: const Color(0xffEA005A),
+  terciary100: const Color(0xffFF2800),
+  terciary200: const Color(0xfff44336),
+  terciary300: const Color(0xffc30000),
   white: const Color(0xffFFFFFF),
   gray: const Color(0xffF2F2F5),
   heading1: const TextStyle(

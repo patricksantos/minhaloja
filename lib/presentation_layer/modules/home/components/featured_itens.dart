@@ -40,7 +40,7 @@ class FeaturedItens extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.only(
-              top: 10.height,
+              top: 12.height,
               left: 16.width,
             ),
             child: Row(

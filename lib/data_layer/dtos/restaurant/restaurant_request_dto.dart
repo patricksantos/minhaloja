@@ -14,6 +14,7 @@ class RestaurantRequestDTO extends RestaurantDTO {
     required super.cnpj,
     required super.phoneNumber,
     required super.description,
+    required super.banner,
   });
 
   @override
@@ -30,6 +31,7 @@ class RestaurantRequestDTO extends RestaurantDTO {
       'segment': segment.toLowerCase(),
       'cnpj': cnpj,
       'phone_number': phoneNumber.toString(),
+      'banner': banner.map((x) => x).toList(),
     };
   }
 }

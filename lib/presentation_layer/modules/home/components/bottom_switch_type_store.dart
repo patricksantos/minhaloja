@@ -56,6 +56,7 @@ class BottomSwitchTypeStore extends StatelessWidget {
               _buttonStoreMode(
                 color: const Color(0xffED1722),
                 design: design,
+                iconSize: 48.fontSize,
                 icon: PathImages.fastDelivery,
                 label: 'Entrega', //Delivery
                 onTap: () {
@@ -64,8 +65,9 @@ class BottomSwitchTypeStore extends StatelessWidget {
                 },
               ),
               _buttonStoreMode(
-                color: design.primary200,
+                color: design.terciary200,
                 design: design,
+                iconSize: 48.fontSize,
                 iconColor: Colors.white,
                 icon: PathImages.localizacao,
                 label: 'Loja',
@@ -102,9 +104,11 @@ class BottomSwitchTypeStore extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.asset(
                   icon,
@@ -121,6 +125,7 @@ class BottomSwitchTypeStore extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 8.height),
             PathImages.shared(
               color: design.white,
               height: 20.fontSize,

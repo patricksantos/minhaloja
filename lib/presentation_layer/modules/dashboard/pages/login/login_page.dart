@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
-      title: 'Eatsy',
+      title: 'Minha Loja',
       savedEmail: 'patrick2.bms@gmail.com',
       savedPassword: '123456',
       theme: LoginTheme(

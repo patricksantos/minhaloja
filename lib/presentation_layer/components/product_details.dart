@@ -155,16 +155,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                               ),
                             ),
-                            // CachedNetworkImage(
-                            //   imageUrl: item,
-                            //   height: 275,
-                            //   placeholder: (context, url) =>
-                            //       const CircularProgressIndicator(),
-                            //   errorWidget: (context, url, error) => const Icon(
-                            //     Icons.error,
-                            //     color: Colors.grey,
-                            //   ),
-                            // ),
                           )
                           .toList(),
                     ),
