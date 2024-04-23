@@ -10,7 +10,6 @@ import 'components/expandable_content_home.dart';
 import 'components/bottom_sheet_expandable.dart';
 import '../../../presentation_layer/modules.dart';
 import '../../components/bottom_sheet_modal.dart';
-import '../../../presentation_layer/components/product_details.dart';
 import '../../../presentation_layer/modules/home/components/bottom_cart_bar.dart';
 import '../../../presentation_layer/modules/home/components/featured_itens.dart';
 import '../../../presentation_layer/modules/home/components/floating_button_current_page.dart';
@@ -211,12 +210,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                     title: product.name,
                                                     price: product.value,
                                                     onTap: () =>
-                                                        BottomSheetModal.show(
-                                                      context: context,
-                                                      content: ProductDetails(
-                                                        product: product,
-                                                      ),
+                                                        Modular.to.pushNamed(
+                                                      '${PageRoutes.productDetails}${product.id}',
+                                                      arguments: {
+                                                        'product': product
+                                                      },
                                                     ),
+                                                    //     BottomSheetModal.show(
+                                                    //   context: context,
+                                                    //   content: ProductDetails(
+                                                    //     product: product,
+                                                    //   ),
+                                                    // ),
                                                     onTapCart: () => _cartCubit
                                                         .addCartProduct(
                                                       product: product.copyWith(

@@ -78,12 +78,16 @@ class _ListProductsState extends State<ListProducts> {
                 title: list[index].name,
                 description: list[index].description,
                 price: list[index].value,
-                onTap: () => BottomSheetModal.show(
-                  context: context,
-                  content: ProductDetails(
-                    product: list[index],
-                  ),
+                onTap: () => Modular.to.pushNamed(
+                  PageRoutes.productDetails,
+                  arguments: {'product': list[index]},
                 ),
+                // BottomSheetModal.show(
+                //   context: context,
+                //   content: ProductDetails(
+                //     product: list[index],
+                //   ),
+                // ),
                 onTapCart: () => _cartCubit.addCartProduct(
                   product: list[index].copyWith(
                     id: list[index].id,

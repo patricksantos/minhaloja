@@ -164,12 +164,16 @@ class _OrderPageState extends State<OrderPage> {
                                     : productOrder.description,
                                 quantity: productOrderList.products.length,
                                 status: productOrder.statusOrder,
-                                onTap: () => BottomSheetModal.show(
-                                  context: context,
-                                  content: ProductDetails(
-                                    product: productOrder,
-                                  ),
+                                onTap: () => Modular.to.pushNamed(
+                                  PageRoutes.productDetails,
+                                  arguments: {'product': productOrder},
                                 ),
+                                // BottomSheetModal.show(
+                                //   context: context,
+                                //   content: ProductDetails(
+                                //     product: productOrder,
+                                //   ),
+                                // ),
                               ),
                             );
                           },

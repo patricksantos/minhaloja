@@ -46,4 +46,27 @@ class ProductDataSource {
       return Result.error(FailureError(e));
     }
   }
+
+  Future<Result<ProductDTO>> getProductById({
+    required String productId,
+  }) async {
+    try {
+      final productRef = _firebase.collection(DBCollections.product);
+      final product =
+          await productRef.where('id', isEqualTo: productId).get().then(
+        (data) {
+          if (data.docs.isEmpty) {
+            return [] as List<ProductDTO>;
+          }
+          return data.docs
+              .map((doc) => ProductDTO.fromJson(doc.data()))
+              .toList();
+        },
+      );
+
+      return Result.success(product.first);
+    } catch (e) {
+      return Result.error(FailureError(e));
+    }
+  }
 }

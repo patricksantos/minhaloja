@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -132,11 +131,11 @@ class _NewDetailStoreState extends State<NewDetailStore> {
                                 onTap: () => _carouselController
                                     .animateToPage(entry.key),
                                 child: Container(
-                                  width: 10.0,
-                                  height: 10.0,
+                                  width: 8.0,
+                                  height: 8.0,
                                   margin: EdgeInsets.symmetric(
                                     vertical: 8.0.height,
-                                    horizontal: 4.0.width,
+                                    horizontal: 2.0.width,
                                   ),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,

@@ -158,12 +158,16 @@ class _CartProductsPageState extends State<CartProductsPage> {
                           note: productItem.note != null
                               ? 'Nota: ${productItem.note}'
                               : productItem.description,
-                          onTap: () => BottomSheetModal.show(
-                            context: context,
-                            content: ProductDetails(
-                              product: productItem,
-                            ),
+                          onTap: () => Modular.to.pushNamed(
+                            PageRoutes.productDetails,
+                            arguments: {'product': productItem},
                           ),
+                          // BottomSheetModal.show(
+                          //   context: context,
+                          //   content: ProductDetails(
+                          //     product: productItem,
+                          //   ),
+                          // ),
                           onTapRemoveItem: () => _cartCubit.removeCartProduct(
                             product: productItem,
                           ),

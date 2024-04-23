@@ -24,6 +24,7 @@ class AppModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ModuleRoute('/', module: HomeModule()),
+    ModuleRoute('/produto', module: ProductDetailsModule()),
     ModuleRoute('/login', module: DashboardModule()),
     ModuleRoute('/dashboard', module: DashboardModule()),
     ModuleRoute('/qrcode', module: QrCodeModule()),

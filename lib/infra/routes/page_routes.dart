@@ -5,6 +5,9 @@ class PageRoutes {
   /// [Home]
   static const home = '/';
 
+  /// [Home]
+  static const productDetails = '/produto/';
+
   /// [Dashboard]
   static const dashboard = '/dashboard/';
 

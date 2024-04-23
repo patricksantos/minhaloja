@@ -26,4 +26,13 @@ class ProductRepository implements ProductRepositoryInterface {
       restaurantId: restaurantId,
     );
   }
+
+  @override
+  Future<Result<ProductDTO>> getProductById({
+    required String productId,
+  }) async {
+    return await _dataSource.getProductById(
+      productId: productId,
+    );
+  }
 }

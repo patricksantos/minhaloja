@@ -9,4 +9,8 @@ abstract class ProductRepositoryInterface {
   Future<Result<List<ProductDTO>>> getProduct({
     required String restaurantId,
   });
+
+  Future<Result<ProductDTO>> getProductById({
+    required String productId,
+  });
 }

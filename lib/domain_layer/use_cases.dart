@@ -10,6 +10,7 @@ export 'use_cases/restaurant/get_restaurant_use_case.dart';
 export 'use_cases/restaurant/update_restaurant_use_case.dart';
 export 'use_cases/category/create_category_use_case.dart';
 export 'use_cases/product/create_product_use_case.dart';
+export 'use_cases/product/get_product_by_id_use_case.dart';
 export 'use_cases/category/get_category_use_case.dart';
 export 'use_cases/auth/get_user_use_case.dart';
 export 'use_cases/product/get_product_use_case.dart';
