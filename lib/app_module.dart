@@ -25,6 +25,8 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute('/', module: HomeModule()),
     ModuleRoute('/produto', module: ProductDetailsModule()),
+    ModuleRoute('/pedidos', module: OrderModule()),
+    ModuleRoute('/carrinho', module: CartProductsModule()),
     ModuleRoute('/login', module: DashboardModule()),
     ModuleRoute('/dashboard', module: DashboardModule()),
     ModuleRoute('/qrcode', module: QrCodeModule()),

@@ -8,7 +8,6 @@ import 'package:minhaloja/domain_layer/domain_layer.dart';
 import 'package:minhaloja/infra/infra.dart';
 import 'package:minhaloja/presentation_layer/components/default_button.dart';
 import 'package:minhaloja/presentation_layer/components/default_file_image.dart';
-import 'package:minhaloja/presentation_layer/components/default_text_form_field.dart';
 import 'package:minhaloja/presentation_layer/components/keyboard_dismiss_on_tap.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 
@@ -41,7 +40,7 @@ class _RegisterStoreState extends State<FormStore> {
 
   final MaskTextInputFormatter _cepFormatter = maskFormatterCep();
   final MaskTextInputFormatter _cpfFormatter = maskFormatterCpf();
-  final MaskTextInputFormatter _cnpjFormatter = maskFormatterCnpj();
+  // final MaskTextInputFormatter _cnpjFormatter = maskFormatterCnpj();
   final MaskTextInputFormatter _phoneNumberFormatter =
       maskFormatterPhoneNumber();
 
@@ -113,7 +112,7 @@ class _RegisterStoreState extends State<FormStore> {
 
   @override
   Widget build(BuildContext context) {
-    final design = DesignSystem.of(context);
+    // final design = DesignSystem.of(context);
     return BlocConsumer<AuthCubit, AuthState>(
       bloc: _authController,
       listener: (context, state) async {

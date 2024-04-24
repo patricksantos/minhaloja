@@ -5,22 +5,15 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../presentation_layer/components/pull_to_refresh.dart';
-import '../../../presentation_layer/modules/home/cubit/home_cubit.dart';
 import '../../../presentation_layer/modules/order/cubit/order_cubit.dart';
 import '../../../presentation_layer/modules/order/cubit/order_state.dart';
 import '../../../presentation_layer/components/default_button.dart';
-import '../../../presentation_layer/components/product_details.dart';
-import '../../components/bottom_sheet_modal.dart';
 import 'components/content_order_item.dart';
 
 import 'package:minhaloja/infra/infra.dart';
 
 class OrderPage extends StatefulWidget {
-  final bool isExpanded;
-  const OrderPage({
-    super.key,
-    required this.isExpanded,
-  });
+  const OrderPage({super.key});
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -30,7 +23,7 @@ class _OrderPageState extends State<OrderPage> {
   late OrderCubit _orderCubit;
   late AuthCubit _authCubit;
   late StoreCubit _storeCubit;
-  late HomeCubit _homeCubit;
+  // late HomeCubit _homeCubit;
 
   double _totalValue = 0.0;
   var popModal = true;
@@ -38,10 +31,10 @@ class _OrderPageState extends State<OrderPage> {
   @override
   void initState() {
     super.initState();
+    // _homeCubit = Modular.get<HomeCubit>();
     _authCubit = Modular.get<AuthCubit>();
     _storeCubit = Modular.get<StoreCubit>();
     _orderCubit = Modular.get<OrderCubit>();
-    _homeCubit = Modular.get<HomeCubit>();
 
     _orderCubit.getOrder(
       userId: _authCubit.state.user?.id! ?? '',
@@ -74,67 +67,46 @@ class _OrderPageState extends State<OrderPage> {
         });
       },
       builder: (context, orderState) {
-        return PullToRefresh(
-          onRefresh: () => _load(),
-          child: Container(
-            decoration: BoxDecoration(
-              color: design.white,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12.0),
-                topRight: Radius.circular(12.0),
-              ),
-            ),
-            height: !widget.isExpanded
-                ? MediaQuery.of(context).size.height * .95
-                : MediaQuery.of(context).size.height * .95 - 70,
+        return Scaffold(
+          body: PullToRefresh(
+            onRefresh: () => _load(),
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
-                elevation: 0,
-                toolbarHeight: !widget.isExpanded ? 70.height : 0,
                 centerTitle: true,
-                title: !widget.isExpanded
-                    ? Text(
-                        'Pedidos',
-                        style: design
-                            .h5(color: design.secondary100)
-                            .copyWith(fontWeight: FontWeight.w500),
-                      )
-                    : null,
-                leading: !widget.isExpanded
-                    ? Container(
-                        padding: EdgeInsets.only(
-                          left: 10.width,
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: Modular.to.pop,
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.transparent,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 2.height),
-                                  child: RotatedBox(
-                                    quarterTurns: 1,
-                                    child: Icon(
-                                      Icons.arrow_back_ios_outlined,
-                                      color: design.secondary100,
-                                      textDirection: TextDirection.rtl,
-                                      size: 26.fontSize,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                title: Text(
+                  'Pedidos',
+                  style: design
+                      .h5(color: design.secondary100)
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
+                leading: Container(
+                  padding: EdgeInsets.only(left: 10.width),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () =>
+                            Modular.to.pushReplacementNamed(PageRoutes.home),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.transparent,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 2.height),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: design.secondary100,
+                              textDirection: TextDirection.ltr,
+                              size: 26.fontSize,
                             ),
-                          ],
+                          ),
                         ),
-                      )
-                    : null,
+                      ),
+                    ],
+                  ),
+                ),
               ),
               body: _orderCubit.state.actions.contains(OrderAction.creating)
                   ? Center(
@@ -168,12 +140,6 @@ class _OrderPageState extends State<OrderPage> {
                                   PageRoutes.productDetails,
                                   arguments: {'product': productOrder},
                                 ),
-                                // BottomSheetModal.show(
-                                //   context: context,
-                                //   content: ProductDetails(
-                                //     product: productOrder,
-                                //   ),
-                                // ),
                               ),
                             );
                           },
@@ -262,7 +228,8 @@ class _OrderPageState extends State<OrderPage> {
                               var text =
                                   'Olá gostaria de falar sobre o pedido de número #${orderState.productOrderList.first.order.toString()}';
                               var url =
-                                  'https://api.whatsapp.com/send/?phone=${_homeCubit.state.restaurant?.phoneNumber}&text=$text&type=phone_number&app_absent=0';
+                                  'https://api.whatsapp.com/send/?phone=75991864966&text=$text&type=phone_number&app_absent=0';
+                              // 'https://api.whatsapp.com/send/?phone=${_homeCubit.state.restaurant?.phoneNumber}&text=$text&type=phone_number&app_absent=0';
 
                               if (!await launchUrl(
                                 Uri.parse(url),

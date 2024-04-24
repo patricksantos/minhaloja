@@ -49,7 +49,7 @@ class _AppWidgetState extends State<AppWidget> {
                 ).init(constraints, orientation);
               }
               return MaterialApp.router(
-                title: 'MinhaLoja',
+                title: 'TerraCotta',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   primaryColor: foodAppDesign.primary300,

@@ -206,12 +206,6 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "csslib",
-      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/csslib-0.17.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.5",
       "packageUri": "lib/",
@@ -440,12 +434,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_native_splash",
-      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/flutter_native_splash-2.2.16",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
       "name": "flutter_pdfview",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/flutter_pdfview-1.2.5",
       "packageUri": "lib/",
@@ -544,12 +532,6 @@
     {
       "name": "graphs",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/graphs-2.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "html",
-      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/html-0.15.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -1118,12 +1100,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "universal_io",
-      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/universal_io-2.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "url_launcher",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/url_launcher-6.1.10",
       "packageUri": "lib/",
@@ -1238,7 +1214,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2024-04-23T22:42:44.579845Z",
+  "generated": "2024-04-24T01:02:29.941484Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }

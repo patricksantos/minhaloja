@@ -6,13 +6,8 @@ import '../../../presentation_layer/components/product_featured_item.dart';
 import '../../../presentation_layer/components/pull_to_refresh.dart';
 import '../../../presentation_layer/modules/home/components/bottom_switch_type_store.dart';
 import '../../../presentation_layer/modules/home/components/new_details_store.dart';
-import 'components/expandable_content_home.dart';
-import 'components/bottom_sheet_expandable.dart';
-import '../../../presentation_layer/modules.dart';
 import '../../components/bottom_sheet_modal.dart';
-import '../../../presentation_layer/modules/home/components/bottom_cart_bar.dart';
 import '../../../presentation_layer/modules/home/components/featured_itens.dart';
-import '../../../presentation_layer/modules/home/components/floating_button_current_page.dart';
 import '../../../presentation_layer/modules/home/components/list_products.dart';
 import '../../../presentation_layer/modules/home/cubit/home_cubit.dart';
 import '../../../presentation_layer/modules/home/cubit/home_state.dart';
@@ -41,11 +36,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // if (widget.store.contains('dashboard')) {
-    //   Modular.to.pushReplacementNamed(PageRoutes.dashboard);
-    // } else if (widget.store.contains('login')) {
-    //   Modular.to.pushReplacementNamed(PageRoutes.login);
-    // }
     _storeCubit = Modular.get<StoreCubit>();
 
     _authCubit = Modular.get<AuthCubit>();
@@ -100,219 +90,170 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return BlocBuilder<CartCubit, CartState>(
           bloc: _cartCubit,
           builder: (context, stateCart) {
-            return BlocConsumer<HomeCubit, HomeState>(
+            return BlocBuilder<HomeCubit, HomeState>(
               bloc: _homeCubit,
-              listenWhen: (previous, current) {
-                if (current.categories != null) {
-                  _tabController = TabController(
-                    length: _homeCubit.state.categories?.length ?? 0,
-                    vsync: this,
-                  );
-                }
-                return true;
-              },
-              listener: (context, state) {
-                var error = state.failure != null;
-                if (error || state.restaurant == null) {
-                  Modular.to.pushNamed(PageRoutes.qrcode);
-                }
-              },
               builder: (_, state) {
                 return Scaffold(
                   backgroundColor: design.white,
-                  body: BottomSheetExpandable(
-                    expandableHeader: const BottomCartBar(),
-                    expandableContent: _authCubit.state.user != null
-                        ? ExpandableContentHome(
-                            restaurantId: state.restaurant?.id! ?? '',
-                            userId: _authCubit.state.user?.id ?? '',
-                          )
-                        : Container(
-                            color: design.white,
-                            height:
-                                MediaQuery.of(context).size.height * .95 - 70,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: design.secondary300,
-                              ),
-                            ),
+                  body: state.actions.contains(HomeAction.creating)
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: design.secondary300,
                           ),
-                    body: state.actions.contains(HomeAction.creating)
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: design.secondary300,
-                            ),
-                          )
-                        : PullToRefresh(
-                            onRefresh: () => _load(),
-                            child: DefaultTabController(
-                              initialIndex: _currentPage,
-                              length: state.categories?.length ?? 0,
-                              child: NestedScrollView(
-                                controller: _controller,
-                                headerSliverBuilder: (
-                                  BuildContext context,
-                                  bool innerBoxIsScrolled,
-                                ) =>
+                        )
+                      : PullToRefresh(
+                          onRefresh: () => _load(),
+                          child: DefaultTabController(
+                            initialIndex: _currentPage,
+                            length: state.categories?.length ?? 0,
+                            child: NestedScrollView(
+                              controller: _controller,
+                              headerSliverBuilder: (
+                                BuildContext context,
+                                bool innerBoxIsScrolled,
+                              ) =>
+                                  [
+                                SliverList(
+                                  delegate: SliverChildListDelegate(
                                     [
-                                  SliverList(
-                                    delegate: SliverChildListDelegate(
-                                      [
-                                        NewDetailStore(
-                                          icon: state.restaurant?.logoUrl ??
-                                              PathImages.iconRestaurant,
-                                          storeType: stateStore.storeType,
-                                          onTapStoreType: () =>
-                                              _bottomSheetStoreType(),
-                                          backgroundImage:
-                                              state.restaurant?.banner ?? [''],
-                                          nameRestaurant:
-                                              state.restaurant?.name ??
-                                                  'Minha Loja',
-                                          type: state.restaurant?.segment ?? '',
-                                          description:
-                                              state.restaurant?.description ??
-                                                  '',
-                                          tags: const [''],
-                                          // state.categories?.isNotEmpty ??
-                                          //         false
-                                          //     ? state.categories!
-                                          //         .getRange(0, 3)
-                                          //         .map((e) =>
-                                          //             e.name.toCapitalized())
-                                          //         .toList()
-                                          //     : [
-                                          //         'PIZZA',
-                                          //         'Burgers',
-                                          //         'Fast Food',
-                                          //       ],
-                                          onTapOrder: () =>
-                                              BottomSheetModal.show(
-                                            context: context,
-                                            content:
-                                                OrderModule(isExpanded: false),
-                                          ),
-                                        ),
-                                        if (_homeCubit
-                                                .state.itens?.isNotEmpty ??
-                                            false)
-                                          FeaturedItens(
-                                            itens: _homeCubit
-                                                .featuredItens(maxItens: 6)
-                                                .where((element) =>
-                                                    element.emphasis == true)
-                                                .map(
-                                                  (product) =>
-                                                      ProductFeaturedItem(
-                                                    key: UniqueKey(),
-                                                    backgroundImage:
-                                                        product.image.first,
-                                                    title: product.name,
-                                                    price: product.value,
-                                                    onTap: () =>
-                                                        Modular.to.pushNamed(
-                                                      '${PageRoutes.productDetails}${product.id}',
-                                                      arguments: {
-                                                        'product': product
-                                                      },
-                                                    ),
-                                                    //     BottomSheetModal.show(
-                                                    //   context: context,
-                                                    //   content: ProductDetails(
-                                                    //     product: product,
-                                                    //   ),
-                                                    // ),
-                                                    onTapCart: () => _cartCubit
-                                                        .addCartProduct(
-                                                      product: product.copyWith(
-                                                        id: product.id,
-                                                      ),
-                                                    ),
-                                                  ).addPadding(EdgeInsets.only(
-                                                    right: 12.width,
-                                                  )),
-                                                )
-                                                .toList(),
-                                          ),
-                                        // SizedBox(height: 80.height),
-                                      ],
-                                    ),
-                                  ),
-                                  if (_homeCubit.state.categories?.isNotEmpty ??
-                                      false)
-                                    SliverAppBar(
-                                      pinned: true,
-                                      floating: true,
-                                      backgroundColor: design.white,
-                                      toolbarHeight: 0,
-                                      elevation: 0,
-                                      surfaceTintColor: Colors.transparent,
-                                      shadowColor: Colors.transparent,
-                                      bottom: PreferredSize(
-                                        preferredSize:
-                                            const Size.fromHeight(50.0),
-                                        child: Stack(
-                                          children: [
-                                            Positioned(
-                                              bottom: 0,
-                                              left: 16.width,
-                                              right: 16.width,
-                                              child: Container(
-                                                height: 1.8, // 2
-                                                color: design.secondary100,
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: SizedBox(
-                                                height: 40,
-                                                child: TabBar(
-                                                  tabAlignment:
-                                                      TabAlignment.start,
-                                                  indicatorWeight: 2,
-                                                  controller: _tabController,
-                                                  labelColor: design.primary100,
-                                                  indicatorColor:
-                                                      design.primary100,
-                                                  unselectedLabelColor:
-                                                      design.secondary100,
-                                                  dividerColor:
-                                                      Colors.transparent,
-                                                  isScrollable: true,
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
-                                                  padding: EdgeInsets.only(
-                                                    left: 16.width,
+                                      NewDetailStore(
+                                        icon: state.restaurant?.logoUrl ??
+                                            PathImages.iconRestaurant,
+                                        storeType: stateStore.storeType,
+                                        onTapStoreType: () =>
+                                            _bottomSheetStoreType(),
+                                        backgroundImage:
+                                            state.restaurant?.banner ?? [''],
+                                        nameRestaurant:
+                                            state.restaurant?.name ??
+                                                'Minha Loja',
+                                        type: state.restaurant?.segment ?? '',
+                                        description:
+                                            state.restaurant?.description ?? '',
+                                        tags: const [''],
+                                        onTapOrder: () => Modular.to
+                                            .pushNamed(PageRoutes.order),
+                                      ),
+                                      if (_homeCubit.state.itens?.isNotEmpty ??
+                                          false)
+                                        FeaturedItens(
+                                          itens: _homeCubit
+                                              .featuredItens(maxItens: 6)
+                                              .where((element) =>
+                                                  element.emphasis == true)
+                                              .map(
+                                                (product) =>
+                                                    ProductFeaturedItem(
+                                                  key: UniqueKey(),
+                                                  backgroundImage:
+                                                      product.image.first,
+                                                  title: product.name,
+                                                  price: product.value,
+                                                  onTap: () =>
+                                                      Modular.to.pushNamed(
+                                                    '${PageRoutes.productDetails}${product.id}',
+                                                    arguments: {
+                                                      'product': product
+                                                    },
                                                   ),
-                                                  tabs: state.categories
-                                                          ?.map(
-                                                              (category) => Tab(
-                                                                    text: category
-                                                                        .name
-                                                                        .toCapitalized(),
-                                                                  ))
-                                                          .toList() ??
-                                                      [],
+                                                  onTapCart: () =>
+                                                      _cartCubit.addCartProduct(
+                                                    product: product.copyWith(
+                                                      id: product.id,
+                                                    ),
+                                                  ),
+                                                ).addPadding(EdgeInsets.only(
+                                                  right: 12.width,
+                                                )),
+                                              )
+                                              .toList(),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                if (_homeCubit.state.categories?.isNotEmpty ??
+                                    false)
+                                  SliverAppBar(
+                                    pinned: true,
+                                    floating: true,
+                                    backgroundColor: design.white,
+                                    toolbarHeight: 0,
+                                    elevation: 0,
+                                    surfaceTintColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    bottom: PreferredSize(
+                                      preferredSize:
+                                          const Size.fromHeight(50.0),
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            bottom: 0,
+                                            left: 16.width,
+                                            right: 16.width,
+                                            child: Container(
+                                              height: 1.8, // 2
+                                              color: design.secondary100,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: SizedBox(
+                                              height: 40,
+                                              child: TabBar(
+                                                tabAlignment:
+                                                    TabAlignment.start,
+                                                indicatorWeight: 2,
+                                                controller: _tabController,
+                                                labelColor: design.primary100,
+                                                indicatorColor:
+                                                    design.primary100,
+                                                unselectedLabelColor:
+                                                    design.secondary100,
+                                                dividerColor:
+                                                    Colors.transparent,
+                                                isScrollable: true,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                padding: EdgeInsets.only(
+                                                  left: 16.width,
                                                 ),
+                                                tabs: state.categories
+                                                        ?.map((category) => Tab(
+                                                              text: category
+                                                                  .name
+                                                                  .toCapitalized(),
+                                                            ))
+                                                        .toList() ??
+                                                    [],
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                ],
-                                body: ListProducts(
-                                  controller: _tabController,
-                                  tabs: state.categories ?? [],
-                                  listItens: state.itens ?? [],
-                                ),
+                                  ),
+                              ],
+                              body: ListProducts(
+                                controller: _tabController,
+                                tabs: state.categories ?? [],
+                                listItens: state.itens ?? [],
                               ),
                             ),
                           ),
+                        ),
+                  // floatingActionButton: _buttonNextCurrentPage
+                  //     ? FloatingButtonCurrentPage(controller: _tabController)
+                  //     : null,
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: design.primary100,
+                    onPressed: () =>
+                        Modular.to.pushNamed(PageRoutes.cartProducts),
+                    child: Icon(
+                      Icons.shopping_cart_rounded,
+                      color: design.white,
+                      size: 24,
+                    ),
                   ),
-                  floatingActionButton: _buttonNextCurrentPage
-                      ? FloatingButtonCurrentPage(controller: _tabController)
-                      : null,
                 );
               },
             );

@@ -7,7 +7,7 @@
 		<key>NSCameraUsageDescription</key>
 		<string>Para capturar códigos QR</string>
 		<key>CFBundleDisplayName</key>
-		<string>MinhaLoja</string>
+		<string>TerraCotta</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>

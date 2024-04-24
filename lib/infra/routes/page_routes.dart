@@ -5,7 +5,13 @@ class PageRoutes {
   /// [Home]
   static const home = '/';
 
-  /// [Home]
+  /// [Pedidos]
+  static const order = '/pedidos/';
+
+  /// [Carrinho]
+  static const cartProducts = '/carrinho/';
+
+  /// [ProductDetails]
   static const productDetails = '/produto/';
 
   /// [Dashboard]

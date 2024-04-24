@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:minhaloja/presentation_layer/components/new_content_item.dart';
 
-import '../../../components/bottom_sheet_modal.dart';
-import '../../../../presentation_layer/components/product_details.dart';
-
 import 'package:minhaloja/data_layer/data_layer.dart';
 import 'package:minhaloja/domain_layer/domain_layer.dart';
 
@@ -54,10 +51,8 @@ class _ListProductsState extends State<ListProducts> {
       tabs.map(
         (tab) {
           final list = listItens
-              .where(
-                (element) =>
-                    element.categoryId == tab.id && element.status == true,
-              )
+              .where((element) =>
+                  element.categoryId == tab.id && element.status == true)
               .toList();
           return ListView.separated(
             padding: EdgeInsets.symmetric(
@@ -82,12 +77,6 @@ class _ListProductsState extends State<ListProducts> {
                   PageRoutes.productDetails,
                   arguments: {'product': list[index]},
                 ),
-                // BottomSheetModal.show(
-                //   context: context,
-                //   content: ProductDetails(
-                //     product: list[index],
-                //   ),
-                // ),
                 onTapCart: () => _cartCubit.addCartProduct(
                   product: list[index].copyWith(
                     id: list[index].id,

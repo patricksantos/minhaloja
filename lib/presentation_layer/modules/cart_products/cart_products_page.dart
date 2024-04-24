@@ -5,7 +5,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../presentation_layer/modules/delivery/delivery_module.dart';
 import '../../../presentation_layer/components/bottom_sheet_modal.dart';
-import '../../../presentation_layer/components/product_details.dart';
 import '../../../presentation_layer/modules/home/components/bottom_switch_type_store.dart';
 import '../../../presentation_layer/modules/cart_products/components/content_cart_item.dart';
 import '../../../presentation_layer/components/default_button.dart';
@@ -13,16 +12,7 @@ import '../../../presentation_layer/components/default_button.dart';
 import 'package:minhaloja/infra/infra.dart';
 
 class CartProductsPage extends StatefulWidget {
-  final String userId;
-  final String restaurantId;
-  final bool isExpanded;
-
-  const CartProductsPage({
-    super.key,
-    required this.userId,
-    required this.restaurantId,
-    required this.isExpanded,
-  });
+  const CartProductsPage({super.key});
 
   @override
   State<CartProductsPage> createState() => _CartProductsPageState();
@@ -30,12 +20,14 @@ class CartProductsPage extends StatefulWidget {
 
 class _CartProductsPageState extends State<CartProductsPage> {
   late CartCubit _cartCubit;
+  late AuthCubit _authCubit;
   late StoreCubit _storeCubit;
   double _totalValue = 0.0;
 
   @override
   void initState() {
     super.initState();
+    _authCubit = Modular.get<AuthCubit>();
     _cartCubit = Modular.get<CartCubit>();
     _storeCubit = Modular.get<StoreCubit>();
     _storeCubit.getFormPayment();
@@ -70,61 +62,43 @@ class _CartProductsPageState extends State<CartProductsPage> {
               topRight: Radius.circular(12.0),
             ),
           ),
-          height: !widget.isExpanded
-              ? MediaQuery.of(context).size.height * .95
-              : MediaQuery.of(context).size.height * .95 - 70,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
-              elevation: 0,
-              toolbarHeight: !widget.isExpanded ? 70.height : 0,
               centerTitle: true,
-              title: !widget.isExpanded
-                  ? Text(
-                      'Carrinho',
-                      style: design
-                          .h5(
+              title: Text(
+                'Carrinho',
+                style: design
+                    .h5(color: design.secondary100)
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
+              leading: Container(
+                padding: EdgeInsets.only(left: 10.width),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () =>
+                          Modular.to.pushReplacementNamed(PageRoutes.home),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.transparent,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 2.height),
+                          child: Icon(
+                            Icons.arrow_back,
                             color: design.secondary100,
-                          )
-                          .copyWith(
-                            fontWeight: FontWeight.w500,
+                            textDirection: TextDirection.ltr,
+                            size: 26.fontSize,
                           ),
-                    )
-                  : null,
-              leading: !widget.isExpanded
-                  ? Container(
-                      padding: EdgeInsets.only(
-                        left: 10.width,
+                        ),
                       ),
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            // onTap: Modular.to.pop,
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.transparent,
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 2.height),
-                                child: RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Icon(
-                                    Icons.arrow_back_ios_outlined,
-                                    color: design.secondary100,
-                                    textDirection: TextDirection.rtl,
-                                    size: 26.fontSize,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : null,
+                    ),
+                  ],
+                ),
+              ),
             ),
             body: state.productListCart.isNotEmpty
                 ? ListView.builder(
@@ -251,9 +225,10 @@ class _CartProductsPageState extends State<CartProductsPage> {
                         ? () {
                             _cartCubit.createOrder(
                               productOrderList: state.productListCart,
-                              restaurantId: widget.restaurantId,
+                              restaurantId:
+                                  state.productListCart.first.restaurantId,
                               storeType: _storeCubit.state.storeType,
-                              userId: widget.userId,
+                              userId: _authCubit.state.user?.id ?? '',
                               formPayment: _storeCubit.state.formPayment,
                               listFormPayment:
                                   _storeCubit.state.listFormPayment,

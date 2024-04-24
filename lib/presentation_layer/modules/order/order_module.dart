@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:minhaloja/data_layer/data_layer.dart';
@@ -7,14 +6,7 @@ import 'package:minhaloja/domain_layer/domain_layer.dart';
 import 'cubit/order_cubit.dart';
 import 'order_page.dart';
 
-class OrderModule extends WidgetModule {
-  final bool isExpanded;
-
-  OrderModule({
-    super.key,
-    required this.isExpanded,
-  });
-
+class OrderModule extends Module {
   @override
   List<Bind> get binds => [
         // DataSource
@@ -31,5 +23,10 @@ class OrderModule extends WidgetModule {
       ];
 
   @override
-  Widget get view => OrderPage(isExpanded: isExpanded);
+  final List<ModularRoute> routes = [
+    ChildRoute(
+      Modular.initialRoute,
+      child: (context, args) => const OrderPage(),
+    ),
+  ];
 }

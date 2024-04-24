@@ -1,21 +1,9 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'cubit/cart_products_cubit.dart';
 import 'cart_products_page.dart';
 
-class CartProductsModule extends WidgetModule {
-  final String userId;
-  final String restaurantId;
-  final bool isExpanded;
-
-  CartProductsModule({
-    super.key,
-    required this.userId,
-    required this.restaurantId,
-    required this.isExpanded,
-  });
-
+class CartProductsModule extends Module {
   @override
   List<Bind> get binds => [
         // DataSource
@@ -29,9 +17,10 @@ class CartProductsModule extends WidgetModule {
       ];
 
   @override
-  Widget get view => CartProductsPage(
-        restaurantId: restaurantId,
-        userId: userId,
-        isExpanded: isExpanded,
-      );
+  final List<ModularRoute> routes = [
+    ChildRoute(
+      '/',
+      child: (context, args) => const CartProductsPage(),
+    ),
+  ];
 }

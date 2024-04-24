@@ -23,7 +23,7 @@ class BottomSheetExpandable extends StatelessWidget {
       animationDurationContract: const Duration(milliseconds: 500),
       background: body,
       expandableContent: expandableContent,
-      persistentHeader: expandableHeader,
+      // persistentHeader: expandableHeader,
     );
   }
 }
