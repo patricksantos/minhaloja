@@ -54,206 +54,198 @@ class _CartProductsPageState extends State<CartProductsPage> {
         });
       },
       builder: (context, state) {
-        return Container(
-          decoration: BoxDecoration(
-            color: design.white,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12.0),
-              topRight: Radius.circular(12.0),
+        return Scaffold(
+          backgroundColor: design.white,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            title: Text(
+              'Carrinho',
+              style: design
+                  .h5(color: design.secondary100)
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+            leading: Container(
+              padding: EdgeInsets.only(left: 10.width),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () =>
+                        Modular.to.pushReplacementNamed(PageRoutes.home),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.transparent,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 2.height),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: design.secondary100,
+                          textDirection: TextDirection.ltr,
+                          size: 26.fontSize,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              title: Text(
-                'Carrinho',
-                style: design
-                    .h5(color: design.secondary100)
-                    .copyWith(fontWeight: FontWeight.w500),
-              ),
-              leading: Container(
-                padding: EdgeInsets.only(left: 10.width),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () =>
-                          Modular.to.pushReplacementNamed(PageRoutes.home),
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.transparent,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 2.height),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: design.secondary100,
-                            textDirection: TextDirection.ltr,
-                            size: 26.fontSize,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            body: state.productListCart.isNotEmpty
-                ? ListView.builder(
-                    controller: ModalScrollController.of(context),
-                    padding: EdgeInsets.symmetric(horizontal: 16.width),
-                    itemCount: state.productListCart.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final productListCart =
-                          state.productListCart.elementAt(index);
-                      final productItem = productListCart.products.first;
-                      return Padding(
-                        padding: EdgeInsets.only(top: 8.height),
-                        child: ContentCartItem(
-                          key: UniqueKey(),
-                          backgroundImage: productItem.image.first,
-                          title: productItem.name,
-                          price: productItem.value,
-                          counterCallback: (value) {
-                            final quantity = productListCart.quantity;
-                            if (value > quantity) {
-                              _cartCubit.addCartProduct(
-                                product: productItem,
-                              );
-                            } else if (value < quantity) {
-                              _cartCubit.removeCartProduct(
-                                product: productItem,
-                              );
-                            }
-                          },
-                          quantity: productListCart.quantity,
-                          note: productItem.note != null
-                              ? 'Nota: ${productItem.note}'
-                              : productItem.description,
-                          onTap: () => Modular.to.pushNamed(
-                            PageRoutes.productDetails,
-                            arguments: {'product': productItem},
-                          ),
-                          // BottomSheetModal.show(
-                          //   context: context,
-                          //   content: ProductDetails(
-                          //     product: productItem,
-                          //   ),
-                          // ),
-                          onTapRemoveItem: () => _cartCubit.removeCartProduct(
-                            product: productItem,
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.shopping_cart_outlined,
-                          color: design.secondary300,
-                          size: 60.fontSize,
-                        ),
-                        SizedBox(height: 8.height),
-                        Text(
-                          'Nenhum item foi adicionado\nao carrinho',
-                          textAlign: TextAlign.center,
-                          style: design
-                              .labelM(
-                                color: design.secondary300,
-                              )
-                              .copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-            bottomNavigationBar: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 14.height),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      (MediaQuery.of(context).size.width - 50.width).width ~/
-                          (8 + 3).width,
-                      (_) => Container(
-                        width: 8,
-                        height: 1.5,
-                        color: const Color(0xff939393),
-                        margin: EdgeInsets.symmetric(horizontal: (3 / 2).width),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Total',
-                      style: design
-                          .h5(color: design.secondary100)
-                          .copyWith(fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      'R\$${_totalValue.formatWithCurrency().trim()}',
-                      style: design.h5(color: design.secondary100).copyWith(
-                            fontSize: 20.fontSize,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 17.height),
-                SizedBox(
-                  height: 51,
-                  child: DefaultButton(
-                    label: 'Finalizar Pedido',
-                    primaryColor: design.terciary100,
-                    disable: state.productListCart.isEmpty,
-                    onPressed: _storeCubit.state.storeType == StoreType.menu
-                        ? () {
-                            _cartCubit.createOrder(
-                              productOrderList: state.productListCart,
-                              restaurantId:
-                                  state.productListCart.first.restaurantId,
-                              storeType: _storeCubit.state.storeType,
-                              userId: _authCubit.state.user?.id ?? '',
-                              formPayment: _storeCubit.state.formPayment,
-                              listFormPayment:
-                                  _storeCubit.state.listFormPayment,
+          body: state.productListCart.isNotEmpty
+              ? ListView.builder(
+                  controller: ModalScrollController.of(context),
+                  padding: EdgeInsets.symmetric(horizontal: 16.width),
+                  itemCount: state.productListCart.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final productListCart =
+                        state.productListCart.elementAt(index);
+                    final productItem = productListCart.products.first;
+                    return Padding(
+                      padding: EdgeInsets.only(top: 8.height),
+                      child: ContentCartItem(
+                        key: UniqueKey(),
+                        backgroundImage: productItem.image.first,
+                        title: productItem.name,
+                        price: productItem.value,
+                        counterCallback: (value) {
+                          final quantity = productListCart.quantity;
+                          if (value > quantity) {
+                            _cartCubit.addCartProduct(
+                              product: productItem,
                             );
-                            _showBottomSheetFeedback(
-                              context: context,
-                              design: design,
+                          } else if (value < quantity) {
+                            _cartCubit.removeCartProduct(
+                              product: productItem,
                             );
                           }
-                        : _storeCubit.state.storeType == StoreType.delivery
-                            ? () => BottomSheetModal.show(
-                                  context: context,
-                                  content: DeliveryModule(
-                                    totalValue: _totalValue,
-                                  ),
-                                )
-                            : () => bottomSheetStoreType(),
+                        },
+                        quantity: productListCart.quantity,
+                        note: productItem.note != null
+                            ? 'Nota: ${productItem.note}'
+                            : productItem.description,
+                        onTap: () => Modular.to.pushNamed(
+                          PageRoutes.productDetails(
+                            productItem.id.toString(),
+                          ),
+                          arguments: {'product': productItem},
+                        ),
+                        // BottomSheetModal.show(
+                        //   context: context,
+                        //   content: ProductDetails(
+                        //     product: productItem,
+                        //   ),
+                        // ),
+                        onTapRemoveItem: () => _cartCubit.removeCartProduct(
+                          product: productItem,
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        color: design.secondary300,
+                        size: 60.fontSize,
+                      ),
+                      SizedBox(height: 8.height),
+                      Text(
+                        'Nenhum item foi adicionado\nao carrinho',
+                        textAlign: TextAlign.center,
+                        style: design
+                            .labelM(
+                              color: design.secondary300,
+                            )
+                            .copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 16.height),
-              ],
-            ).addPadding(
-              EdgeInsets.symmetric(
-                horizontal: 20.width,
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 14.height),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    (MediaQuery.of(context).size.width - 50.width).width ~/
+                        (8 + 3).width,
+                    (_) => Container(
+                      width: 8,
+                      height: 1.5,
+                      color: const Color(0xff939393),
+                      margin: EdgeInsets.symmetric(horizontal: (3 / 2).width),
+                    ),
+                  ),
+                ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Total',
+                    style: design
+                        .h5(color: design.secondary100)
+                        .copyWith(fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    'R\$${_totalValue.formatWithCurrency().trim()}',
+                    style: design.h5(color: design.secondary100).copyWith(
+                          fontSize: 20.fontSize,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 17.height),
+              SizedBox(
+                height: 51,
+                child: DefaultButton(
+                  label: 'Finalizar Pedido',
+                  primaryColor: design.primary100,
+                  disable: state.productListCart.isEmpty,
+                  onPressed: _storeCubit.state.storeType == StoreType.menu
+                      ? () {
+                          _cartCubit.createOrder(
+                            productOrderList: state.productListCart,
+                            restaurantId:
+                                state.productListCart.first.restaurantId,
+                            storeType: _storeCubit.state.storeType,
+                            userId: _authCubit.state.user?.id ?? '',
+                            formPayment: _storeCubit.state.formPayment,
+                            listFormPayment: _storeCubit.state.listFormPayment,
+                          );
+                          _showBottomSheetFeedback(
+                            context: context,
+                            design: design,
+                          );
+                        }
+                      : _storeCubit.state.storeType == StoreType.delivery
+                          ? () => BottomSheetModal.show(
+                                context: context,
+                                content: DeliveryModule(
+                                  totalValue: _totalValue,
+                                ),
+                              )
+                          : () => bottomSheetStoreType(),
+                ),
+              ),
+              SizedBox(height: 16.height),
+            ],
+          ).addPadding(
+            EdgeInsets.symmetric(
+              horizontal: 20.width,
             ),
           ),
         );
@@ -270,7 +262,7 @@ class _CartProductsPageState extends State<CartProductsPage> {
       buttonTitle: 'Fechar',
       titleAppBar: 'Pedido',
       icon: Image.asset(
-        PathImages.onlineOrder,
+        PathImages.fastDelivery,
         height: 180.fontSize,
       ),
       onPressed: () => Modular.to.popUntil(

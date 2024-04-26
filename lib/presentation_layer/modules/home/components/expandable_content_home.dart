@@ -32,6 +32,7 @@ class _ExpandableContentHomeState extends State<ExpandableContentHome>
   void initState() {
     super.initState();
     _cartCubit = Modular.get<CartCubit>();
+    _cartCubit.getListCartStorage();
 
     _controller = ScrollController();
     _tabController = TabController(length: 2, vsync: this);

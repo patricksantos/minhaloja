@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:minhaloja/infra/infra.dart';
 
 final foodAppDesign = FoodAppDesign(
-  primary100: const Color(0xffc15123), // FF2800
+  primary100: const Color(0xffC65038), // c15123 C65038
   primary200: const Color(0xffc76238), // f44336
   primary300: const Color(0xffcd734e), // c30000
   secondary100: const Color(0xff1C1C1E),

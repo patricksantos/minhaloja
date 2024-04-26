@@ -206,6 +206,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "csslib",
+      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/csslib-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.5",
       "packageUri": "lib/",
@@ -434,6 +440,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_native_splash",
+      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/flutter_native_splash-2.2.16",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter_pdfview",
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/flutter_pdfview-1.2.5",
       "packageUri": "lib/",
@@ -534,6 +546,12 @@
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/graphs-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "html",
+      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/html-0.15.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "http",
@@ -1022,6 +1040,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "skeletonizer",
+      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/skeletonizer-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Applications/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -1098,6 +1122,12 @@
       "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/typed_data-1.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "universal_io",
+      "rootUri": "file:///Users/patrickbms/.pub-cache/hosted/pub.dev/universal_io-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "url_launcher",
@@ -1214,7 +1244,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2024-04-24T01:02:29.941484Z",
+  "generated": "2024-04-26T19:47:32.522832Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }

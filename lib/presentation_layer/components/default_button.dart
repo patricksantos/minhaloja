@@ -33,7 +33,7 @@ class DefaultButton extends StatelessWidget {
         minimumSize: const Size(double.maxFinite, 56.0),
         elevation: 0,
         backgroundColor: primaryColor ?? design.primary100,
-        disabledBackgroundColor: design.secondary300,
+        disabledBackgroundColor: design.primary100.withOpacity(.8),
         alignment: Alignment.center,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),

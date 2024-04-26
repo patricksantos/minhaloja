@@ -41,7 +41,7 @@ class FeedbackResultPage extends StatelessWidget {
           topRight: Radius.circular(12.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * .75,
+      // height: MediaQuery.of(context).size.height * .75,
       child: WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(

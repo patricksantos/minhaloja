@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:minhaloja/infra/infra.dart';
+import 'package:minhaloja/infra/utils.dart';
 
 class ContentOrder extends StatelessWidget {
   final String backgroundImage;
@@ -78,6 +79,7 @@ class ContentOrder extends StatelessWidget {
                 ),
               ),
             ),
+
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

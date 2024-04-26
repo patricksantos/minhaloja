@@ -12,7 +12,8 @@ class PageRoutes {
   static const cartProducts = '/carrinho/';
 
   /// [ProductDetails]
-  static const productDetails = '/produto/';
+  // static const productDetails = '/produto/';
+  static String productDetails(String id) => '/produto/$id';
 
   /// [Dashboard]
   static const dashboard = '/dashboard/';

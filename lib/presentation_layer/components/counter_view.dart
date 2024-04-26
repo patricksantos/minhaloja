@@ -55,7 +55,7 @@ class _CounterViewState extends State<CounterView> {
         ),
         decoration: BoxDecoration(
           border: Border.all(
-            color: design.secondary300,
+            color: widget.color ?? design.secondary300,
             width: 1.0,
           ),
           borderRadius: BorderRadius.circular(12),
@@ -68,6 +68,7 @@ class _CounterViewState extends State<CounterView> {
               Icons.remove,
               () => _dicrement(),
               design,
+              widget.colorText,
             ),
             Text(
               _currentCount.toString(),
@@ -81,6 +82,7 @@ class _CounterViewState extends State<CounterView> {
               Icons.add,
               () => _increment(),
               design,
+              widget.colorText,
             ),
           ],
         ),
@@ -110,6 +112,7 @@ class _CounterViewState extends State<CounterView> {
     IconData icon,
     Function() onPressed,
     FoodAppDesign design,
+    Color? color,
   ) {
     return InkWell(
       onTap: onPressed,
@@ -120,7 +123,7 @@ class _CounterViewState extends State<CounterView> {
         ),
         child: Icon(
           icon,
-          color: design.secondary100,
+          color: color ?? design.secondary100,
           size: 16.0.fontSize,
         ),
       ),

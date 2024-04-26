@@ -51,6 +51,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     super.initState();
     _cartCubit = Modular.get<CartCubit>();
+    _cartCubit.getListCartStorage();
+    
     _carouselController = CarouselController();
     _textEditingController = TextEditingController();
   }

@@ -16,6 +16,7 @@ enum HomeAction {
 
 class HomeState extends Equatable {
   final Failure? failure;
+  final bool loading;
   final List<ProductDTO>? itens;
   final List<CategoryEntity>? categories;
   final RestaurantEntity? restaurant;
@@ -23,6 +24,7 @@ class HomeState extends Equatable {
 
   HomeState({
     this.failure,
+    this.loading = true,
     this.restaurant,
     this.itens,
     this.categories,
@@ -31,6 +33,7 @@ class HomeState extends Equatable {
 
   HomeState copyWith({
     Failure? failure,
+    bool? loading,
     List<ProductDTO>? itens,
     List<CategoryEntity>? categories,
     RestaurantEntity? restaurant,
@@ -38,6 +41,7 @@ class HomeState extends Equatable {
   }) {
     return HomeState(
       actions: actions ?? this.actions,
+      loading: loading ?? this.loading,
       itens: itens ?? this.itens,
       categories: categories ?? this.categories,
       restaurant: restaurant ?? this.restaurant,
@@ -48,6 +52,7 @@ class HomeState extends Equatable {
   @override
   List<Object?> get props => [
         failure,
+        loading,
         itens,
         categories,
         restaurant,

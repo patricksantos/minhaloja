@@ -74,7 +74,9 @@ class _ListProductsState extends State<ListProducts> {
                 description: list[index].description,
                 price: list[index].value,
                 onTap: () => Modular.to.pushNamed(
-                  PageRoutes.productDetails,
+                  PageRoutes.productDetails(
+                    list[index].id.toString(),
+                  ),
                   arguments: {'product': list[index]},
                 ),
                 onTapCart: () => _cartCubit.addCartProduct(

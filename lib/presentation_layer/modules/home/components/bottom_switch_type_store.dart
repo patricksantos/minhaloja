@@ -97,7 +97,7 @@ class BottomSwitchTypeStore extends StatelessWidget {
       child: Container(
         height: 160,
         width: 150,
-        padding: EdgeInsets.symmetric(vertical: 20.height),
+        padding: EdgeInsets.symmetric(vertical: 14.height),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(12),

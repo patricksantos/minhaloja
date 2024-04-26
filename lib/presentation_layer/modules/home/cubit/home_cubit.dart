@@ -20,21 +20,20 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> init() async {
+    update(loading: true);
     await getRestaurant();
     await getFeaturedItens();
     await getCategoriesItens();
+    update(loading: false);
   }
 
   Future<void> getFeaturedItens() async {
-    update(loading: true);
     final request = await _getProductUseCase(restaurantId: 1.toString());
 
     request.result(
       (product) {
         emit(state.copyWith(itens: product));
-        update(
-          actions: {HomeAction.productSuccessfully},
-        );
+        update(actions: {HomeAction.productSuccessfully});
       },
       (e) => update(failure: e),
     );
@@ -48,9 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
     request.result(
       (categories) {
         emit(state.copyWith(categories: categories));
-        update(
-          actions: {HomeAction.categorySuccessfully},
-        );
+        update(actions: {HomeAction.categorySuccessfully});
       },
       (e) => update(failure: e),
     );
@@ -76,9 +73,7 @@ class HomeCubit extends Cubit<HomeState> {
         emit(
           state.copyWith(restaurant: restaurant),
         );
-        update(
-          actions: {HomeAction.restaurantSuccessfully},
-        );
+        update(actions: {HomeAction.restaurantSuccessfully});
       },
       (e) {
         update(failure: e);
@@ -87,22 +82,20 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void update({
-    bool loading = false,
+    bool? loading,
     Failure? failure,
     Set<HomeAction>? actions,
   }) {
-    Set<HomeAction> newActions = actions ??
-        state.actions.difference(
-          {HomeAction.creating},
-        );
-    if (loading) {
+    Set<HomeAction> newActions =
+        actions ?? state.actions.difference({HomeAction.creating});
+
+    if (loading == true) {
       newActions = newActions.union({HomeAction.creating});
+      emit(state.copyWith(loading: loading));
+    } else if (loading == false) {
+      emit(state.copyWith(loading: loading));
     }
-    emit(
-      state.copyWith(
-        actions: newActions,
-        failure: failure,
-      ),
-    );
+
+    emit(state.copyWith(actions: newActions, failure: failure));
   }
 }

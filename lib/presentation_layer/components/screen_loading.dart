@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:minhaloja/infra/infra.dart';
 
 class ScreenLoading extends StatelessWidget {
-  const ScreenLoading({super.key});
+  final Color? backgroundColor;
+  final Color? progressColor;
+  const ScreenLoading({super.key, this.backgroundColor, this.progressColor});
 
   @override
   Widget build(BuildContext context) {
     final design = DesignSystem.of(context);
     return Container(
-      color: design.white,
+      color: backgroundColor ?? design.primary100,
       height: MediaQuery.of(context).size.height * .95 - 70,
       child: Center(
         child: CircularProgressIndicator(
-          color: design.secondary300,
+          color: progressColor ?? const Color(0xffFFEFD5),
         ),
       ),
     );
