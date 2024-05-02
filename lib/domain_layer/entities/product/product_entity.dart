@@ -1,3 +1,4 @@
+import 'package:minhaloja/domain_layer/entities/combo/combo_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductEntity {
@@ -5,6 +6,7 @@ class ProductEntity {
   int? quantity;
   bool status;
   bool emphasis;
+  final List<ComboEntity> combos;
   final String restaurantId;
   final String categoryId;
   final String name;
@@ -24,6 +26,7 @@ class ProductEntity {
     required this.name,
     required this.description,
     required this.image,
+    required this.combos,
     required this.value,
   }) {
     var uuid = const Uuid();

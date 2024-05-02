@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:minhaloja/data_layer/data_layer.dart';
+import 'package:minhaloja/data_layer/dtos/combo/combo_dto.dart';
 import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -24,17 +25,13 @@ class CartCubit extends Cubit<CartState> {
   void getListCartStorage() {
     _getProductsUseCase().then(
       (value) {
-        emit(
-          state.copyWith(products: value as List<ProductDTO>?),
-        );
+        emit(state.copyWith(products: value as List<ProductDTO>?));
       },
     );
     _getCartItensUseCase().then(
       (value) {
         emit(
-          state.copyWith(
-            productListCart: value as List<ProductListCartDTO>?,
-          ),
+          state.copyWith(productListCart: value as List<ProductListCartDTO>?),
         );
       },
     );
@@ -43,14 +40,25 @@ class CartCubit extends Cubit<CartState> {
   void addCartProduct({
     required ProductDTO product,
   }) {
+    ComboEntity? comboProduct;
+    if (product.combos.isNotEmpty) {
+      comboProduct = product.combos
+          .firstWhereOrNull((element) => element.isSelected == true);
+    }
+
     ProductListCartDTO? result = state.productListCart
-        .where(((element) => element.productId == product.id))
+        .where(((item) =>
+            item.productId == product.id &&
+            comboProduct?.name == item.combo?.name))
         .firstOrNull;
+
     if (result == null) {
       final item = ProductListCartDTO(
         productId: product.id!,
         restaurantId: product.restaurantId,
         quantity: 1,
+        combo: product.combos
+            .firstWhereOrNull((element) => element.isSelected == true),
         products: [product],
       );
       emit(
@@ -62,7 +70,14 @@ class CartCubit extends Cubit<CartState> {
     } else {
       final newList = state.productListCart.map(
         (item) {
-          if (item.productId == product.id) {
+          var params = product.combos.firstWhereOrNull(
+            (element) => element.isSelected == true,
+          );
+          var params2 = params != null
+              ? params.name == (item.combo?.name ?? params.name)
+              : true;
+
+          if (item.productId == product.id && params2) {
             item.products.add(product);
             item.quantity = item.quantity + 1;
           }
@@ -81,18 +96,26 @@ class CartCubit extends Cubit<CartState> {
 
   void addAllCartProducts({
     required List<ProductDTO> products,
+    required ComboDTO? combo,
   }) {
     final product = products.first;
     final productId = product.id;
     final restaurantId = product.restaurantId;
+
     ProductListCartDTO? result = state.productListCart
-        .where(((element) => element.productId == productId))
+        .where(
+          ((element) =>
+              (element.productId == productId) &&
+              (element.combo?.name == (combo?.name ?? element.combo?.name))),
+        )
         .firstOrNull;
+
     if (result == null) {
       final item = ProductListCartDTO(
         productId: productId!,
         restaurantId: restaurantId,
         quantity: products.length,
+        combo: combo,
         products: [...products],
       );
       emit(
@@ -124,24 +147,32 @@ class CartCubit extends Cubit<CartState> {
   void removeCartProduct({
     required ProductDTO product,
   }) {
+    ComboEntity? comboProduct;
+    if (product.combos.isNotEmpty) {
+      comboProduct = product.combos
+          .firstWhereOrNull((element) => element.isSelected == true);
+    }
+
     List<ProductDTO> list = [];
     for (var item in state.products) {
       if (item.id != product.id) {
         list.add(item);
       }
     }
+
     bool flag = false;
     for (var item in state.products) {
-      if (item.id == product.id && flag == true) {
+      if (item.id == product.id && item == product && flag == true) {
         list.add(item);
-      } else if (item.id == product.id) {
+      } else if (item.id == product.id && item == product) {
         flag = true;
       }
     }
 
     List<ProductListCartDTO> listCart = [];
     for (var item in state.productListCart) {
-      if (item.productId == product.id) {
+      if (item.productId == product.id &&
+          comboProduct?.name == item.combo?.name) {
         item.products.removeLast();
         item.quantity = item.quantity - 1;
         if (item.products.isNotEmpty || item.quantity != 0) {

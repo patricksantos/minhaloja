@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:minhaloja/data_layer/dtos/combo/combo_dto.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../presentation_layer/modules/delivery/delivery_module.dart';
 import '../../../presentation_layer/components/bottom_sheet_modal.dart';
@@ -29,6 +31,8 @@ class _CartProductsPageState extends State<CartProductsPage> {
     super.initState();
     _authCubit = Modular.get<AuthCubit>();
     _cartCubit = Modular.get<CartCubit>();
+    _cartCubit.getListCartStorage();
+
     _storeCubit = Modular.get<StoreCubit>();
     _storeCubit.getFormPayment();
 
@@ -100,23 +104,60 @@ class _CartProductsPageState extends State<CartProductsPage> {
                   itemBuilder: (BuildContext context, int index) {
                     final productListCart =
                         state.productListCart.elementAt(index);
+                    final combo = productListCart.combo;
                     final productItem = productListCart.products.first;
+                    var id = const Uuid().v4();
                     return Padding(
                       padding: EdgeInsets.only(top: 8.height),
                       child: ContentCartItem(
-                        key: UniqueKey(),
+                        key: Key(id),
                         backgroundImage: productItem.image.first,
                         title: productItem.name,
                         price: productItem.value,
+                        combo: combo,
                         counterCallback: (value) {
                           final quantity = productListCart.quantity;
                           if (value > quantity) {
+                            var product = productItem;
                             _cartCubit.addCartProduct(
-                              product: productItem,
+                              product: product.copyWith(
+                                combos: productItem.combos.map((element) {
+                                  if (element.name == combo?.name) {
+                                    return ComboDTO(
+                                      name: element.name,
+                                      value: element.value,
+                                      isSelected: true,
+                                    );
+                                  } else {
+                                    return ComboDTO(
+                                      name: element.name,
+                                      value: element.value,
+                                      isSelected: false,
+                                    );
+                                  }
+                                }).toList(),
+                              ),
                             );
                           } else if (value < quantity) {
+                            var product = productItem;
                             _cartCubit.removeCartProduct(
-                              product: productItem,
+                              product: product.copyWith(
+                                combos: productItem.combos.map((element) {
+                                  if (element.name == combo?.name) {
+                                    return ComboDTO(
+                                      name: element.name,
+                                      value: element.value,
+                                      isSelected: true,
+                                    );
+                                  } else {
+                                    return ComboDTO(
+                                      name: element.name,
+                                      value: element.value,
+                                      isSelected: false,
+                                    );
+                                  }
+                                }).toList(),
+                              ),
                             );
                           }
                         },

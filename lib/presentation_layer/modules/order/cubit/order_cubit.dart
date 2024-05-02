@@ -43,9 +43,7 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
-  void _addCartOrder({
-    required ProductDTO product,
-  }) {
+  void _addCartOrder({required ProductDTO product}) {
     ProductListCartDTO? result = state.productOrderList
         .where(
           ((element) =>
@@ -59,6 +57,8 @@ class OrderCubit extends Cubit<OrderState> {
         productId: product.id!,
         restaurantId: product.restaurantId,
         quantity: 1,
+        combo: product.combos
+            .firstWhereOrNull((element) => element.isSelected == true),
         products: [product],
       );
       emit(

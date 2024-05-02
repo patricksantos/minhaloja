@@ -156,12 +156,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 ),
                                                 arguments: {'product': product},
                                               ),
-                                              onTapCart: () =>
-                                                  _cartCubit.addCartProduct(
-                                                product: product.copyWith(
-                                                  id: product.id,
-                                                ),
-                                              ),
                                             ).addPadding(EdgeInsets.only(
                                               right: 12.width,
                                             )),

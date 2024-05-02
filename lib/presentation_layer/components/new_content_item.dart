@@ -9,7 +9,7 @@ class NewContentItem extends StatelessWidget {
   final String description;
   final double price;
   final VoidCallback? onTap;
-  final VoidCallback? onTapCart;
+  // final VoidCallback? onTapCart;
 
   const NewContentItem({
     super.key,
@@ -18,7 +18,7 @@ class NewContentItem extends StatelessWidget {
     required this.description,
     required this.price,
     required this.onTap,
-    required this.onTapCart,
+    // required this.onTapCart,
   });
 
   @override
@@ -131,35 +131,35 @@ class NewContentItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          onTapCart?.call();
-                          context.showSnackBar(
-                            closeIconColor: true,
-                            message: 'Item adicionado ao carrinho',
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: design.primary100,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          width: 25,
-                          height: 25,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 1),
-                            child: Icon(
-                              Icons.shopping_cart_rounded,
-                              color: design.white,
-                              size: 16.fontSize,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     InkWell(
+                  //       onTap: () {
+                  //         onTapCart?.call();
+                  //         context.showSnackBar(
+                  //           closeIconColor: true,
+                  //           message: 'Item adicionado ao carrinho',
+                  //         );
+                  //       },
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //           color: design.primary100,
+                  //           borderRadius: BorderRadius.circular(20),
+                  //         ),
+                  //         width: 25,
+                  //         height: 25,
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.only(left: 1),
+                  //           child: Icon(
+                  //             Icons.shopping_cart_rounded,
+                  //             color: design.white,
+                  //             size: 16.fontSize,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
                 ],
               ).addPadding(
                 EdgeInsets.symmetric(

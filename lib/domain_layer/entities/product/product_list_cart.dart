@@ -7,12 +7,14 @@ class ProductListCart {
   int quantity;
   final String productId;
   final String restaurantId;
+  final ComboEntity? combo;
   final List<ProductEntity> products;
 
   ProductListCart({
     required this.products,
     required this.productId,
     required this.restaurantId,
+    required this.combo,
     this.quantity = 0,
     this.id,
   }) {

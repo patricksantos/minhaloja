@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:uuid/uuid.dart';
+
+import 'package:minhaloja/data_layer/dtos/combo/combo_dto.dart';
 import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 import '../../../infra/utils.dart';
@@ -17,6 +20,7 @@ class ProductDTO extends ProductEntity {
     required super.name,
     required super.description,
     required super.image,
+    required super.combos,
     required super.value,
   }) {
     var uuid = const Uuid();
@@ -34,6 +38,7 @@ class ProductDTO extends ProductEntity {
     String? description,
     String? note,
     List<String>? image,
+    List<ComboDTO>? combos,
     double? value,
   }) {
     return ProductDTO(
@@ -47,6 +52,7 @@ class ProductDTO extends ProductEntity {
       description: description ?? this.description,
       note: note ?? this.note,
       image: image ?? this.image,
+      combos: combos ?? this.combos,
       value: value ?? this.value,
     );
   }
@@ -63,6 +69,13 @@ class ProductDTO extends ProductEntity {
       'description': description,
       'note': note,
       'image': image,
+      'combos': combos
+          .map((x) => <String, dynamic>{
+                'name': x.name,
+                'value': x.value,
+                'isSelected': x.isSelected,
+              })
+          .toList(),
       'value': value,
     };
   }
@@ -81,7 +94,22 @@ class ProductDTO extends ProductEntity {
       description: map['description'] as String,
       note: map['note'] != null ? map['note'] as String : null,
       image: List<String>.from((map['image'])),
+      combos: map['combos'] != null && (map['combos'] as List).isNotEmpty
+          ? (map['combos'] as List)
+              .map((combo) => ComboDTO.fromJson(combo))
+              .toList()
+          : [],
       value: map['value'] as double,
     );
   }
+
+  @override
+  bool operator ==(covariant ProductDTO other) {
+    if (identical(this, other)) return true;
+
+    return other.statusOrder == statusOrder && other.orderId == orderId;
+  }
+
+  @override
+  int get hashCode => statusOrder.hashCode ^ orderId.hashCode;
 }

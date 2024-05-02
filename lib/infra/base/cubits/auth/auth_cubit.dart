@@ -175,29 +175,29 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     update(loading: true);
 
-    final restaurant = RestaurantRequestDTO(
-      address: AddressDTO(
-        city: city,
-        complement: complement,
-        country: country,
-        neighborhood: neighborhood,
-        number: number,
-        street: street,
-        zipCode: zipCode,
-        state: stateCountry,
-      ),
-      banner: [],
-      user: user,
-      userId: userId,
-      cnpj: cnpj,
-      phoneNumber: phoneNumber,
-      url: url,
-      logoUrl: PathImages.iconRestaurant,
-      backgroundUrl: PathImages.pizza,
-      name: name,
-      description: description,
-      segment: segment,
-    );
+    // final restaurant = RestaurantRequestDTO(
+    //   address: AddressDTO(
+    //     city: city,
+    //     complement: complement,
+    //     country: country,
+    //     neighborhood: neighborhood,
+    //     number: number,
+    //     street: street,
+    //     zipCode: zipCode,
+    //     state: stateCountry,
+    //   ),
+    //   banner: [],
+    //   user: user,
+    //   userId: userId,
+    //   cnpj: cnpj,
+    //   phoneNumber: phoneNumber,
+    //   url: url,
+    //   logoUrl: PathImages.iconRestaurant,
+    //   backgroundUrl: PathImages.pizza,
+    //   name: name,
+    //   description: description,
+    //   segment: segment,
+    // );
 
     // ignore: unused_local_variable
     final requestUploadImage = await _uploadImageUseCase(
@@ -319,6 +319,7 @@ class AuthCubit extends Cubit<AuthState> {
       description: description,
       value: value,
       image: image,
+      combos: [],
     );
 
     final request = await _createProductUseCase(product: product);

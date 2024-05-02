@@ -8,7 +8,6 @@ class ProductFeaturedItem extends StatelessWidget {
   final String title;
   final double price;
   final VoidCallback? onTap;
-  final VoidCallback? onTapCart;
 
   const ProductFeaturedItem({
     super.key,
@@ -16,7 +15,6 @@ class ProductFeaturedItem extends StatelessWidget {
     required this.title,
     required this.price,
     required this.onTap,
-    required this.onTapCart,
   });
 
   @override

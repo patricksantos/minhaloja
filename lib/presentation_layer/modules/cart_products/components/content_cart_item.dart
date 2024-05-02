@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:minhaloja/domain_layer/entities.dart';
 import '../../../../presentation_layer/components/counter_view.dart';
 
 import 'package:minhaloja/infra/infra.dart';
@@ -10,6 +11,7 @@ class ContentCartItem extends StatelessWidget {
   final String? note;
   final double price;
   final int quantity;
+  final ComboEntity? combo;
   final VoidCallback? onTap;
   final VoidCallback? onTapRemoveItem;
   final dynamic Function(int)? counterCallback;
@@ -19,6 +21,7 @@ class ContentCartItem extends StatelessWidget {
     required this.backgroundImage,
     required this.title,
     required this.note,
+    required this.combo,
     required this.price,
     required this.quantity,
     required this.onTap,
@@ -93,7 +96,7 @@ class ContentCartItem extends StatelessWidget {
                           alignment: Alignment.center,
                           height: 35,
                           child: Text(
-                            'R\$ ${price.formatWithCurrency().trim()}',
+                            'R\$ ${combo?.value ?? price.formatWithCurrency().trim()}',
                             style: design
                                 .labelM(
                                   color: design.white,
@@ -152,9 +155,24 @@ class ContentCartItem extends StatelessWidget {
                                 ),
                           ),
                         ),
-                        note != null
+                        // note != null
+                        //     ? Text(
+                        //         note ?? '',
+                        //         maxLines: 1,
+                        //         overflow: TextOverflow.ellipsis,
+                        //         style: design
+                        //             .labelS(
+                        //               color: design.white.withOpacity(0.7),
+                        //             )
+                        //             .copyWith(
+                        //               fontSize: 14.fontSize,
+                        //               fontWeight: FontWeight.w500,
+                        //             ),
+                        //       )
+                        //     : Container(),
+                        combo != null
                             ? Text(
-                                note ?? '',
+                                'Tamanho: ${combo!.name.toUpperCase()}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: design

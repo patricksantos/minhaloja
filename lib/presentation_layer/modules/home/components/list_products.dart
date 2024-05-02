@@ -24,12 +24,12 @@ class ListProducts extends StatefulWidget {
 }
 
 class _ListProductsState extends State<ListProducts> {
-  late CartCubit _cartCubit;
+  // late CartCubit _cartCubit;
 
   @override
   void initState() {
     super.initState();
-    _cartCubit = Modular.get<CartCubit>();
+    // _cartCubit = Modular.get<CartCubit>();
   }
 
   @override
@@ -79,11 +79,11 @@ class _ListProductsState extends State<ListProducts> {
                   ),
                   arguments: {'product': list[index]},
                 ),
-                onTapCart: () => _cartCubit.addCartProduct(
-                  product: list[index].copyWith(
-                    id: list[index].id,
-                  ),
-                ),
+                // onTapCart: () => _cartCubit.addCartProduct(
+                //   product: list[index].copyWith(
+                //     id: list[index].id,
+                //   ),
+                // ),
               );
             },
           );
