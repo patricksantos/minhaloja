@@ -10,14 +10,17 @@ abstract class StoreModule {
   static List<Bind> get binds => [
         // DataSource
         Bind.lazySingleton((i) => FormPaymentDataSource(firebase: i())),
+        Bind.lazySingleton((i) => RestaurantDataSource(firebase: i())),
 
         // Repository
         Bind.lazySingleton((i) => FormPaymentRepository(dataSource: i())),
+        Bind.lazySingleton((i) => RestaurantRepository(dataSource: i())),
 
         // Use Cases
         Bind.lazySingleton((i) => GetFormPaymentUseCase(repository: i())),
+        Bind.lazySingleton((i) => GetRestaurantUseCase(repository: i())),
 
         // Cubit
-        Bind.lazySingleton((i) => StoreCubit(i())),
+        Bind.lazySingleton((i) => StoreCubit(i(), i())),
       ];
 }

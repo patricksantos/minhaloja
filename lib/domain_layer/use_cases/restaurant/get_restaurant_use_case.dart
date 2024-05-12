@@ -9,13 +9,7 @@ class GetRestaurantUseCase {
     required RestaurantRepositoryInterface repository,
   }) : _repository = repository;
 
-  Future<Result<RestaurantDTO>> call({
-    String? name,
-    String? userId,
-  }) async {
-    return await _repository.getRestaurant(
-      name: name,
-      userId: userId,
-    );
+  Future<Result<RestaurantDTO>> call() async {
+    return await _repository.getRestaurant();
   }
 }

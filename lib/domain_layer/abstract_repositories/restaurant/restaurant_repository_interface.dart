@@ -10,8 +10,5 @@ abstract class RestaurantRepositoryInterface {
     required RestaurantRequestDTO restaurant,
   });
 
-  Future<Result<RestaurantDTO>> getRestaurant({
-    required String? name,
-    required String? userId,
-  });
+  Future<Result<RestaurantDTO>> getRestaurant();
 }

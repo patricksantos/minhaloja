@@ -8,6 +8,7 @@ class DBCollections {
   static const order = 'order';
   static const orderProduct = 'order_product';
   static const formPayment = 'form_payment';
+  static const banner = 'banner';
 }
   // void getFeaturedItens2() {
   //   emit(

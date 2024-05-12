@@ -11,3 +11,4 @@ export 'dtos/order/order_dto.dart';
 export 'dtos/address/user_address_zipcode_response_dto.dart';
 export 'dtos/form_payment/form_payment_dto.dart';
 export 'dtos/qrcode/qrcode_dto.dart';
+export 'dtos/banner/banner_dto.dart';

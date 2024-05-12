@@ -9,7 +9,7 @@ import 'package:minhaloja/infra/infra.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final CreateUserUseCase _createUserUseCase;
-  final CreateRestaurantUseCase _createRestaurantUseCase;
+  // final CreateRestaurantUseCase _createRestaurantUseCase;
   final UpdateRestaurantUseCase _updateRestaurantUseCase;
   final CreateCategoryUseCase _createCategoryUseCase;
   final CreateProductUseCase _createProductUseCase;
@@ -22,7 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(
     this._createUserUseCase,
-    this._createRestaurantUseCase,
+    // this._createRestaurantUseCase,
     this._updateRestaurantUseCase,
     this._createCategoryUseCase,
     this._createProductUseCase,
@@ -153,82 +153,82 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> createRestaurant({
-    required UserEntity user,
-    required String userId,
-    required String cnpj,
-    required String phoneNumber,
-    required String url,
-    required String logoUrl,
-    required String backgroundUrl, // TODO: Ajustar
-    required String name,
-    required String description,
-    required String segment,
-    required String city,
-    required String complement,
-    required String country,
-    required String neighborhood,
-    required String number,
-    required String street,
-    required String zipCode,
-    required String stateCountry,
-  }) async {
-    update(loading: true);
+  // Future<void> createRestaurant({
+  //   required UserEntity user,
+  //   required String userId,
+  //   required String cnpj,
+  //   required String phoneNumber,
+  //   required String url,
+  //   required String logoUrl,
+  //   required String backgroundUrl, // TODO: Ajustar
+  //   required String name,
+  //   required String description,
+  //   required String segment,
+  //   required String city,
+  //   required String complement,
+  //   required String country,
+  //   required String neighborhood,
+  //   required String number,
+  //   required String street,
+  //   required String zipCode,
+  //   required String stateCountry,
+  // }) async {
+  //   update(loading: true);
 
-    // final restaurant = RestaurantRequestDTO(
-    //   address: AddressDTO(
-    //     city: city,
-    //     complement: complement,
-    //     country: country,
-    //     neighborhood: neighborhood,
-    //     number: number,
-    //     street: street,
-    //     zipCode: zipCode,
-    //     state: stateCountry,
-    //   ),
-    //   banner: [],
-    //   user: user,
-    //   userId: userId,
-    //   cnpj: cnpj,
-    //   phoneNumber: phoneNumber,
-    //   url: url,
-    //   logoUrl: PathImages.iconRestaurant,
-    //   backgroundUrl: PathImages.pizza,
-    //   name: name,
-    //   description: description,
-    //   segment: segment,
-    // );
+  //   // final restaurant = RestaurantRequestDTO(
+  //   //   address: AddressDTO(
+  //   //     city: city,
+  //   //     complement: complement,
+  //   //     country: country,
+  //   //     neighborhood: neighborhood,
+  //   //     number: number,
+  //   //     street: street,
+  //   //     zipCode: zipCode,
+  //   //     state: stateCountry,
+  //   //   ),
+  //   //   banner: [],
+  //   //   user: user,
+  //   //   userId: userId,
+  //   //   cnpj: cnpj,
+  //   //   phoneNumber: phoneNumber,
+  //   //   url: url,
+  //   //   logoUrl: PathImages.iconRestaurant,
+  //   //   backgroundUrl: PathImages.pizza,
+  //   //   name: name,
+  //   //   description: description,
+  //   //   segment: segment,
+  //   // );
 
-    // ignore: unused_local_variable
-    final requestUploadImage = await _uploadImageUseCase(
-      path: logoUrl,
-      storageType: StorageType.store,
-    );
+  //   // ignore: unused_local_variable
+  //   final requestUploadImage = await _uploadImageUseCase(
+  //     path: logoUrl,
+  //     storageType: StorageType.store,
+  //   );
 
-    update(loading: false);
+  //   update(loading: false);
 
-    // final request = await _createRestaurantUseCase(restaurant: restaurant);
+  //   // final request = await _createRestaurantUseCase(restaurant: restaurant);
 
-    // request.result(
-    //   (_) {
-    //     emit(state.copyWith(restaurant: restaurant));
-    //     update(actions: {AuthAction.restaurantSuccessfully});
-    //     update(loading: false);
-    //   },
-    //   (e) => update(failure: e, loading: false),
-    // );
-  }
+  //   // request.result(
+  //   //   (_) {
+  //   //     emit(state.copyWith(restaurant: restaurant));
+  //   //     update(actions: {AuthAction.restaurantSuccessfully});
+  //   //     update(loading: false);
+  //   //   },
+  //   //   (e) => update(failure: e, loading: false),
+  //   // );
+  // }
 
   Future<void> updateRestaurant({
-    required UserEntity user,
+    // required UserEntity user,
     required String id,
-    required String userId,
+    // required String userId,
     required String addressId,
     required String cnpj,
     required String phoneNumber,
     required String url,
-    required String? logoUrl, // TODO: Ajustar
-    required String? backgroundUrl, // TODO: Ajustar
+    required String logoUrl,
+    required String backgroundUrl,
     required String name,
     required String description,
     required String segment,
@@ -240,6 +240,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String street,
     required String zipCode,
     required String stateCountry,
+    required List<BannerEntity> banner,
   }) async {
     // Sempre mandar o ID do restaurante
     final restaurant = RestaurantRequestDTO(
@@ -254,15 +255,13 @@ class AuthCubit extends Cubit<AuthState> {
         zipCode: zipCode,
         state: stateCountry,
       ),
-      banner: [],
+      banner: banner,
       id: id,
-      user: user,
-      userId: userId,
       cnpj: cnpj,
       phoneNumber: phoneNumber,
       url: url,
-      logoUrl: PathImages.iconRestaurant,
-      backgroundUrl: PathImages.pizza,
+      logoUrl: logoUrl,
+      backgroundUrl: backgroundUrl,
       name: name,
       description: description,
       segment: segment,
@@ -365,12 +364,8 @@ class AuthCubit extends Cubit<AuthState> {
                   complement: '',
                 )
               : null;
-          emit(
-            state.copyWith(address: addressDTO),
-          );
-          update(
-            actions: address != null ? {AuthAction.cepSuccessfully} : {},
-          );
+          emit(state.copyWith(address: addressDTO));
+          update(actions: address != null ? {AuthAction.cepSuccessfully} : {});
         },
         (error) {
           update(failure: error);

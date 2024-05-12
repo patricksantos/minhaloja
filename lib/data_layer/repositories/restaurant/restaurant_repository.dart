@@ -28,13 +28,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
   }
 
   @override
-  Future<Result<RestaurantDTO>> getRestaurant({
-    String? name,
-    String? userId,
-  }) async {
-    return await _dataSource.getRestaurant(
-      name: name,
-      userId: userId,
-    );
+  Future<Result<RestaurantDTO>> getRestaurant() async {
+    return await _dataSource.getRestaurant();
   }
 }

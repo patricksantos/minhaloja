@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:minhaloja/presentation_layer/components/screen_loading.dart';
+// import 'package:minhaloja/presentation_layer/modules/home/cubit/home_cubit.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -236,8 +237,27 @@ class _OrderPageState extends State<OrderPage> {
                               primaryColor: const Color(0xff25d366),
                               disable: orderState.productOrderList.isEmpty,
                               onPressed: () async {
-                                var text =
-                                    'Olá gostaria de falar sobre o pedido de número #${orderState.productOrderList.first.order.toString()}';
+                                var text = '''
+🌟 Bem-vindo à nossa loja! 🌟
+
+Estamos extremamente felizes por você estar aqui! Na nossa loja, não vendemos apenas produtos; vendemos experiências que esperamos que tragam alegria e satisfação para sua vida. Explore nossos itens cuidadosamente selecionados e deixe-se envolver pela diversidade e qualidade que oferecemos.
+
+ℹ️ Detalhes do Pedido #${orderState.productOrderList.first.order.toString()}:
+Em nossa coleção, você encontrará uma variedade de produtos que foram escolhidos com dedicação e paixão. Desde itens de decoração para transformar seu espaço em um verdadeiro refúgio até gadgets tecnológicos que facilitam o seu dia a dia, temos algo para todos os gostos e necessidades. Cada produto é selecionado com base em critérios rigorosos de qualidade, durabilidade e estilo, para garantir sua completa satisfação.
+
+💳 Forma de Pagamento:
+Facilitamos ao máximo o processo de compra, oferecendo uma variedade de opções de pagamento para sua conveniência. Aceitamos todos os principais cartões de crédito, transferências bancárias e também pagamentos via carteiras digitais. Além disso, para sua tranquilidade, todas as transações são seguras e protegidas.
+
+🚚 Envio:
+Queremos que você receba seus produtos o mais rápido possível, por isso, trabalhamos com serviços de entrega confiáveis e eficientes. Após a confirmação do seu pedido, faremos o envio com toda a agilidade para que você possa desfrutar dos seus novos itens o mais breve possível. E fique tranquilo, pois cuidamos de cada pacote com o maior cuidado para garantir que cheguem até você em perfeitas condições.
+
+Se precisar de alguma assistência ou tiver alguma dúvida, nossa equipe de atendimento está sempre à disposição para ajudar. Esperamos que sua experiência de compra seja incrível e que você encontre exatamente o que procura. Obrigado por escolher nossa loja!
+
+✨ Seja bem-vindo e boas compras! ✨
+                                ''';
+                                // var text =
+                                //     'Olá gostaria de falar sobre o pedido de número #${orderState.productOrderList.first.order.toString()}';
+
                                 var url =
                                     'https://api.whatsapp.com/send/?phone=75991864966&text=$text&type=phone_number&app_absent=0';
                                 // 'https://api.whatsapp.com/send/?phone=${_homeCubit.state.restaurant?.phoneNumber}&text=$text&type=phone_number&app_absent=0';

@@ -36,8 +36,8 @@ class _ConfigurationStoreState extends State<ConfigurationStore>
     await _authController.updateRestaurant(
       id: form.id,
       addressId: form.addressId,
-      user: form.user,
-      userId: form.userId,
+      // user: form.user,
+      // userId: form.userId,
       name: form.name,
       url: form.url,
       segment: form.segment,
@@ -54,22 +54,38 @@ class _ConfigurationStoreState extends State<ConfigurationStore>
       zipCode: form.zipCode,
       logoUrl: form.logoUrl,
       backgroundUrl: form.backgroundUrl,
+      banner: form.banner,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final design = DesignSystem.of(context);
-    return Container(
-      padding: const EdgeInsets.all(defaultPadding),
-      decoration: const BoxDecoration(
-        color: secondaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: FormStore(
-        labelStyle: design.h6(color: design.white),
-        onPressed: (form) async => await _onSubmit(form),
-      ),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          decoration: const BoxDecoration(
+            color: secondaryColor,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: const ImagesStore(),
+        ),
+        SizedBox(
+          height: 10.height,
+        ),
+        Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          decoration: const BoxDecoration(
+            color: secondaryColor,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: FormStore(
+            labelStyle: design.h6(color: design.white),
+            onPressed: (form) async => await _onSubmit(form),
+          ),
+        ),
+      ],
     );
   }
 }

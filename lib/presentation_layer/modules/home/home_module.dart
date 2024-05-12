@@ -47,7 +47,7 @@ class HomeModule extends Module {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Para comprar Acesse o Site no seu Celular! ',
+                      'Para comprar acesse o site no seu Celular! ',
                       style: design
                           .h3(color: design.gray)
                           .copyWith(fontWeight: FontWeight.w700),

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minhaloja/data_layer/data_layer.dart';
 import 'package:minhaloja/domain_layer/domain_layer.dart';
 import 'package:minhaloja/infra/infra.dart';
 
@@ -27,6 +26,7 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   void init() async {
     update(loading: true);
+    await _getRestaurant();
     await _getCurrentUser();
     update(loading: false);
   }
@@ -49,7 +49,6 @@ class DashboardCubit extends Cubit<DashboardState> {
       request.result(
         (user) async {
           emit(state.copyWith(currentUser: user));
-          await _getRestaurant(user);
         },
         (e) => emit(state.copyWith(failure: e)),
       );
@@ -58,9 +57,9 @@ class DashboardCubit extends Cubit<DashboardState> {
     }
   }
 
-  Future<void> _getRestaurant(UserDTO user) async {
+  Future<void> _getRestaurant() async {
     try {
-      final request = await _getRestaurantUseCase(userId: user.id);
+      final request = await _getRestaurantUseCase();
 
       request.result(
         (restaurant) =>

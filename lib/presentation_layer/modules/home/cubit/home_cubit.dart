@@ -67,7 +67,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getRestaurant() async {
     update(loading: true);
-    final request = await _getRestaurantUseCase(name: 'name');
+    final request = await _getRestaurantUseCase();
     request.result(
       (restaurant) {
         emit(

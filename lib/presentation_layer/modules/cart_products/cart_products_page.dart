@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -39,7 +40,13 @@ class _CartProductsPageState extends State<CartProductsPage> {
     setState(() {
       _totalValue = 0;
       for (var element in _cartCubit.state.products) {
-        _totalValue = _totalValue + element.value;
+        var combo = element.combos
+            .firstWhereOrNull((element) => element.isSelected == true);
+        if (combo != null) {
+          _totalValue = _totalValue + combo.value;
+        } else {
+          _totalValue = _totalValue + element.value;
+        }
       }
     });
   }
@@ -53,7 +60,13 @@ class _CartProductsPageState extends State<CartProductsPage> {
         setState(() {
           _totalValue = 0;
           for (var element in state.products) {
-            _totalValue = _totalValue + element.value;
+            var combo = element.combos
+                .firstWhereOrNull((element) => element.isSelected == true);
+            if (combo != null) {
+              _totalValue = _totalValue + combo.value;
+            } else {
+              _totalValue = _totalValue + element.value;
+            }
           }
         });
       },

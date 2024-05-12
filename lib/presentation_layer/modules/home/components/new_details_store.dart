@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:minhaloja/domain_layer/domain_layer.dart';
 
 import 'package:minhaloja/infra/infra.dart';
 
 class NewDetailStore extends StatefulWidget {
-  final List<String> backgroundImage;
+  final List<BannerEntity> backgroundImage;
   final String icon;
   final String nameRestaurant;
   final String? type;
@@ -101,7 +102,7 @@ class _NewDetailStoreState extends State<NewDetailStore> {
                         items: widget.backgroundImage
                             .map(
                               (item) => CachedNetworkImage(
-                                imageUrl: widget.backgroundImage.first,
+                                imageUrl: widget.backgroundImage.first.image,
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                   alignment: Alignment.center,

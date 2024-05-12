@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     onTapStoreType: () =>
                                         _bottomSheetStoreType(),
                                     backgroundImage:
-                                        state.restaurant?.banner ?? [''],
+                                        state.restaurant?.banner ?? [],
                                     nameRestaurant:
                                         state.restaurant?.name ?? 'Minha Loja',
                                     type: state.restaurant?.segment ?? '',

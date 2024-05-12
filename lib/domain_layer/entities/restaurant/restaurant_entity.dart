@@ -6,7 +6,7 @@ class RestaurantEntity {
   UserEntity? user;
   AddressEntity? address;
   String url;
-  final String userId;
+  String? userId;
   final String? addressId;
   final String logoUrl;
   final String backgroundUrl;
@@ -15,14 +15,14 @@ class RestaurantEntity {
   final String cnpj;
   final String phoneNumber;
   final String description;
-  final List<String> banner;
+  List<BannerEntity>? banner;
 
   RestaurantEntity({
     this.id,
     this.user,
     this.address,
     this.addressId,
-    required this.userId,
+    this.userId,
     required this.logoUrl,
     required this.backgroundUrl,
     required this.url,
@@ -31,7 +31,7 @@ class RestaurantEntity {
     required this.cnpj,
     required this.phoneNumber,
     required this.description,
-    required this.banner,
+    this.banner,
   }) {
     var uuid = const Uuid();
     id = id ?? uuid.v4();

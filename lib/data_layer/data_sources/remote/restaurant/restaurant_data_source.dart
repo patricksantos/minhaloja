@@ -18,16 +18,16 @@ class RestaurantDataSource {
       final addressRef = _firebase.collection(DBCollections.address);
       final userAddressRef = _firebase.collection(DBCollections.userAddress);
 
-      await restaurantRef.doc(restaurant.id).set(restaurant.toJson()).then(
+      await restaurantRef.doc(Restaurant.id).set(restaurant.toJson()).then(
         (value) async {
           await addressRef
-              .doc(restaurant.address!.id)
+              .doc(Restaurant.addressId)
               .set((restaurant.address! as AddressDTO).toJson())
               .catchError((error) => Result.error(FailureError(error)));
 
           final userAddressDTO = UserAddressDTO(
-            userId: restaurant.userId,
-            addressId: restaurant.address!.id!,
+            userId: restaurant.userId ?? '',
+            addressId: Restaurant.addressId!,
           );
 
           await userAddressRef
@@ -49,15 +49,14 @@ class RestaurantDataSource {
     try {
       final restaurantRef = _firebase.collection(DBCollections.restaurant);
       final addressRef = _firebase.collection(DBCollections.address);
-
-      await restaurantRef.doc(restaurant.id).update(restaurant.toJson()).then(
-        (value) async {
-          await addressRef
-              .doc(restaurant.address!.id)
-              .update((restaurant.address! as AddressDTO).toJson())
-              .catchError((error) => Result.error(FailureError(error)));
-        },
-      );
+      await restaurantRef
+          .doc(Restaurant.id)
+          .update(restaurant.toUpdate())
+          .catchError((error) => Result.error(FailureError(error)));
+      await addressRef
+          .doc(Restaurant.addressId)
+          .update((restaurant.address as AddressDTO).toJson())
+          .catchError((error) => Result.error(FailureError(error)));
 
       return Result.success(null);
     } catch (e) {
@@ -65,53 +64,53 @@ class RestaurantDataSource {
     }
   }
 
-  Future<Result<RestaurantDTO>> getRestaurant({
-    String? name,
-    String? userId,
-  }) async {
+  Future<Result<RestaurantDTO>> getRestaurant() async {
     try {
       RestaurantDTO? restaurantDTO;
       AddressDTO? addressDTO;
       final addressRef = _firebase.collection(DBCollections.address);
+      final bannerRef = _firebase.collection(DBCollections.banner);
       final restaurantRef = _firebase.collection(DBCollections.restaurant);
 
-      QuerySnapshot<Map<String, dynamic>>? restaurant;
-      if (userId != null) {
-        restaurant = await restaurantRef
-            .where('user_id', isEqualTo: userId)
-            .snapshots()
-            .first;
+      final restaurant =
+          await restaurantRef.where('id', isEqualTo: Restaurant.id).get();
 
-        restaurantDTO = RestaurantDTO.fromJson(restaurant.docs.first.data());
-        final address = await addressRef
-            .where('id', isEqualTo: restaurantDTO.addressId)
-            .snapshots()
-            .first;
+      restaurantDTO = RestaurantDTO.fromJson(restaurant.docs.first.data());
+      final address = await addressRef
+          .where('id', isEqualTo: restaurantDTO.addressId)
+          .get();
 
-        addressDTO = AddressDTO.fromJson(address.docs.first.data());
-        restaurantDTO.address = addressDTO;
-      } else {
-        final restaurant =
-            await restaurantRef.where('id', isEqualTo: '1').get();
-        restaurantDTO = RestaurantDTO.fromJson(restaurant.docs.first.data());
-      }
+      final banner = await bannerRef.get().then(
+        (data) {
+          if (data.docs.isEmpty) {
+            return [] as List<BannerDTO>;
+          }
+          return data.docs
+              .map((doc) => BannerDTO.fromJson(doc.data()))
+              .toList();
+        },
+      );
+
+      addressDTO = AddressDTO.fromJson(address.docs.first.data());
+      restaurantDTO.address = addressDTO;
 
       return Result.success(
         RestaurantDTO(
-            id: restaurantDTO.id,
-            backgroundUrl: restaurantDTO.backgroundUrl,
-            cnpj: restaurantDTO.cnpj,
-            description: restaurantDTO.description,
-            logoUrl: restaurantDTO.logoUrl,
-            name: restaurantDTO.name,
-            phoneNumber: restaurantDTO.phoneNumber,
-            segment: restaurantDTO.segment,
-            url: restaurantDTO.url,
-            userId: restaurantDTO.userId,
-            addressId: restaurantDTO.addressId,
-            user: restaurantDTO.user,
-            address: addressDTO,
-            banner: restaurantDTO.banner),
+          id: restaurantDTO.id,
+          backgroundUrl: restaurantDTO.backgroundUrl,
+          cnpj: restaurantDTO.cnpj,
+          description: restaurantDTO.description,
+          logoUrl: restaurantDTO.logoUrl,
+          name: restaurantDTO.name,
+          phoneNumber: restaurantDTO.phoneNumber,
+          segment: restaurantDTO.segment,
+          url: restaurantDTO.url,
+          userId: restaurantDTO.userId,
+          addressId: restaurantDTO.addressId,
+          user: restaurantDTO.user,
+          address: addressDTO,
+          banner: banner,
+        ),
       );
     } catch (e) {
       return Result.error(FailureError(e));

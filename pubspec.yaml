@@ -64,6 +64,7 @@ dependencies:
   share_plus: ^9.0.0
   skeletonizer: ^1.1.1
   flutter_native_splash: ^2.2.14
+  material_table_view: ^4.0.2
   
 dev_dependencies:
   flutter_test:

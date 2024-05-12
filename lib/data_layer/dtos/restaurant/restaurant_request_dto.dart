@@ -3,9 +3,10 @@ import 'package:minhaloja/data_layer/data_layer.dart';
 class RestaurantRequestDTO extends RestaurantDTO {
   RestaurantRequestDTO({
     super.id,
+    super.banner,
     required super.address,
-    required super.userId,
-    required super.user,
+    super.userId,
+    super.user,
     required super.name,
     required super.url,
     required super.logoUrl,
@@ -14,7 +15,6 @@ class RestaurantRequestDTO extends RestaurantDTO {
     required super.cnpj,
     required super.phoneNumber,
     required super.description,
-    required super.banner,
   });
 
   @override
@@ -31,7 +31,7 @@ class RestaurantRequestDTO extends RestaurantDTO {
       'segment': segment.toLowerCase(),
       'cnpj': cnpj,
       'phone_number': phoneNumber.toString(),
-      'banner': banner.map((x) => x).toList(),
+      'banner': banner?.map((x) => x).toList(),
     };
   }
 }

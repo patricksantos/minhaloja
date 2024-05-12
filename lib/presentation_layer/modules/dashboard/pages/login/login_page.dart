@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:minhaloja/infra/base.dart';
+import 'package:minhaloja/infra/utils.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/constants.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -55,12 +58,26 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final design = DesignSystem.of(context);
     return FlutterLogin(
       title: 'Minha Loja',
       savedEmail: 'patrick2.bms@gmail.com',
       savedPassword: '123456',
       theme: LoginTheme(
-        primaryColor: const Color(0xFF212332),
+        primaryColor: bgColor,
+        // primaryColor: design.primary100,
+        // textFieldStyle: design.h2(color: Colors.black),
+        // cardTheme: const CardTheme(
+        //   color: Color.fromARGB(255, 182, 182, 183),
+        // ),
+        titleStyle: GoogleFonts.yesevaOne(
+          textStyle: TextStyle(
+            height: 0,
+            fontSize: 32.0,
+            fontWeight: FontWeight.w700,
+            color: design.white,
+          ),
+        ),
       ),
       // logo: AssetImage('assets/images/ecorp-lightblue.png'),
       onLogin: _authUser,

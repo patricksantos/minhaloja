@@ -25,3 +25,4 @@ export 'utils/enums/status_order.dart';
 export 'utils/enums/store_type.dart';
 export 'utils/enums/storage_type.dart';
 export 'utils/enums/accept_type.dart';
+export 'utils/constants/restaurant.dart';

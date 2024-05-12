@@ -7,7 +7,7 @@ class RestaurantDTO extends RestaurantEntity {
     super.user,
     super.address,
     super.addressId,
-    required super.userId,
+    super.userId,
     required super.name,
     required super.logoUrl,
     required super.backgroundUrl,
@@ -16,7 +16,7 @@ class RestaurantDTO extends RestaurantEntity {
     required super.cnpj,
     required super.phoneNumber,
     required super.description,
-    required super.banner,
+    super.banner,
   });
 
   Map<String, dynamic> toJson() {
@@ -34,7 +34,41 @@ class RestaurantDTO extends RestaurantEntity {
       'description': description,
       'cnpj': cnpj,
       'phone_number': phoneNumber,
-      'banner': banner,
+      'banner': banner != null
+          ? banner!
+              .map((x) => <String, dynamic>{
+                    'id': x.id,
+                    'image': x.image,
+                    'productUrl': x.productUrl,
+                  })
+              .toList()
+          : [],
+    };
+  }
+
+  Map<String, dynamic> toUpdate() {
+    return <String, dynamic>{
+      if (id != '' && id != null) 'id': id,
+      if (user != null) 'user': user,
+      if (userId != '' && userId != null) 'user_id': userId,
+      if (addressId != '' && addressId != null) 'address_id': addressId,
+      if (url != '') 'url': url,
+      if (logoUrl != '') 'logo_url': logoUrl,
+      if (backgroundUrl != '') 'background_url': backgroundUrl,
+      if (name != '') 'name': name,
+      if (segment != '') 'segment': segment,
+      if (description != '') 'description': description,
+      if (cnpj != '') 'cnpj': cnpj,
+      if (phoneNumber != '') 'phone_number': phoneNumber,
+      // if (address != null) 'address': address,
+      // if (banner != null)
+      //   'banner': banner!
+      //       .map((x) => <String, dynamic>{
+      //             'id': x.id,
+      //             'image': x.image,
+      //             'productUrl': x.productUrl,
+      //           })
+      //       .toList(),
     };
   }
 
@@ -53,7 +87,12 @@ class RestaurantDTO extends RestaurantEntity {
       segment: map['segment'] as String,
       cnpj: map['cnpj'] as String,
       phoneNumber: map['phone_number'] as String,
-      banner: List<String>.from((map['banner'])),
+      // banner: List<BannerDTO>.from((map['banner'])),
+      banner: map['banner'] != null && (map['banner'] as List).isNotEmpty
+          ? (map['banner'] as List)
+              .map((combo) => BannerDTO.fromJson(combo))
+              .toList()
+          : [],
     );
   }
 }

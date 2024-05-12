@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,22 +7,68 @@ import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_c
 import '../constants.dart';
 
 class SideMenu extends StatelessWidget {
+  final String? imagePath;
+  SideMenu({
+    Key? key,
+    required this.imagePath,
+  }) : super(key: key);
+
   final _loginController = Modular.get<LoginCubit>();
   final _dashboardController = Modular.get<DashboardCubit>();
 
-  SideMenu({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final design = DesignSystem.of(context);
     return Drawer(
       backgroundColor: secondaryColor,
       child: ListView(
         children: [
-          DrawerHeader(
-            child: Image.asset("assets/images/icon_app.png"),
-          ),
+          if (imagePath == null)
+            DrawerHeader(
+              child: Icon(
+                Icons.store,
+                color: Colors.white,
+                size: 90.fontSize,
+              ),
+            ),
+          if (imagePath != null)
+            DrawerHeader(
+              padding: const EdgeInsets.all(24),
+              child: SizedBox(
+                height: 48,
+                width: 48,
+                child: CachedNetworkImage(
+                  imageUrl: imagePath.toString(),
+                  errorWidget: (context, url, error) {
+                    return DrawerHeader(
+                      child: Icon(
+                        Icons.store,
+                        color: Colors.white,
+                        size: 90.fontSize,
+                      ),
+                    );
+                  },
+                  imageBuilder: (context, imageProvider) => Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 90,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      color: design.white,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.transparent,
+                        width: 1, // 2.5
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           DrawerListTile(
             title: "Início",
             svgSrc: "assets/icons/menu_dashboard.svg",
@@ -89,7 +136,7 @@ class DrawerListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: press,
-      horizontalTitleGap: 0.0,
+      horizontalTitleGap: 10.0,
       leading: SvgPicture.asset(
         svgSrc,
         color: Colors.white70,

@@ -24,7 +24,7 @@ abstract class AuthModule {
 
         // User Cases
         Bind.lazySingleton((i) => CreateUserUseCase(repository: i())),
-        Bind.lazySingleton((i) => CreateRestaurantUseCase(repository: i())),
+        // Bind.lazySingleton((i) => CreateRestaurantUseCase(repository: i())),
         Bind.lazySingleton((i) => UpdateRestaurantUseCase(repository: i())),
         Bind.lazySingleton((i) => CreateCategoryUseCase(repository: i())),
         Bind.lazySingleton((i) => CreateProductUseCase(repository: i())),
@@ -38,7 +38,7 @@ abstract class AuthModule {
         // Cubit
         Bind.lazySingleton(
           (i) =>
-              AuthCubit(i(), i(), i(), i(), i(), i(), i(), i(), i(), i(), i()),
+              AuthCubit(i(), i(), i(), i(), i(), i(), i(), i(), i(), i()),
         ),
       ];
 }

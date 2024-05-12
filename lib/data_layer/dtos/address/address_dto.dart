@@ -51,6 +51,20 @@ class AddressDTO extends AddressEntity {
     };
   }
 
+  Map<String, dynamic> toUpdate() {
+    return <String, dynamic>{
+      if (id != '' && id != null) 'id': id,
+      if (city != '') 'city': city,
+      if (zipCode != '') 'zipCode': zipCode,
+      if (neighborhood != '') 'neighborhood': neighborhood,
+      if (number != '') 'number': number,
+      if (complement != '') 'complement': complement,
+      if (country != '') 'country': country,
+      if (street != '') 'street': street,
+      if (state != '') 'state': state,
+    };
+  }
+
   factory AddressDTO.fromJson(Map<String, dynamic> map) {
     return AddressDTO(
       id: map['id'] as String,

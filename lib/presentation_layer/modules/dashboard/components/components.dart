@@ -7,3 +7,4 @@ export 'storage_details.dart';
 export 'storage_info_card.dart';
 export 'my_files.dart';
 export 'form_store.dart';
+export 'images_store.dart';

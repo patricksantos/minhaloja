@@ -11,3 +11,4 @@ export 'entities/qrcode/qrcode_entity.dart';
 export 'entities/address/user_address_zipcode_entity.dart';
 export 'entities/form_payment/form_payment_entity.dart';
 export 'entities/combo/combo_entity.dart';
+export 'entities/banner/banner_entity.dart';

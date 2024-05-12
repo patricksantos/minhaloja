@@ -41,18 +41,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   late TextEditingController _textEditingController;
 
   ComboDTO? combo;
-
   ProductListCartDTO? productCart;
+
   var visibleText = false;
   var popModal = true;
   var _current = 0;
-  var _quantityProduct = 1;
+  // var _quantityProduct = 1;
 
   @override
   void initState() {
     super.initState();
     _cartCubit = Modular.get<CartCubit>();
     _cartCubit.getListCartStorage();
+
+    productCart = _cartCubit.state.productListCart.firstWhereOrNull(
+      (e) => e.productId.toString() == widget.product?.id.toString(),
+    );
 
     _productDetailsCubit = Modular.get<ProductDetailsCubit>();
     if (widget.product == null) {
@@ -62,10 +66,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     }
     _carouselController = CarouselController();
     _textEditingController = TextEditingController();
-
-    productCart = _cartCubit.state.productListCart.firstWhereOrNull(
-      (e) => e.productId.toString() == widget.product?.id.toString(),
-    );
   }
 
   @override
@@ -419,54 +419,75 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                   combo?.name ==
                                                       productCart
                                                           ?.combo?.name) ||
-                                              (combo == null &&
+                                              (combo != null &&
                                                   (widget.product ??
                                                           state.product!)
                                                       .combos
-                                                      .isEmpty) //isNotEmpty
+                                                      .isEmpty)
                                           ? 'Adicionado'
                                           : 'Adicionar',
                                       onPressed: () {
-                                        var product =
-                                            widget.product ?? state.product!;
+                                        var product = widget.product ??
+                                            (state.product ??
+                                                (state.product ??
+                                                    productCart!
+                                                        .products.first));
 
-                                        List<ComboDTO> newList = [];
-                                        newList = product.combos.map(
-                                          (item) {
-                                            if (item.name == combo?.name &&
-                                                item.value == combo?.value) {
-                                              return ComboDTO(
-                                                name: item.name,
-                                                value: item.value,
-                                                isSelected: true,
-                                              );
-                                            } else {
-                                              return item as ComboDTO;
-                                            }
-                                          },
-                                        ).toList();
+                                        // List<ComboDTO> newList = [];
+                                        // newList = product.combos.map(
+                                        //   (item) {
+                                        //     if (item.name == combo?.name &&
+                                        //         item.value == combo?.value) {
+                                        //       return ComboDTO(
+                                        //         name: item.name,
+                                        //         value: item.value,
+                                        //         isSelected: true,
+                                        //       );
+                                        //     } else {
+                                        //       return item as ComboDTO;
+                                        //     }
+                                        //   },
+                                        // ).toList();
 
-                                        List<ProductDTO> list = [];
-                                        while (_quantityProduct != 0) {
-                                          list.add(
-                                            product.copyWith(
-                                              id: (widget.product ??
-                                                      state.product!)
-                                                  .id,
-                                              note: _textEditingController
-                                                          .text !=
-                                                      ''
-                                                  ? _textEditingController.text
-                                                  : null,
-                                              combos: newList,
-                                            ),
-                                          );
-                                          _quantityProduct--;
-                                        }
+                                        // List<ProductDTO> list = [];
+                                        // while (_quantityProduct != 0) {
+                                        //   list.add(
+                                        //     product.copyWith(
+                                        //       id: (widget.product ??
+                                        //               state.product!)
+                                        //           .id,
+                                        //       note: _textEditingController
+                                        //                   .text !=
+                                        //               ''
+                                        //           ? _textEditingController.text
+                                        //           : null,
+                                        //       combos: newList,
+                                        //     ),
+                                        //   );
+                                        //   _quantityProduct--;
+                                        // }
 
-                                        _cartCubit.addAllCartProducts(
-                                          products: list,
-                                          combo: combo,
+                                        _cartCubit.addCartProduct(
+                                          product: product.copyWith(
+                                            combos:
+                                                product.combos.map((element) {
+                                              if (element.name == combo?.name) {
+                                                return ComboDTO(
+                                                  name: element.name,
+                                                  value: element.value,
+                                                  isSelected: true,
+                                                );
+                                              } else {
+                                                return ComboDTO(
+                                                  name: element.name,
+                                                  value: element.value,
+                                                  isSelected: false,
+                                                );
+                                              }
+                                            }).toList(),
+                                          ),
+                                          //list,
+                                          // combo: combo,
                                         );
                                       },
                                     ),

@@ -8,7 +8,6 @@ import 'package:minhaloja/presentation_layer/modules/dashboard/constants.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_state.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/pages/configuration_store/configuration_store.dart';
-import 'package:minhaloja/presentation_layer/modules/dashboard/pages/new_store/new_store.dart';
 import './pages/dashboard/home_dashboard_page.dart';
 
 import './components/components.dart';
@@ -90,23 +89,26 @@ class _DashboardPageState extends State<DashboardPage> with LoadingManager {
     return BlocBuilder<DashboardCubit, DashboardState>(
       bloc: _controller,
       builder: (context, state) {
-        if (state.isFirstAccess) {
-          return const NewStore();
-        }
+        // if (state.isFirstAccess) {
+        //   return const NewStore();
+        // }
         return Scaffold(
           key: _controller.scaffoldKey,
           backgroundColor: bgColor,
-          drawer: SideMenu(),
+          drawer: SideMenu(
+            imagePath: state.restaurant?.logoUrl,
+          ),
           body: SafeArea(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // We want this side menu only for large screen
                 if (ResponsiveScreen.isDesktop(context))
                   Expanded(
                     // default flex = 1
                     // and it takes 1/6 part of the screen
-                    child: SideMenu(),
+                    child: SideMenu(
+                      imagePath: state.restaurant?.logoUrl,
+                    ),
                   ),
                 Expanded(
                   // It takes 5/6 part of the screen

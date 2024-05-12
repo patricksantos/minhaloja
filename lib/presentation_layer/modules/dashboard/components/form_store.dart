@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:minhaloja/domain_layer/domain_layer.dart';
 import 'package:minhaloja/infra/infra.dart';
-import 'package:minhaloja/presentation_layer/components/default_button.dart';
-import 'package:minhaloja/presentation_layer/components/default_file_image.dart';
-import 'package:minhaloja/presentation_layer/components/keyboard_dismiss_on_tap.dart';
-import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
+import 'package:minhaloja/presentation_layer/components/components.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import '../cubit/dashboard_cubit.dart';
 
 class FormStore extends StatefulWidget {
   final TextStyle? labelStyle;
@@ -35,17 +33,15 @@ class _RegisterStoreState extends State<FormStore> {
 
   late GlobalKey<FormState> _formKey;
   late ScrollPhysics? physics;
-  XFile? logoUrl;
-  XFile? backgroundUrl;
 
   final MaskTextInputFormatter _cepFormatter = maskFormatterCep();
   final MaskTextInputFormatter _cpfFormatter = maskFormatterCpf();
-  // final MaskTextInputFormatter _cnpjFormatter = maskFormatterCnpj();
+  final MaskTextInputFormatter _cnpjFormatter = maskFormatterCnpj();
   final MaskTextInputFormatter _phoneNumberFormatter =
       maskFormatterPhoneNumber();
 
   late TextEditingController _name;
-  late TextEditingController _nameLink;
+  // late TextEditingController _nameLink;
   late TextEditingController _segment;
   late TextEditingController _cnpjOrCpf;
   late TextEditingController _phoneNumber;
@@ -59,11 +55,7 @@ class _RegisterStoreState extends State<FormStore> {
   late TextEditingController _complement;
   late TextEditingController _street;
 
-  Future<XFile?> getImage() async {
-    final ImagePicker picker = ImagePicker();
-    XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    return image;
-  }
+  bool loading = false;
 
   @override
   void initState() {
@@ -76,8 +68,8 @@ class _RegisterStoreState extends State<FormStore> {
 
     _name = TextEditingController(
         text: _dashboardCubit.state.restaurant?.name ?? '');
-    _nameLink = TextEditingController(
-        text: _dashboardCubit.state.restaurant?.url ?? '');
+    // _nameLink = TextEditingController(
+    //     text: _dashboardCubit.state.restaurant?.url ?? '');
     _segment = TextEditingController(
         text: _dashboardCubit.state.restaurant?.segment ?? '');
     _cnpjOrCpf = TextEditingController(
@@ -112,313 +104,290 @@ class _RegisterStoreState extends State<FormStore> {
 
   @override
   Widget build(BuildContext context) {
-    // final design = DesignSystem.of(context);
-    return BlocConsumer<AuthCubit, AuthState>(
+    final design = DesignSystem.of(context);
+    return BlocBuilder<AuthCubit, AuthState>(
       bloc: _authController,
-      listener: (context, state) async {
-        final addressConsultSuccessfully =
-            state.actions.contains(AuthAction.cepSuccessfully);
-        if (addressConsultSuccessfully &&
-            _dashboardCubit.state.restaurant == null) {
-          _city.text = state.address?.city ?? '';
-          _state.text = state.address?.state ?? '';
-          _street.text = state.address?.street ?? '';
-          _neighborhood.text = state.address?.neighborhood ?? '';
-          _complement.text = state.address?.complement ?? '';
-        }
-      },
       builder: (context, state) {
         return KeyboardDismissOnTap(
-          child: Form(
-            key: _formKey,
+          child: Skeletonizer(
+            enabled: loading,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DefaultFileImage(
-                  context: context,
-                  label: 'Selecione a sua Logo',
-                  onPressed: (value) {
-                    setState(() {
-                      logoUrl = value;
-                    });
-                  },
+                Text(
+                  'Dados da Loja',
+                  style: design.h2(color: Colors.white),
                 ),
-                SizedBox(height: 8.height),
-                DefaultFileImage(
-                  context: context,
-                  label: 'Selecione uma imagem de fundo',
-                  onPressed: (value) {
-                    setState(() {
-                      backgroundUrl = value;
-                    });
-                  },
-                ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _name,
-                //   required: true,
-                //   labelText: 'Nome',
-                //   hintText: 'Nome',
-                //   maxLength: 32,
-                //   validator: Validators.multiple(
-                //     [Validators.required(), Validators.min(4)],
-                //   ),
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _nameLink,
-                //   required: true,
-                //   labelText: 'Nome do Link',
-                //   hintText: 'Nome do Link',
-                //   maxLength: 32,
-                //   validator: Validators.multiple(
-                //     [Validators.required(), Validators.min(4)],
-                //   ),
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _segment,
-                //   required: true,
-                //   labelText: 'Segmento da Loja',
-                //   hintText: 'Segmento da Loja',
-                //   maxLength: 32,
-                //   validator: Validators.multiple(
-                //     [Validators.required(), Validators.min(4)],
-                //   ),
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _cnpjOrCpf,
-                //   required: true,
-                //   labelText: 'CNPJ ou CPF',
-                //   hintText: 'CNPJ ou CPF',
-                //   maxLength: 18,
-                //   validator: Validators.multiple(_cnpjOrCpf.text.length > 14
-                //       ? [Validators.required(), Validators.cnpj()]
-                //       : [Validators.required(), Validators.cpf()]),
-                //   formFieldType: TextInputType.number,
-                //   inputFormatters: _cnpjOrCpf.text.length > 14
-                //       ? [_cnpjFormatter]
-                //       : [_cpfFormatter],
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _phoneNumber,
-                //   required: true,
-                //   labelText: 'Numero de Telefone',
-                //   hintText: 'Numero de Telefone',
-                //   maxLength: 18,
-                //   validator: Validators.multiple([
-                //     Validators.required(),
-                //     Validators.min(16),
-                //     Validators.max(16),
-                //   ]),
-                //   formFieldType: TextInputType.number,
-                //   inputFormatters: [_phoneNumberFormatter],
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   controller: _description,
-                //   labelText: 'Descriçāo da Loja (Opcional)',
-                //   hintText: 'Descriçāo da Loja (Opcional)',
-                //   maxLength: 18,
-                //   validator: Validators.multiple([
-                //     Validators.max(32),
-                //   ]),
-                //   inputFormatters: [onlyAlphabeticalFormatter],
-                // ),
-                // SizedBox(height: 8.height),
-                // Text(
-                //   'Endereço',
-                //   style: design.h4().copyWith(
-                //         color: widget.labelStyle?.color ?? design.secondary100,
-                //         fontWeight: FontWeight.w600,
-                //       ),
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   controller: _zipCode,
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   required: true,
-                //   labelText: 'CEP',
-                //   hintText: 'CEP',
-                //   maxLength: 9,
-                //   onChanged: _authController.setShowAddressInput,
-                //   validator: Validators.multiple(
-                //     [
-                //       Validators.required(),
-                //       Validators.min(9),
-                //     ],
-                //   ),
-                //   formFieldType: TextInputType.number,
-                //   inputFormatters: [_cepFormatter],
-                // ),
-                // SizedBox(height: 8.height),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Expanded(
-                //       flex: 3,
-                //       child: DefaultTextFormField(
-                //         textCapitalization: TextCapitalization.words,
-                //         enable: false,
-                //         controller: _city,
-                //         context: context,
-                //         labelStyle: widget.labelStyle,
-                //         hintStyle: widget.hintStyle,
-                //         fillColor: widget.fillColor,
-                //         borderColor: widget.labelStyle?.color,
-                //         required: true,
-                //         labelText: 'Cidade',
-                //         hintText: 'Cidade',
-                //         textInputAction: TextInputAction.next,
-                //         maxLength: 30,
-                //         validator: Validators.required(),
-                //         inputFormatters: [makeOnlyCharactersFormatter()],
-                //       ),
-                //     ),
-                //     SizedBox(width: 8.width),
-                //     Expanded(
-                //       flex: 2,
-                //       child: DefaultTextFormField(
-                //         controller: _state,
-                //         enable: false,
-                //         context: context,
-                //         labelStyle: widget.labelStyle,
-                //         hintStyle: widget.hintStyle,
-                //         fillColor: widget.fillColor,
-                //         borderColor: widget.labelStyle?.color,
-                //         textCapitalization: TextCapitalization.characters,
-                //         required: true,
-                //         labelText: 'Estado',
-                //         hintText: 'Estado',
-                //         textInputAction: TextInputAction.next,
-                //         validator: Validators.multiple(
-                //           [
-                //             Validators.required(),
-                //             Validators.uf(),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   controller: _neighborhood,
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   textCapitalization: TextCapitalization.words,
-                //   enable: state.actions.contains(AuthAction.cepSuccessfully) ||
-                //       _dashboardCubit.state.restaurant != null,
-                //   required: true,
-                //   labelText: 'Bairro',
-                //   hintText: 'Bairro',
-                //   inputFormatters: [makeOnlyCharactersFormatter()],
-                //   textInputAction: TextInputAction.next,
-                //   maxLength: 40,
-                //   validator: Validators.required(),
-                // ),
-                // SizedBox(height: 8.width),
-                // DefaultTextFormField(
-                //   controller: _street,
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   textCapitalization: TextCapitalization.words,
-                //   enable: state.actions.contains(AuthAction.cepSuccessfully) ||
-                //       _dashboardCubit.state.restaurant != null,
-                //   required: true,
-                //   labelText: 'Rua',
-                //   hintText: 'Rua',
-                //   inputFormatters: [makeOnlyCharactersFormatter()],
-                //   textInputAction: TextInputAction.next,
-                //   validator: Validators.required(),
-                // ),
-                // SizedBox(height: 8.width),
-                // DefaultTextFormField(
-                //   controller: _number,
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   formFieldType: TextInputType.number,
-                //   enable: state.actions.contains(AuthAction.cepSuccessfully) ||
-                //       _dashboardCubit.state.restaurant != null,
-                //   required: true,
-                //   labelText: 'Número',
-                //   hintText: 'Número',
-                //   textInputAction: TextInputAction.next,
-                //   validator: Validators.multiple(
-                //     [Validators.required()],
-                //   ),
-                // ),
-                // SizedBox(height: 8.height),
-                // DefaultTextFormField(
-                //   controller: _complement,
-                //   enable: state.actions.contains(AuthAction.cepSuccessfully) ||
-                //       _dashboardCubit.state.restaurant != null,
-                //   context: context,
-                //   labelStyle: widget.labelStyle,
-                //   hintStyle: widget.hintStyle,
-                //   fillColor: widget.fillColor,
-                //   borderColor: widget.labelStyle?.color,
-                //   maxLength: 50,
-                //   labelText: 'Complemento',
-                //   hintText: 'Complemento',
-                // ),
-                DefaultButton(
-                  // disable: _dashboardCubit.state.page == 3
-                  //     ? false
-                  //     : _formKey.currentState?.validate() ?? true,
-                  label:
-                      _dashboardCubit.state.page == 3 ? 'Atualizar' : 'Salvar',
-                  onPressed: _onSubmit,
-                ).addMargin(
-                  EdgeInsets.symmetric(
-                    vertical: 12.0.height,
+                SizedBox(height: 10.height),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DefaultTextFormField(
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        controller: _name,
+                        required: true,
+                        labelText: 'Nome',
+                        hintText: 'Nome',
+                        maxLength: 32,
+                        validator: Validators.multiple(
+                          [
+                            Validators.required(),
+                            Validators.min(4),
+                          ],
+                        ),
+                      ),
+                      // SizedBox(height: 8.height),
+                      // DefaultTextFormField(
+                      //   context: context,
+                      //   labelStyle: widget.labelStyle,
+                      //   hintStyle: widget.hintStyle,
+                      //   fillColor: widget.fillColor,
+                      //   borderColor: widget.labelStyle?.color,
+                      //   controller: _nameLink,
+                      //   required: true,
+                      //   labelText: 'Nome do Link',
+                      //   hintText: 'Nome do Link',
+                      //   maxLength: 32,
+                      //   validator: Validators.multiple(
+                      //     [Validators.required(), Validators.min(4)],
+                      //   ),
+                      // ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        controller: _segment,
+                        required: true,
+                        labelText: 'Segmento da Loja',
+                        hintText: 'Segmento da Loja',
+                        maxLength: 32,
+                        validator: Validators.min(4),
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        controller: _cnpjOrCpf,
+                        required: true,
+                        labelText: 'CNPJ ou CPF',
+                        hintText: 'CNPJ ou CPF',
+                        maxLength: 18,
+                        validator: Validators.multiple(
+                            _cnpjOrCpf.text.length > 14
+                                ? [Validators.cnpj()]
+                                : [Validators.cpf()]),
+                        formFieldType: TextInputType.number,
+                        inputFormatters: _cnpjOrCpf.text.length > 14
+                            ? [_cnpjFormatter]
+                            : [_cpfFormatter],
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        controller: _phoneNumber,
+                        required: true,
+                        labelText: 'Numero de Telefone',
+                        hintText: 'Numero de Telefone',
+                        maxLength: 18,
+                        validator: Validators.multiple([
+                          Validators.min(16),
+                          Validators.max(16),
+                        ]),
+                        formFieldType: TextInputType.number,
+                        inputFormatters: [_phoneNumberFormatter],
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        controller: _description,
+                        labelText: 'Descriçāo da Loja (Opcional)',
+                        hintText: 'Descriçāo da Loja (Opcional)',
+                        maxLength: 18,
+                        validator: Validators.max(32),
+                        inputFormatters: [onlyAlphabeticalFormatter],
+                      ),
+                      SizedBox(height: 8.height),
+                      Text(
+                        'Endereço',
+                        style: design.h4().copyWith(
+                              color: widget.labelStyle?.color ??
+                                  design.secondary100,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        controller: _zipCode,
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        required: true,
+                        labelText: 'CEP',
+                        hintText: 'CEP',
+                        maxLength: 9,
+                        // onChanged: _authController.setShowAddressInput,
+                        validator: Validators.multiple(
+                          [
+                            Validators.required(),
+                            Validators.min(9),
+                          ],
+                        ),
+                        formFieldType: TextInputType.number,
+                        inputFormatters: [_cepFormatter],
+                      ),
+                      SizedBox(height: 8.height),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: DefaultTextFormField(
+                              textCapitalization: TextCapitalization.words,
+                              // enable: false,
+                              controller: _city,
+                              context: context,
+                              labelStyle: widget.labelStyle,
+                              hintStyle: widget.hintStyle,
+                              fillColor: widget.fillColor,
+                              borderColor: widget.labelStyle?.color,
+                              required: true,
+                              labelText: 'Cidade',
+                              hintText: 'Cidade',
+                              textInputAction: TextInputAction.next,
+                              maxLength: 30,
+                              inputFormatters: [makeOnlyCharactersFormatter()],
+                              validator: Validators.required(),
+                            ),
+                          ),
+                          SizedBox(width: 8.width),
+                          Expanded(
+                            flex: 2,
+                            child: DefaultTextFormField(
+                                controller: _state,
+                                // enable: false,
+                                context: context,
+                                labelStyle: widget.labelStyle,
+                                hintStyle: widget.hintStyle,
+                                fillColor: widget.fillColor,
+                                borderColor: widget.labelStyle?.color,
+                                textCapitalization:
+                                    TextCapitalization.characters,
+                                labelText: 'Estado',
+                                hintText: 'Estado',
+                                textInputAction: TextInputAction.next,
+                                validator: Validators.required()
+                                // Validators.multiple(
+                                // [Validators.uf()],
+                                // ),
+                                ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        controller: _neighborhood,
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        textCapitalization: TextCapitalization.words,
+                        // enable:
+                        //     state.actions.contains(AuthAction.cepSuccessfully) ||
+                        //         _dashboardCubit.state.restaurant != null,
+                        required: true,
+                        labelText: 'Bairro',
+                        hintText: 'Bairro',
+                        inputFormatters: [makeOnlyCharactersFormatter()],
+                        textInputAction: TextInputAction.next,
+                        maxLength: 40,
+                      ),
+                      SizedBox(height: 8.width),
+                      DefaultTextFormField(
+                        controller: _street,
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        textCapitalization: TextCapitalization.words,
+                        // enable:
+                        //     state.actions.contains(AuthAction.cepSuccessfully) ||
+                        //         _dashboardCubit.state.restaurant != null,
+                        required: true,
+                        labelText: 'Rua',
+                        hintText: 'Rua',
+                        inputFormatters: [makeOnlyCharactersFormatter()],
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 8.width),
+                      DefaultTextFormField(
+                        controller: _number,
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        formFieldType: TextInputType.number,
+                        // enable:
+                        //     state.actions.contains(AuthAction.cepSuccessfully) ||
+                        //         _dashboardCubit.state.restaurant != null,
+                        required: true,
+                        labelText: 'Número',
+                        hintText: 'Número',
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 8.height),
+                      DefaultTextFormField(
+                        controller: _complement,
+                        // enable:
+                        //     state.actions.contains(AuthAction.cepSuccessfully) ||
+                        //         _dashboardCubit.state.restaurant != null,
+                        context: context,
+                        labelStyle: widget.labelStyle,
+                        hintStyle: widget.hintStyle,
+                        fillColor: widget.fillColor,
+                        borderColor: widget.labelStyle?.color,
+                        maxLength: 50,
+                        labelText: 'Complemento',
+                        hintText: 'Complemento',
+                      ),
+                      DefaultButton(
+                        // disable: _formKey.currentState?.validate() ?? true,
+                        label: _dashboardCubit.state.page == 3
+                            ? 'Atualizar'
+                            : 'Salvar',
+                        onPressed: _onSubmit,
+                      ).addMargin(
+                        EdgeInsets.symmetric(
+                          vertical: 12.0.height,
+                        ),
+                      )
+                    ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -429,16 +398,19 @@ class _RegisterStoreState extends State<FormStore> {
 
   void _onSubmit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      _dashboardCubit.update(loading: true);
+      setState(() {
+        loading = true;
+      });
+      // _dashboardCubit.update(loading: true);
 
       await widget.onPressed?.call(
         FormStoreOnPressed(
           id: _dashboardCubit.state.restaurant?.id ?? '',
           addressId: _dashboardCubit.state.restaurant?.addressId ?? '',
-          user: _dashboardCubit.state.currentUser!,
-          userId: _dashboardCubit.state.currentUser!.id!,
+          // user: _dashboardCubit.state.currentUser!,
+          // userId: _dashboardCubit.state.currentUser!.id!,
           name: _name.text,
-          url: _nameLink.text,
+          url: _dashboardCubit.state.restaurant?.url ?? '',
           segment: _segment.text,
           cnpj: _cnpjOrCpf.text.replaceAll('-', '').replaceAll('.', ''),
           phoneNumber: _phoneNumber.text
@@ -455,26 +427,30 @@ class _RegisterStoreState extends State<FormStore> {
           stateCountry: _state.text,
           street: _street.text,
           zipCode: _zipCode.text.replaceAll('-', ''),
-          logoUrl: logoUrl?.path ?? '',
-          backgroundUrl: backgroundUrl?.path ?? '',
+          logoUrl: _dashboardCubit.state.restaurant?.logoUrl ?? '',
+          backgroundUrl: _dashboardCubit.state.restaurant?.backgroundUrl ?? '',
+          banner: _dashboardCubit.state.restaurant?.banner ?? [],
         ),
       );
 
-      _dashboardCubit.update(loading: false);
+      // _dashboardCubit.update(loading: false);
+      setState(() {
+        loading = false;
+      });
     }
   }
 }
 
 class FormStoreOnPressed {
-  UserEntity user;
+  // UserEntity user;
   String id;
-  String userId;
+  // String userId;
   String addressId;
   String cnpj;
   String phoneNumber;
   String url;
-  String logoUrl; // TODO: Ajustar
-  String backgroundUrl; // TODO: Ajustar
+  String logoUrl;
+  String backgroundUrl;
   String name;
   String description;
   String segment;
@@ -486,11 +462,12 @@ class FormStoreOnPressed {
   String street;
   String zipCode;
   String stateCountry;
+  List<BannerEntity> banner;
 
   FormStoreOnPressed({
-    required this.user,
     required this.id,
-    required this.userId,
+    // required this.user,
+    // required this.userId,
     required this.addressId,
     required this.cnpj,
     required this.phoneNumber,
@@ -508,5 +485,6 @@ class FormStoreOnPressed {
     required this.street,
     required this.zipCode,
     required this.stateCountry,
+    required this.banner,
   });
 }
