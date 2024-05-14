@@ -59,11 +59,7 @@ class SideMenu extends StatelessWidget {
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.transparent,
-                        width: 1, // 2.5
-                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

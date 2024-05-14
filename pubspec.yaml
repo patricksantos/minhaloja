@@ -28,9 +28,8 @@ dependencies:
   flutter_pdfview: ^1.2.1
   polygon: ^0.1.0
   mask_text_input_formatter: ^2.4.0
-  jiffy: ^5.0.0
+  # jiffy: ^5.0.0
   either_dart: ^0.3.0
-  intl: ^0.17.0
   permission_handler: ^10.2.0
   currency_text_input_formatter: ^2.1.8
   collection: ^1.16.0
@@ -58,13 +57,12 @@ dependencies:
   url_launcher: ^6.1.10
   fl_chart: ^0.62.0
   flutter_login: ^4.2.1
-  data_table_2: ^2.5.8
   cached_network_image: ^3.3.1
   cached_network_image_web: ^1.1.1
   share_plus: ^9.0.0
   skeletonizer: ^1.1.1
   flutter_native_splash: ^2.2.14
-  material_table_view: ^4.0.2
+  pluto_grid: ^8.0.0
   
 dev_dependencies:
   flutter_test:

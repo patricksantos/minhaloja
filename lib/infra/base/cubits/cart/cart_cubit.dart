@@ -222,6 +222,7 @@ class CartCubit extends Cubit<CartState> {
       productsId: [...state.products.map((e) => e.id!).toList()],
       totalValue: totalValue,
       storeType: storeType,
+      userCPF: '07937295562',
       userId: userId,
       paymentId: storeType == StoreType.menu
           ? listFormPayment.where((item) => item.name == 'Á vista').first.id ??

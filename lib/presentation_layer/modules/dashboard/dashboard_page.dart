@@ -8,6 +8,7 @@ import 'package:minhaloja/presentation_layer/modules/dashboard/constants.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_cubit.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/cubit/dashboard_state.dart';
 import 'package:minhaloja/presentation_layer/modules/dashboard/pages/configuration_store/configuration_store.dart';
+import 'package:minhaloja/presentation_layer/modules/dashboard/pages/orders/orders_page.dart';
 import './pages/dashboard/home_dashboard_page.dart';
 
 import './components/components.dart';
@@ -45,7 +46,7 @@ class _DashboardPageState extends State<DashboardPage> with LoadingManager {
       case 0:
         return const HomeDashboardPage();
       case 1:
-        return const Text('Vendas');
+        return const OrdersPage();
       case 2:
         return const Text('Produtos');
       case 3:

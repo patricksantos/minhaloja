@@ -35,17 +35,17 @@ final onlyCharactersFormatter = FilteringTextInputFormatter.allow(
   RegExp('[\\s0-9a-zA-Z]'),
 );
 
-CurrencyTextInputFormatter createMoneyFormatter({
-  int decimalDigits = 2,
-  String locale = 'pt-BR',
-  String symbol = '',
-}) {
-  return CurrencyTextInputFormatter(
-    decimalDigits: decimalDigits,
-    locale: locale,
-    symbol: symbol,
-  );
-}
+// CurrencyTextInputFormatter createMoneyFormatter({
+//   int decimalDigits = 2,
+//   String locale = 'pt-BR',
+//   String symbol = '',
+// }) {
+//   return CurrencyTextInputFormatter(
+//     decimalDigits: decimalDigits,
+//     locale: locale,
+//     symbol: symbol,
+//   );
+// }
 
 MaskTextInputFormatter maskFormatterCep() => MaskTextInputFormatter(
       mask: '#####-###',

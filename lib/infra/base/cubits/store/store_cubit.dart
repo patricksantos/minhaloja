@@ -8,14 +8,37 @@ import '../../../infra.dart';
 class StoreCubit extends Cubit<StoreState> {
   final GetFormPaymentUseCase _getFormPaymentUseCase;
   final GetRestaurantUseCase _getRestaurantUseCase;
+  final GetOrderUseCase _getOrderUseCase;
 
   StoreCubit(
     this._getFormPaymentUseCase,
+    this._getOrderUseCase,
     this._getRestaurantUseCase,
   ) : super(StoreState()) {
     getStoreType(
         storeType: StoreType
             .delivery); // TODO: Aqui defino qual o tipo de site vai ser
+  }
+
+  Future<List<OrderDTO>> getOrder() async {
+    update(loading: true);
+
+    final request = await _getOrderUseCase(
+      userId: 'userId',
+      storeType: '',
+    );
+
+    return request.result(
+      (list) {
+        emit(state.copyWith(orderList: list));
+        update(actions: {StoreAction.orderSuccessfully});
+        return list ?? [];
+      },
+      (e) {
+        update(failure: e);
+        return [];
+      },
+    );
   }
 
   Future<void> getRestaurant() async {

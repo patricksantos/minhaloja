@@ -11,6 +11,7 @@ enum StoreAction {
   creating,
   formPaymentSuccessfully,
   restaurantSuccessfully,
+  orderSuccessfully,
 }
 
 class StoreState extends Equatable {
@@ -19,12 +20,14 @@ class StoreState extends Equatable {
   final List<FormPaymentDTO> listFormPayment;
   final FormPaymentDTO? formPayment;
   final RestaurantEntity? restaurant;
+  final List<OrderDTO> orderList;
   final UnmodifiableSetView<StoreAction> actions;
 
   StoreState({
     this.failure,
     this.formPayment,
     this.restaurant,
+    this.orderList = const [],
     this.storeType = StoreType.none,
     this.listFormPayment = const [],
     Set<StoreAction> actions = const {},
@@ -34,6 +37,7 @@ class StoreState extends Equatable {
     Failure? failure,
     StoreType? storeType,
     RestaurantEntity? restaurant,
+    List<OrderDTO>? orderList,
     AddressDTO? address,
     List<FormPaymentDTO>? listFormPayment,
     FormPaymentDTO? formPayment,
@@ -43,6 +47,7 @@ class StoreState extends Equatable {
       actions: actions ?? this.actions,
       storeType: storeType ?? this.storeType,
       restaurant: restaurant ?? this.restaurant,
+      orderList: orderList ?? this.orderList,
       listFormPayment: listFormPayment ?? this.listFormPayment,
       formPayment: formPayment ?? this.formPayment,
       failure: failure,
@@ -54,6 +59,7 @@ class StoreState extends Equatable {
         failure,
         storeType,
         restaurant,
+        orderList,
         listFormPayment,
         formPayment,
         actions,

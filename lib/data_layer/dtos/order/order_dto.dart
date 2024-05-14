@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:minhaloja/data_layer/data_layer.dart';
@@ -65,7 +66,9 @@ class OrderDTO extends OrderEntity {
     super.couponId,
     super.paidOut,
     super.addressId,
+    super.createdAt,
     required super.userId,
+    required super.userCPF,
     required super.restaurantId,
     required super.paymentId,
     required super.productsId,
@@ -82,12 +85,13 @@ class OrderDTO extends OrderEntity {
       'restaurant_id': restaurantId,
       'payment_id': paymentId,
       'user_id': userId,
+      'user_cpf': userCPF,
       'coupon_id': couponId,
       'products_id': productsId,
       'total_value': totalValue,
       'store_type': storeType.toString().split('.')[1],
       'paid_out': paidOut,
-      'created_at': DateTime.now(),
+      'created_at': createdAt ?? DateTime.now(),
     };
   }
 
@@ -96,11 +100,15 @@ class OrderDTO extends OrderEntity {
       id: map['id'] != null ? map['id'] as String : null,
       restaurantId: map['restaurant_id'] as String,
       paymentId: map['payment_id'] as String,
+      userCPF: map['user_cpf'] as String,
       userId: map['user_id'] as String,
       couponId: map['coupon_id'] != null ? map['coupon_id'] as int : null,
       productsId: List<String>.from(map['products_id']),
       totalValue: map['total_value'] as double,
       paidOut: map['paid_out'] as bool,
+      createdAt: map['created_at'] != null && map['created_at'] != ''
+          ? (map['created_at'] as Timestamp).toDate()
+          : null,
       storeType: map['store_type'] == 'delivery'
           ? StoreType.delivery
           : map['store_type'] == 'menu'

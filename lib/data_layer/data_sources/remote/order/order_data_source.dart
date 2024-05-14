@@ -58,10 +58,9 @@ class OrderDataSource {
       final orderRef = _firebase.collection(DBCollections.order);
 
       final requestOrder = orderRef
-          .where('user_id', isEqualTo: userId)
-          // .where('status', isEqualTo: 'emPreparo')
-          .where('store_type', isEqualTo: storeType)
-          .where('paid_out', isEqualTo: false)
+          // .where('user_id', isEqualTo: userId)
+          // .where('store_type', isEqualTo: storeType)
+          // .where('paid_out', isEqualTo: false)
           .snapshots();
 
       var listOrder = await requestOrder.map((element) {

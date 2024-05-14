@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:minhaloja/infra/infra.dart';
-
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
 
@@ -60,7 +59,6 @@ class _AppWidgetState extends State<AppWidget> {
                 routerDelegate: Modular.routerDelegate,
                 routeInformationParser: Modular.routeInformationParser,
                 // supportedLocales: const [
-                //   Locale('en', 'US'),
                 //   Locale('pt', 'BR'),
                 // ],
               );

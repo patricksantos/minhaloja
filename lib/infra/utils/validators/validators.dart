@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart'
     show FormFieldValidator, TextEditingController;
-import 'package:jiffy/jiffy.dart';
+// import 'package:jiffy/jiffy.dart';
 
 import '../../infra.dart';
 
@@ -277,44 +277,44 @@ abstract class Validators {
 
   /// Validar se [idade] do usuário é válida
   /// Validators.overAgeWorker('Data inválida')
-  static FormFieldValidator<String> overAge([
-    String messageKey = 'Data inválido',
-  ]) {
-    return (value) {
-      if (value == null || value.isEmpty) {
-        return messageKey;
-      }
-      final validatedDate = date(messageKey)(value);
-      if (validatedDate != null) {
-        return validatedDate;
-      }
-      final birthDateFormat = Jiffy(value, 'dd/MM/yyyy').format('yyyy-MM-dd');
-      if (DateTime.parse(birthDateFormat).isUnderage()) {
-        return messageKey;
-      }
-      return null;
-    };
-  }
+  // static FormFieldValidator<String> overAge([
+  //   String messageKey = 'Data inválido',
+  // ]) {
+  //   return (value) {
+  //     if (value == null || value.isEmpty) {
+  //       return messageKey;
+  //     }
+  //     final validatedDate = date(messageKey)(value);
+  //     if (validatedDate != null) {
+  //       return validatedDate;
+  //     }
+  //     final birthDateFormat = Jiffy(value, 'dd/MM/yyyy').format('yyyy-MM-dd');
+  //     if (DateTime.parse(birthDateFormat).isUnderage()) {
+  //       return messageKey;
+  //     }
+  //     return null;
+  //   };
+  // }
 
-  static FormFieldValidator<String> denyFutureDate([
-    String messageKey = 'Data inválido',
-  ]) {
-    return (value) {
-      if (value == null || value.isEmpty) {
-        return messageKey;
-      }
-      final validatedDate = date(messageKey)(value);
-      if (validatedDate != null) {
-        return validatedDate;
-      }
-      final isAfterThatToday =
-          Jiffy(value, 'dd/MM/yyyy').isAfter(DateTime.now());
-      if (isAfterThatToday) {
-        return messageKey;
-      }
-      return null;
-    };
-  }
+  // static FormFieldValidator<String> denyFutureDate([
+  //   String messageKey = 'Data inválido',
+  // ]) {
+  //   return (value) {
+  //     if (value == null || value.isEmpty) {
+  //       return messageKey;
+  //     }
+  //     final validatedDate = date(messageKey)(value);
+  //     if (validatedDate != null) {
+  //       return validatedDate;
+  //     }
+  //     final isAfterThatToday =
+  //         Jiffy(value, 'dd/MM/yyyy').isAfter(DateTime.now());
+  //     if (isAfterThatToday) {
+  //       return messageKey;
+  //     }
+  //     return null;
+  //   };
+  // }
 
   /// [Comparar] dois campos
   /// Validators.compare(inputController, 'As senhas são diferentes')

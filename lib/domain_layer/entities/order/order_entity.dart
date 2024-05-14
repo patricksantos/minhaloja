@@ -26,10 +26,12 @@ class OrderEntity {
   final String restaurantId;
   final String paymentId;
   final String userId;
+  final String userCPF;
   final int? couponId;
   final List<String> productsId;
   final double totalValue;
   final StoreType storeType;
+  final DateTime? createdAt;
   bool? paidOut;
 
   OrderEntity({
@@ -37,7 +39,9 @@ class OrderEntity {
     this.couponId,
     this.paidOut,
     this.addressId,
+    this.createdAt,
     required this.userId,
+    required this.userCPF,
     required this.restaurantId,
     required this.paymentId,
     required this.productsId,
@@ -52,6 +56,7 @@ class OrderEntity {
   OrderEntity copyWith({
     String? restaurantId,
     String? paymentId,
+    String? userCPF,
     String? userId,
     int? couponId,
     List<String>? productsId,
@@ -65,6 +70,7 @@ class OrderEntity {
       id: uuid.v4(),
       restaurantId: restaurantId ?? this.restaurantId,
       paymentId: paymentId ?? this.paymentId,
+      userCPF: userCPF ?? this.userCPF,
       userId: userId ?? this.userId,
       couponId: couponId ?? this.couponId,
       productsId: productsId ?? this.productsId,
