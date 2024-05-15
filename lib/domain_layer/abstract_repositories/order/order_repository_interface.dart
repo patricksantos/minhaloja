@@ -10,4 +10,11 @@ abstract class OrderRepositoryInterface {
     required String userId,
     required String storeType,
   });
+
+  Future<Result<void>> updateOrder({
+    required String orderId,
+    bool? paidOut,
+    StatusOrder? status,
+    StoreType? storeType,
+  });
 }

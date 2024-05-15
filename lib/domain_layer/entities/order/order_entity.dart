@@ -27,6 +27,7 @@ class OrderEntity {
   final String paymentId;
   final String userId;
   final String userCPF;
+  final StatusOrder status;
   final int? couponId;
   final List<String> productsId;
   final double totalValue;
@@ -40,6 +41,7 @@ class OrderEntity {
     this.paidOut,
     this.addressId,
     this.createdAt,
+    this.status = StatusOrder.emAnalise,
     required this.userId,
     required this.userCPF,
     required this.restaurantId,
@@ -58,6 +60,7 @@ class OrderEntity {
     String? paymentId,
     String? userCPF,
     String? userId,
+    StatusOrder? status,
     int? couponId,
     List<String>? productsId,
     double? totalValue,
@@ -69,6 +72,7 @@ class OrderEntity {
     return OrderEntity(
       id: uuid.v4(),
       restaurantId: restaurantId ?? this.restaurantId,
+      status: status ?? this.status,
       paymentId: paymentId ?? this.paymentId,
       userCPF: userCPF ?? this.userCPF,
       userId: userId ?? this.userId,

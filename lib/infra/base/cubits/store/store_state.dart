@@ -11,6 +11,7 @@ enum StoreAction {
   creating,
   formPaymentSuccessfully,
   restaurantSuccessfully,
+  updateRestaurantSuccessfully,
   orderSuccessfully,
 }
 

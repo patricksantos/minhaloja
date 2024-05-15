@@ -20,6 +20,8 @@ class _OrdersPageViewState extends State<OrdersPage> {
   final List<PlutoColumn> columns = [];
   final List<PlutoRow> rows = [];
 
+  var loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,41 +32,63 @@ class _OrdersPageViewState extends State<OrdersPage> {
       PlutoColumn(
         title: 'Id',
         field: 'id',
+        enableEditingMode: false,
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
         title: 'Documento',
         field: 'documento',
+        enableEditingMode: false,
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
         title: 'Status',
         field: 'status',
-        type: PlutoColumnType.select(<String>['Pago', 'Nāo Pago']),
+        type: PlutoColumnType.select(<String>[
+          'confirmado',
+          'emPreparo',
+          'aCaminho',
+          'emAnalise',
+          'pronto',
+          'cancelado',
+        ]),
+      ),
+      PlutoColumn(
+        title: 'Pagamento',
+        field: 'pagamento',
+        type: PlutoColumnType.select(<String>[
+          'Pago',
+          'Nāo Pago',
+        ]),
       ),
       PlutoColumn(
         title: 'Envio',
         field: 'envio',
+        enableEditingMode: false,
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
         title: 'Produtos',
         field: 'produtos',
+        enableEditingMode: false,
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
         title: 'Quantidade',
         field: 'quantidade',
+        enableEditingMode: false,
         type: PlutoColumnType.number(),
       ),
       PlutoColumn(
         title: 'Total da Compra',
         field: 'total',
-        type: PlutoColumnType.currency(),
+        enableEditingMode: false,
+        type: PlutoColumnType.currency(locale: 'pt-br'),
       ),
       PlutoColumn(
         title: 'Data do Pedido',
         field: 'date',
+        enableEditingMode: false,
         type: PlutoColumnType.date(),
       ),
     ]);
@@ -72,76 +96,103 @@ class _OrdersPageViewState extends State<OrdersPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final design = DesignSystem.of(context);
     final size = MediaQuery.of(context).size;
     return BlocBuilder<StoreCubit, StoreState>(
       bloc: _controller,
       builder: (context, state) {
-        return LayoutBuilder(builder: (context, constraints) {
-          return Skeletonizer(
-            enabled: state.orderList.isEmpty,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.width),
-              height: size.height * .85,
-              width: double.infinity,
-              child: PlutoGrid(
-                columns: columns,
-                rows: state.orderList
-                    .map(
-                      (order) => PlutoRow(
-                        cells: {
-                          'id': PlutoCell(value: order.id),
-                          'documento': PlutoCell(value: order.userCPF),
-                          'status': PlutoCell(
-                            value: order.paidOut == true ? 'Pago' : 'Nāo Pago',
-                          ),
-                          'envio': PlutoCell(value: order.storeType.name),
-                          'produtos': PlutoCell(
-                            value: order.products
-                                .map((produto) => produto.name)
-                                .toList()
-                                .toString(),
-                          ),
-                          'quantidade': PlutoCell(value: order.products.length),
-                          'total': PlutoCell(value: order.totalValue),
-                          'date': PlutoCell(value: order.createdAt),
-                        },
-                      ),
-                    )
-                    .toList(),
-                onLoaded: (PlutoGridOnLoadedEvent event) {
-                  event.stateManager.setShowColumnFilter(true);
-                },
-                onChanged: (PlutoGridOnChangedEvent event) {
-                  print(event);
-                },
-                configuration: PlutoGridConfiguration(
-                  localeText: const PlutoGridLocaleText.brazilianPortuguese(),
-                  columnFilter: PlutoGridColumnFilterConfig(
-                    filters: const [
-                      ...FilterHelper.defaultFilters,
-                      // ClassYouImplemented(),
-                    ],
-                    resolveDefaultColumnFilter: (column, resolver) {
-                      if (column.field == 'text') {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Skeletonizer(
+              enabled: state.orderList.isEmpty || loading,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.width),
+                height: size.height * .85,
+                width: double.infinity,
+                child: PlutoGrid(
+                  columns: columns,
+                  rows: state.orderList
+                      .map(
+                        (order) => PlutoRow(
+                          cells: {
+                            'id': PlutoCell(value: order.id),
+                            'documento': PlutoCell(value: order.userCPF),
+                            'status': PlutoCell(value: order.status.name),
+                            'pagamento': PlutoCell(
+                              value:
+                                  order.paidOut == true ? 'Pago' : 'Nāo Pago',
+                            ),
+                            'envio': PlutoCell(value: order.storeType.name),
+                            'produtos': PlutoCell(
+                              value: order.products
+                                  .map((produto) => produto.name)
+                                  .toList()
+                                  .toString(),
+                            ),
+                            'quantidade':
+                                PlutoCell(value: order.products.length),
+                            'total': PlutoCell(value: order.totalValue),
+                            'date': PlutoCell(value: order.createdAt),
+                          },
+                        ),
+                      )
+                      .toList(),
+                  onLoaded: (PlutoGridOnLoadedEvent event) {
+                    event.stateManager.setShowColumnFilter(true);
+                  },
+                  onChanged: (PlutoGridOnChangedEvent event) async {
+                    setState(() {
+                      loading = true;
+                    });
+                    await _controller
+                        .updateOrder(
+                            orderId: event.row.cells.values.first.value,
+                            paidOut: event.column.field == 'pagamento'
+                                ? event.value == 'Pago'
+                                    ? true
+                                    : false
+                                : null,
+                            status: event.column.field == 'status'
+                                ? StatusOrder.create(event.value)
+                                : null,
+                            storeType: event.column.field == 'envio'
+                                ? StoreType.create(event.value)
+                                : null)
+                        .then(
+                      (_) async {
+                        await _controller
+                            .getOrder()
+                            .then((value) => setState(() => loading = false));
+                      },
+                    );
+                  },
+                  configuration: PlutoGridConfiguration(
+                    localeText: const PlutoGridLocaleText.brazilianPortuguese(),
+                    columnFilter: PlutoGridColumnFilterConfig(
+                      filters: const [
+                        ...FilterHelper.defaultFilters,
+                        // ClassYouImplemented(),
+                      ],
+                      resolveDefaultColumnFilter: (column, resolver) {
+                        if (column.field == 'text') {
+                          return resolver<PlutoFilterTypeContains>()
+                              as PlutoFilterType;
+                        } else if (column.field == 'number') {
+                          return resolver<PlutoFilterTypeGreaterThan>()
+                              as PlutoFilterType;
+                        } else if (column.field == 'date') {
+                          return resolver<PlutoFilterTypeEquals>()
+                              as PlutoFilterType;
+                        }
                         return resolver<PlutoFilterTypeContains>()
                             as PlutoFilterType;
-                      } else if (column.field == 'number') {
-                        return resolver<PlutoFilterTypeGreaterThan>()
-                            as PlutoFilterType;
-                      } else if (column.field == 'date') {
-                        return resolver<PlutoFilterTypeEquals>()
-                            as PlutoFilterType;
-                      }
-                      return resolver<PlutoFilterTypeContains>()
-                          as PlutoFilterType;
-                    },
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        });
+            );
+          },
+        );
       },
     );
   }

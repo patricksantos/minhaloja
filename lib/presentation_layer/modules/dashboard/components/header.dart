@@ -8,11 +8,13 @@ import '../../../../infra/infra.dart';
 
 class Header extends StatelessWidget {
   final String titlePage;
+  final void Function()? onTap;
   final _controller = Modular.get<DashboardCubit>();
 
   Header({
     Key? key,
     required this.titlePage,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -34,9 +36,10 @@ class Header extends StatelessWidget {
           ),
         if (!ResponsiveScreen.isMobile(context))
           Spacer(flex: ResponsiveScreen.isDesktop(context) ? 2 : 1),
-        const Expanded(child: SearchField()),
+        // const Expanded(child: SearchField()),
         ProfileCard(
           userName: _controller.state.restaurant?.name ?? '',
+          onTap: onTap,
         ),
       ],
     );
@@ -45,43 +48,40 @@ class Header extends StatelessWidget {
 
 class ProfileCard extends StatelessWidget {
   final String userName;
+  final void Function()? onTap;
 
   const ProfileCard({
     Key? key,
     required this.userName,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: defaultPadding / 2),
-      padding: const EdgeInsets.all(defaultPadding * 0.8),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Row(
-        children: [
-          // Image.asset(
-          //   "assets/icon/restaurant.png",
-          //   height: 28,
-          // ),
-          const Icon(
-            Icons.store,
-            color: Colors.white,
-          ),
-          if (!ResponsiveScreen.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text(userName),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(left: defaultPadding / 2),
+        padding: const EdgeInsets.all(defaultPadding * 0.8),
+        decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: Colors.white10),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.store,
+              color: Colors.white,
             ),
-          // const Icon(
-          //   Icons.keyboard_arrow_down,
-          //   color: Colors.white,
-          // ),
-        ],
+            if (!ResponsiveScreen.isMobile(context))
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                child: Text(userName),
+              ),
+          ],
+        ),
       ),
     );
   }

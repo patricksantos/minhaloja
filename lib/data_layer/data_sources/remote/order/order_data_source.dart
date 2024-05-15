@@ -107,4 +107,26 @@ class OrderDataSource {
       return Result.error(FailureError(e));
     }
   }
+
+  Future<Result<void>> updateOrder({
+    required String orderId,
+    bool? paidOut,
+    StatusOrder? status,
+    StoreType? storeType,
+  }) async {
+    try {
+      final orderRef = _firebase.collection(DBCollections.order);
+      await orderRef.doc(orderId).update(
+        {
+          if (status != null) 'status': status.name,
+          if (paidOut != null) 'paid_out': paidOut,
+          if (storeType != null) 'store_type': storeType.name,
+        },
+      ).catchError((error) => Result.error(FailureError(error)));
+
+      return Result.success(null);
+    } catch (e) {
+      return Result.error(FailureError(e));
+    }
+  }
 }

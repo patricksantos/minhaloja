@@ -22,8 +22,9 @@ abstract class StoreModule {
         Bind.lazySingleton((i) => GetFormPaymentUseCase(repository: i())),
         Bind.lazySingleton((i) => GetRestaurantUseCase(repository: i())),
         Bind.lazySingleton((i) => GetOrderUseCase(repository: i())),
+        Bind.lazySingleton((i) => UpdateOrderUseCase(repository: i())),
 
         // Cubit
-        Bind.lazySingleton((i) => StoreCubit(i(), i(), i())),
+        Bind.lazySingleton((i) => StoreCubit(i(), i(), i(), i())),
       ];
 }

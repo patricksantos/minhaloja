@@ -123,6 +123,7 @@ class _DashboardPageState extends State<DashboardPage> with LoadingManager {
                           titlePage: titlePages(
                             _controller.state.page,
                           ),
+                          onTap: () => _controller.setPage(3),
                         ),
                         const SizedBox(height: defaultPadding),
                         pages(_controller.state.page),

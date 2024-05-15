@@ -20,6 +20,21 @@ class OrderRepository implements OrderRepositoryInterface {
   }
 
   @override
+  Future<Result<void>> updateOrder({
+    required String orderId,
+    bool? paidOut,
+    StatusOrder? status,
+    StoreType? storeType,
+  }) async {
+    return await _dataSource.updateOrder(
+      orderId: orderId,
+      paidOut: paidOut,
+      status: status,
+      storeType: storeType,
+    );
+  }
+
+  @override
   Future<Result<List<OrderDTO>?>> getOrder({
     required String userId,
     required String storeType,

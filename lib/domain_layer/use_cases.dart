@@ -17,6 +17,7 @@ export 'use_cases/product/get_product_use_case.dart';
 export 'use_cases/order/get_order_use_case.dart';
 export 'use_cases/address/get_address_by_zipcode_use_case.dart';
 export 'use_cases/order/create_order_use_case.dart';
+export 'use_cases/order/update_order_use_case.dart';
 export 'use_cases/address/get_address_use_case.dart';
 export 'use_cases/address/create_address_use_case.dart';
 export 'use_cases/address/update_address_use_case.dart';

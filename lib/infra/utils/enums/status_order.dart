@@ -3,6 +3,8 @@ enum StatusOrder {
   confirmado,
   emPreparo,
   aCaminho,
+  emAnalise,
+  cancelado,
   pronto;
 
   bool isConfirmado() => this == StatusOrder.confirmado;
@@ -19,6 +21,8 @@ enum StatusOrder {
                 ? StatusOrder.aCaminho
                 : value == 'pronto'
                     ? StatusOrder.pronto
-                    : StatusOrder.none;
+                    : value == 'emAnalise'
+                        ? StatusOrder.emAnalise
+                        : StatusOrder.none;
   }
 }
